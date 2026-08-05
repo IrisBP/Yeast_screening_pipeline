@@ -32,4 +32,6 @@ source /share/miniforge/etc/profile.d/conda.sh
 conda env create -f pipeline.yaml
 conda activate pipeline
 
-snakemake --cores 6 --use-conda --conda-frontend conda --scheduler greedy
+
+
+srun snakemake --cores 6 --use-conda --conda-frontend conda --scheduler greedy
