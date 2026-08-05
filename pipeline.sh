@@ -21,9 +21,9 @@
 # rm -rf your-cloned-directory
 # =====================================================================
 
-SOURCEDIR=/mnt/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260424_phenix1_screen_5nM_2.3__2026-04-24/20260424_phenix1_screen_5nM_2.3__2026-04-24/images/
-EXP=20260424_phenix1_screen_5nM_2.3
-WORKDIR=/mnt/local_scratch/iris_projects/
+SOURCEDIR="/mnt/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260424_phenix1_screen_5nM_2.3__2026-04-24/20260424_phenix1_screen_5nM_2.3__2026-04-24/images/"
+EXP="20260424_phenix1_screen_5nM_2.3"
+WORKDIR="/mnt/local_scratch/iris_projects/"
 POS='p2rep3_r03c08f05'
 # =====================================================================
 
@@ -37,6 +37,8 @@ source /share/miniforge/etc/profile.d/conda.sh
 conda env create -f pipeline.yaml
 conda activate pipeline
 echo 'Pipeline conda environment up and running !' 
+
+echo POS 
 
 
 # --jobs is the number of jobs to run in parallel 
