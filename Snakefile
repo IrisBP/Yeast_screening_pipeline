@@ -42,7 +42,7 @@ rule segmentation:
     conda: 
         "pipeline.yaml"
     script: 
-        "P1_segmentation.py"
+        "/pipeline/P1_segmentation.py"
 
 
 
@@ -56,7 +56,7 @@ rule tracking:
     conda: 
         "pipeline.yaml"
     script: 
-        "P2_tracking.py"
+        "/pipeline/P2_tracking.py"
 
 rule description: 
     input: 
@@ -71,7 +71,7 @@ rule description:
         "pipeline.yaml"
     threads: 10   
     script:
-        'P3_description.py'
+        '/pipeline/P3_description.py'
         
         
 rule merge_results:
@@ -85,7 +85,7 @@ rule merge_results:
         "pipeline.yaml"
     threads: 3  
     script:
-        'P4_mergetable.py'
+        '/pipeline/P4_mergetable.py'
 
 
 
