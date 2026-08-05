@@ -18,7 +18,7 @@
 #       python code: P1, P2, P3, P4, hungarian
 #       conda environment: pipeline.yaml
 #       Snakefile    
-# for 1 position: 
+# rm -rf your-cloned-directory
 # =====================================================================
 
 SOURCEDIR=/mnt/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260424_phenix1_screen_5nM_2.3__2026-04-24/20260424_phenix1_screen_5nM_2.3__2026-04-24/images
