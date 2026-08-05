@@ -38,8 +38,8 @@ conda env create -f pipeline.yaml
 conda activate pipeline
 echo 'Pipeline conda environment up and running !' 
 
-echo POS 
+echo $POS 
 
 
 # --jobs is the number of jobs to run in parallel 
-snakemake --executor slurm --default-resources --jobs 100 --cores 100 --use-conda --conda-frontend conda --scheduler greedy --config position=POS sourcedir=SOURCEDIR workdir=WORKDIR exp=EXP
+snakemake --executor slurm --default-resources --jobs 100 --cores 100 --use-conda --conda-frontend conda --scheduler greedy --config position=$POS sourcedir=$SOURCEDIR workdir=$WORKDIR exp=$EXP
