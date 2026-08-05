@@ -8,6 +8,7 @@
 #SBATCH --time=02:00:00
 #SBATCH --output=%x_%j.out
 #SBATCH --error=%x_%j.err
+#SBATCH --default-resources
 
 
 # =====================================================================
@@ -42,4 +43,4 @@ echo $POS
 
 
 # --jobs is the number of jobs to run in parallel 
-snakemake --executor slurm --default-resources --jobs 100 --cores 100 --use-conda --conda-frontend conda --scheduler greedy --config position=$POS sourcedir=$SOURCEDIR workdir=$WORKDIR exp=$EXP
+srun snakemake --executor slurm --default-resources --jobs 1 --cores 100 --use-conda --conda-frontend conda --scheduler greedy --config position=$POS sourcedir=$SOURCEDIR workdir=$WORKDIR exp=$EXP
