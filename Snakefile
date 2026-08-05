@@ -17,8 +17,8 @@ TIMES=glob_wildcards(PATH+"ch1{time}.tiff")
 # collect all results we want to generate for the run 
 rule all:
     input:
-        expand(OUTPATH+'/{pos}/masks/{pos}{t}_mask.tif', t=times.time, pos=POSITION), #single frame segmentation masks
-        expand(OUTPATH+'/{pos}/masks/{pos}{t}_NuclearMask.tif', t=times.time, pos=POSITION), #single frame nuclear segmentation mask
+        expand(OUTPATH+'/{pos}/masks/{pos}{t}_mask.tif', t=TIMES.time, pos=POSITION), #single frame segmentation masks
+        expand(OUTPATH+'/{pos}/masks/{pos}{t}_NuclearMask.tif', t=TIMES.time, pos=POSITION), #single frame nuclear segmentation mask
         f'{OUTPATH}/{POSITION}/{POSITION}_mask.tif'.format(), # tracked mask - with all 35 frames 
         f'{OUTPATH}/{POSITION}/{POSITION}_nucleus_mask.tif'.format(), # tracked nuclear masks with all 35 frames 
         f'{OUTPATH}/{POSITION}/{POSITION}_description.csv'.format()
