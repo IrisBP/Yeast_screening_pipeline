@@ -3,26 +3,33 @@
 import glob 
 
 POSITION=config["position"]
+SOURCE=config["sourcedir"]
+WORK=config["workdir"]
+EXP=config["exp"]
+OUTPATH=WORK+EXP
+
 # first, find matches to filenames of this form:
 
-PATH=f"/Volumes/ADATA_SE880/20260424_phenix1_screen_5nM_2.3__2026-04-24/Images/{POSITION}".format()
+PATH=f"{SOURCE}{POSITION}".format()
 TIMES=glob_wildcards(PATH+"ch1{time}.tiff")
+# collect all results we want to generate for the run 
+
 # collect all results we want to generate for the run 
 rule all:
     input:
-        expand('20260424_phenix1_screen_5nM_2.3/{position}/masks/{position}{t}_mask.tif', t=TIMES.time, position=POSITION), #single frame segmentation masks
-        expand('20260424_phenix1_screen_5nM_2.3/{position}/masks/{position}{t}_NuclearMask.tif', t=TIMES.time), #single frame nuclear segmentation mask
-        expand('20260424_phenix1_screen_5nM_2.3/{position}/{position}_mask.tif', # tracked mask - with all 35 frames 
-        expand('20260424_phenix1_screen_5nM_2.3/{position}/{position}_nucleus_mask.tif', # tracked nuclear masks with all 35 frames 
-        expand('20260424_phenix1_screen_5nM_2.3/{position}/{position}_description.csv'
+        expand(OUTPATH+'/{pos}/masks/{pos}{t}_mask.tif', t=times.time, pos=POSITION), #single frame segmentation masks
+        expand(OUTPATH+'/{pos}/masks/{pos}{t}_NuclearMask.tif', t=times.time, pos=POSITION), #single frame nuclear segmentation mask
+        f'{OUTPATH}/{POSITION}/{POSITION}_mask.tif'.format(), # tracked mask - with all 35 frames 
+        f'{OUTPATH}/{POSITION}/{POSITION}_nucleus_mask.tif'.format(), # tracked nuclear masks with all 35 frames 
+        f'{OUTPATH}/{POSITION}/{POSITION}_description.csv'.format()
 
 
 rule segmentation:
     input:
-        '/Volumes/ADATA_SE880/20260424_phenix1_screen_5nM_2.3__2026-04-24/Images/{position}ch1{t}.tiff',
-        '/Volumes/ADATA_SE880/20260424_phenix1_screen_5nM_2.3__2026-04-24/Images/{position}ch2{t}.tiff',
-        '/Volumes/ADATA_SE880/20260424_phenix1_screen_5nM_2.3__2026-04-24/Images/{position}ch3{t}.tiff',
-        '/Volumes/ADATA_SE880/20260424_phenix1_screen_5nM_2.3__2026-04-24/Images/{position}ch4{t}.tiff',
+        SOURCE+POSITION+'ch1{t}.tiff',
+        SOURCE+POSITION+'ch2{t}.tiff',
+        SOURCE+POSITION+'ch3{t}.tiff',
+        SOURCE+POSITION+'ch4{t}.tiff',
     params:
         gpu=True
     threads: 1
@@ -30,55 +37,55 @@ rule segmentation:
         partition="gpu",
         gpu=1
     output:
-        '20260424_phenix1_screen_5nM_2.3/{position}/masks/{position}{t}_mask.tif', 
-        '20260424_phenix1_screen_5nM_2.3/{position}/masks/{position}{t}_NuclearMask.tif', 
+        OUTPATH+'/'+POSITION+'/masks/'+POSITION+'{t}_mask.tif', 
+        OUTPATH+'/'+POSITION+'/masks/'+POSITION+'{t}_NuclearMask.tif', 
     conda: 
         "pipeline.yaml"
     script: 
-        "/pipeline/P1_segmentation.py"
+        "P1_segmentation.py"
 
 
 
 rule tracking: 
     input: 
-        cell=[f'20260424_phenix1_screen_5nM_2.3/{POSITION}/masks/{POSITION}t{i}_mask.tif'.format() for i in range(1,36)],
-        nucleus=[f'20260424_phenix1_screen_5nM_2.3/{POSITION}/masks/{POSITION}t{i}_NuclearMask.tif'.format() for i in range(1,36)]
+        cell=[f'{OUTPATH}/{POSITION}/masks/{POSITION}t{i}_mask.tif'.format() for i in range(1,36)],
+        nucleus=[f'{OUTPATH}/{POSITION}/masks/{POSITION}t{i}_NuclearMask.tif'.format() for i in range(1,36)]
     output:
-        '20260424_phenix1_screen_5nM_2.3/{position}/{position}_mask.tif',
-        '20260424_phenix1_screen_5nM_2.3/{position}/{position}_nucleus_mask.tif'
+        OUTPATH+'/'+POSITION+'/'+POSITION+'_mask.tif',
+        OUTPATH+'/'+POSITION+'/'+POSITION+'_nucleus_mask.tif'
     conda: 
         "pipeline.yaml"
     script: 
-        "/pipeline/P2_tracking.py"
+        "P2_tracking.py"
 
 rule description: 
     input: 
-        '20260424_phenix1_screen_5nM_2.3/{position}/{position}_mask.tif',
-        '20260424_phenix1_screen_5nM_2.3/{position}/{position}_nucleus_mask.tif',
-        '/Volumes/ADATA_SE880/20260424_phenix1_screen_5nM_2.3__2026-04-24/Images/{position}ch2{t}.tiff',
-        '/Volumes/ADATA_SE880/20260424_phenix1_screen_5nM_2.3__2026-04-24/Images/{position}ch3{t}.tiff',
-        '/Volumes/ADATA_SE880/20260424_phenix1_screen_5nM_2.3__2026-04-24/Images/{position}ch4{t}.tiff'
+        f'{OUTPATH}/{POSITION}/{POSITION}_mask.tif'.format(),
+        f'{OUTPATH}/{POSITION}/{POSITION}_nucleus_mask.tif'.format(),
+        SOURCE+POSITION+'ch2{t}.tiff',
+        SOURCE+POSITION+'ch3{t}.tiff',
+        SOURCE+POSITION+'ch4{t}.tiff',
     output: 
-        '20260424_phenix1_screen_5nM_2.3/{position}/temp/description_{t}.csv'
+        OUTPATH+'/'+POSITION+'/temp/description_{t}.csv'
     conda: 
         "pipeline.yaml"
     threads: 10   
     script:
-        '/pipeline/P3_description.py'
+        'P3_description.py'
         
         
 rule merge_results:
     input: 
-        table=[f'20260424_phenix1_screen_5nM_2.3/{position}/temp/description_t{i}.csv'.format() for i in range(1,36)],
+        table=[f'{OUTPATH}/{POSITION}/temp/description_t{i}.csv'.format() for i in range(1,36)],
     params:
-        path='20260424_phenix1_screen_5nM_2.3/{position}/temp/'
+        path=f'{OUTPATH}/{POSITION}/temp/'.format()
     output:
-        '20260424_phenix1_screen_5nM_2.3/{position}/{position}_description.csv'
+        f'{OUTPATH}/{POSITION}/{POSITION}_description.csv'.format()
     conda: 
         "pipeline.yaml"
     threads: 3  
     script:
-        '/pipeline/P4_mergetable.py'
+        'P4_mergetable.py'
 
 
 

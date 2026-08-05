@@ -21,7 +21,8 @@
 # rm -rf your-cloned-directory
 # =====================================================================
 
-SOURCEDIR=/mnt/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260424_phenix1_screen_5nM_2.3__2026-04-24/20260424_phenix1_screen_5nM_2.3__2026-04-24/images
+SOURCEDIR=/mnt/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260424_phenix1_screen_5nM_2.3__2026-04-24/20260424_phenix1_screen_5nM_2.3__2026-04-24/images/
+EXP=20260424_phenix1_screen_5nM_2.3
 WORKDIR=/mnt/local_scratch/iris_projects/
 POS='p2rep3_r03c08f05'
 # =====================================================================
@@ -39,4 +40,4 @@ echo 'Pipeline conda environment up and running !'
 
 
 # --jobs is the number of jobs to run in parallel 
-snakemake --executor slurm --default-resources --jobs 100 --cores 100 --use-conda --conda-frontend conda --scheduler greedy --config position=POS
+snakemake --executor slurm --default-resources --jobs 100 --cores 100 --use-conda --conda-frontend conda --scheduler greedy --config position=POS sourcedir=SOURCEDIR workdir=WORKDIR exp=EXP
