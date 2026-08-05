@@ -22,16 +22,21 @@
 # =====================================================================
 
 SOURCEDIR=/mnt/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260424_phenix1_screen_5nM_2.3__2026-04-24/20260424_phenix1_screen_5nM_2.3__2026-04-24/images
-WORKDIR=/mnt/local_scratch/iris_projects
-
+WORKDIR=/mnt/local_scratch/iris_projects/
+POS='p2rep3_r03c08f05'
 # =====================================================================
+
+#clone the pipeline repository 
+#git clone https://github.com/IrisBP/Yeast_screening_pipeline.git  
+#cd ./Yeast_screening_pipeline
 
 # find conda on the IBCGPU 
 source /share/miniforge/etc/profile.d/conda.sh
 #create and activate the conda environment 
 conda env create -f pipeline.yaml
 conda activate pipeline
+echo 'Pipeline conda environment up and running !' 
 
 
-
-srun snakemake --cores 6 --use-conda --conda-frontend conda --scheduler greedy
+# --jobs is the number of jobs to run in parallel 
+snakemake --executor slurm --default-resources --jobs 100 --cores 100 --use-conda --conda-frontend conda --scheduler greedy --config position=POS

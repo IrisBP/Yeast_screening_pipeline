@@ -2,11 +2,11 @@
 # requires P1, P2, P3, P4 and hungarian in the working directory 
 import glob 
 
-POSITION='p2rep3_r03c08f05'
+POSITION=config["position"]
 # first, find matches to filenames of this form:
-#files = glob_wildcards("/Volumes/ADATA_SE880/20260424_phenix1_screen_5nM_2.3__2026-04-24/Images/{position}{sample}.tiff")
-PATH=
-TIMES=glob_wildcards("/Volumes/ADATA_SE880/20260424_phenix1_screen_5nM_2.3__2026-04-24/Images/{position}ch1{time}.tiff")
+
+PATH=f"/Volumes/ADATA_SE880/20260424_phenix1_screen_5nM_2.3__2026-04-24/Images/{POSITION}".format()
+TIMES=glob_wildcards(PATH+"ch1{time}.tiff")
 # collect all results we want to generate for the run 
 rule all:
     input:
@@ -41,8 +41,8 @@ rule segmentation:
 
 rule tracking: 
     input: 
-        cell=[f'20260424_phenix1_screen_5nM_2.3/{position}/masks/{position}t{i}_mask.tif'.format() for i in range(1,36)],
-        nucleus=[f'20260424_phenix1_screen_5nM_2.3/{position}/masks/{position}t{i}_NuclearMask.tif'.format() for i in range(1,36)]
+        cell=[f'20260424_phenix1_screen_5nM_2.3/{POSITION}/masks/{POSITION}t{i}_mask.tif'.format() for i in range(1,36)],
+        nucleus=[f'20260424_phenix1_screen_5nM_2.3/{POSITION}/masks/{POSITION}t{i}_NuclearMask.tif'.format() for i in range(1,36)]
     output:
         '20260424_phenix1_screen_5nM_2.3/{position}/{position}_mask.tif',
         '20260424_phenix1_screen_5nM_2.3/{position}/{position}_nucleus_mask.tif'
