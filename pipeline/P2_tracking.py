@@ -2,12 +2,12 @@ import os
 from collections import Counter 
 import tifffile as tif 
 import numpy as np 
-import tqdm
 import pipeline.hungarian as hu
 import matplotlib.pyplot as plt 
 import math 
 import cv2 
 import pandas as pd
+import tqdm
 
 ################################################################ functions #################################################################
 
@@ -274,8 +274,7 @@ def tracking_snakemake(cell_masks, nucleus_masks, path_cell_track, path_nucleus_
 
     cell_track=[img0]
     nucleus_track=[nuc0]
-
-    for t in tqdm.tqdm(range(1, len(cell_masks)), desc='Tracking', leave=True):
+    for t in range(1, len(cell_masks)):
     #for t in range(1, len(cell_masks)):
         prev=cell_track[t-1]         
         curr=tif.imread(cell_masks[t])
