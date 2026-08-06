@@ -1,4 +1,4 @@
-cluster: True 
+cluster: "sbatch 
 executor: slurm
 conda-prefix: pipeline
 jobscript: pipeline.sh
@@ -9,10 +9,10 @@ scheduler: greedy
 verbose: True 
 
 default-resources:
- runtime: 1h
- time: 30:00:00
- slurm_account: ibarbier
+ account: ibarbier 
+ time: 00:30:00
  mem: 4G
  cpus_per_task: 80
- slurm_partition: slurm
+ nodes: 1
+
 

@@ -1,12 +1,11 @@
 #!/bin/bash
-#SBATCH --account=ibarbier
-#SBATCH --partition=slurm
+#SBATCH --account
 #SBATCH --job-name=20260424_phenix1_screen_5nM_2.3
 #SBATCH --nodes=1                     # Number of nodes
 #SBATCH --ntasks-per-node=1          # Number of tasks per node           
 #SBATCH --cpus-per-task=80            # Number of CPU cores per task
 #SBATCH --mem-per-cpu=1GB
-#SBATCH --time=02:00:00               # Maximum runtime (D-HH:MM:SS)
+#SBATCH --time=00:30:00               # Maximum runtime (D-HH:MM:SS)
 #SBATCH --output=out.txt
 #SBATCH --error=error.txt
 
@@ -29,19 +28,19 @@
 # sbatch --array=1-96%1  # Job array from task ID 1 to 100, with a step size of 1
 # =====================================================================
 # Euler 
-SOURCEDIR="/nfs/nas22/fs2202/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260424_phenix1_screen_5nM_2.3__2026-04-24/20260424_phenix1_screen_5nM_2.3__2026-04-24/Images/"
-WORKDIR="/cluster/home/ibarbier/projects/"
+#SOURCEDIR="/nfs/nas22/fs2202/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260424_phenix1_screen_5nM_2.3__2026-04-24/20260424_phenix1_screen_5nM_2.3__2026-04-24/Images/"
+#WORKDIR="/cluster/home/ibarbier/projects/"
 
 # IbcGpu
-#SOURCEDIR="/mnt/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260424_phenix1_screen_5nM_2.3__2026-04-24/20260424_phenix1_screen_5nM_2.3__2026-04-24/Images/"
-#WORKDIR="/mnt/local_scratch/iris_projects/"
+SOURCEDIR="/mnt/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260424_phenix1_screen_5nM_2.3__2026-04-24/20260424_phenix1_screen_5nM_2.3__2026-04-24/Images/"
+WORKDIR="/mnt/local_scratch/iris_projects/"
 
 EXP="20260424_phenix1_screen_5nM_2.3"
 POS='p2rep3_r05c06f02'
 # =====================================================================
 
 # find conda on the IBCGPU 
-#source /share/miniforge/etc/profile.d/conda.sh
+source /share/miniforge/etc/profile.d/conda.sh
 
 #create and activate the conda environment 
 conda env create -f pipeline.yaml
