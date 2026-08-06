@@ -3,7 +3,7 @@
 #SBATCH --partition=slurm
 #SBATCH --job-name=20260424_phenix1_screen_5nM_2.3
 #SBATCH --nodes=1                     # Number of nodes
-#SBATCH --ntasks-per-node=35          # Number of tasks per node           
+#SBATCH --ntasks-per-node=70          # Number of tasks per node           
 #SBATCH --cpus-per-task=1             # Number of CPU cores per task
 #SBATCH --mem-per-cpu=1GB
 #SBATCH --gpus=nvidia_geforce_rtx_5090:2
@@ -46,7 +46,7 @@ echo 'Pipeline conda environment up and running !'
 echo 'Looking at ' $POS 
 
 # --jobs is the number of jobs to run in parallel 
-srun snakemake --cores 35 --sdm conda --workflow-profile profiles \
+srun snakemake --cores 70 --sdm conda --workflow-profile profiles \
     --configfile profiles/config.yaml \
     --snakefile pipeline.smk \
     --config position=$POS sourcedir=$SOURCEDIR workdir=$WORKDIR exp=$EXP
