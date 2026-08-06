@@ -4,7 +4,7 @@
 #SBATCH --job-name=20260424_phenix1_screen_5nM_2.3
 #SBATCH --nodes=1                     # Number of nodes
 #SBATCH --ntasks-per-node=1          # Number of tasks per node           
-#SBATCH --cpus-per-task=70             # Number of CPU cores per task
+#SBATCH --cpus-per-task=73             # Number of CPU cores per task
 #SBATCH --mem-per-cpu=1GB
 #SBATCH --gpus=nvidia_geforce_rtx_5090:2
 #SBATCH --time=02:00:00               # Maximum runtime (D-HH:MM:SS)
