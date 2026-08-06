@@ -1,5 +1,8 @@
-cluster: sbatch 
+
 executor: slurm
+slurm-status-command: squeue
+slurm-status-attempts: 50
+
 conda-prefix: pipeline
 jobscript: pipeline.sh
 use-conda: True 
