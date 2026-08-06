@@ -1,0 +1,16 @@
+
+executor: slurm
+conda-prefix: pipeline
+jobscript: pipeline.sh
+use-conda: True 
+conda-frontend: conda
+jobs: 1
+
+default-resources:
+ runtime: 1h
+ time: 30:00:00
+ slurm_account: ibarbier
+ mem: 4G
+ cpus_per_task: 1
+ slurm_partition: slurm
+

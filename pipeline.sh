@@ -1,5 +1,6 @@
 #!/bin/bash
 #SBATCH --account=ibarbier
+#SBATCH --partition=slurm
 #SBATCH --job-name=20260424_phenix1_screen_5nM_2.3
 #SBATCH --nodes=1                     # Number of nodes
 #SBATCH --ntasks-per-node=1           # Number of tasks per node           
@@ -9,8 +10,6 @@
 #SBATCH --time=02:00:00               # Maximum runtime (D-HH:MM:SS)
 #SBATCH --output=/mnt/local_scratch/iris_projects/out.txt
 #SBATCH --error=/mnt/local_scratch/iris_projects/error.txt
-#SBATCH --default-resources
-
 
 
 # =====================================================================
@@ -37,7 +36,7 @@ WORKDIR="/mnt/local_scratch/iris_projects/"
 POS='p2rep3_r03c08f05'
 # =====================================================================
 
-
+module load cuda/12.2 
 
 # find conda on the IBCGPU 
 source /share/miniforge/etc/profile.d/conda.sh
@@ -46,8 +45,7 @@ conda env create -f pipeline.yaml
 conda activate pipeline
 echo 'Pipeline conda environment up and running !' 
 
-echo 'Looking at '$POS 
-
+echo 'Looking at ' $POS 
 
 # --jobs is the number of jobs to run in parallel 
-srun snakemake --executor slurm --default-resources --jobs 1 --cores 100 --use-conda --conda-frontend conda --scheduler greedy --config position=$POS sourcedir=$SOURCEDIR workdir=$WORKDIR exp=$EXP
+srun snakemake --cores 35 --sdm conda -–configfile config.yaml  --snakefile pipeline.smk --config position=$POS sourcedir=$SOURCEDIR workdir=$WORKDIR exp=$EXP

@@ -2,6 +2,8 @@
 # requires P1, P2, P3, P4 and hungarian in the working directory 
 import glob 
 
+configfile: config.yaml
+
 POSITION=config["position"]
 SOURCE=config["sourcedir"]
 WORK=config["workdir"]
