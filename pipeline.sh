@@ -3,8 +3,8 @@
 #SBATCH --partition=slurm
 #SBATCH --job-name=20260424_phenix1_screen_5nM_2.3
 #SBATCH --nodes=1                     # Number of nodes
-#SBATCH --ntasks-per-node=1           # Number of tasks per node           
-#SBATCH --cpus-per-task=35            # Number of CPU cores per task
+#SBATCH --ntasks-per-node=35          # Number of tasks per node           
+#SBATCH --cpus-per-task=1             # Number of CPU cores per task
 #SBATCH --mem-per-cpu=1GB
 #SBATCH --gpus=nvidia_geforce_rtx_5090:2
 #SBATCH --time=02:00:00               # Maximum runtime (D-HH:MM:SS)
@@ -36,8 +36,6 @@ WORKDIR="/mnt/local_scratch/iris_projects/"
 POS='p2rep3_r03c08f05'
 # =====================================================================
 
-module load cuda/12.2 
-
 # find conda on the IBCGPU 
 source /share/miniforge/etc/profile.d/conda.sh
 #create and activate the conda environment 
@@ -49,6 +47,6 @@ echo 'Looking at ' $POS
 
 # --jobs is the number of jobs to run in parallel 
 srun snakemake --cores 35 --sdm conda --workflow-profile profiles \
-    --configfile config/config.yaml \
+    --configfile profiles/config.yaml \
     --snakefile pipeline.smk \
     --config position=$POS sourcedir=$SOURCEDIR workdir=$WORKDIR exp=$EXP

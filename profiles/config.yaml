@@ -5,6 +5,7 @@ jobscript: pipeline.sh
 use-conda: True 
 conda-frontend: conda
 jobs: 1
+scheduler: greedy
 
 default-resources:
  runtime: 1h
