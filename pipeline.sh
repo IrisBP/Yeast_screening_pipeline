@@ -46,7 +46,7 @@ echo 'Pipeline conda environment up and running !'
 echo 'Looking at ' $POS 
 
 # --jobs is the number of jobs to run in parallel 
-srun snakemake --cores 70 --sdm conda --workflow-profile profiles \
+srun snakemake --cores 73 --sdm conda --workflow-profile profiles \
     --configfile profiles/config.yaml \
     --snakefile pipeline.smk \
     --config position=$POS sourcedir=$SOURCEDIR workdir=$WORKDIR exp=$EXP

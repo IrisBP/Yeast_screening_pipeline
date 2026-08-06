@@ -4,7 +4,7 @@ conda-prefix: pipeline
 jobscript: pipeline.sh
 use-conda: True 
 conda-frontend: conda
-jobs: 1
+jobs: 73
 scheduler: greedy
 
 default-resources:
