@@ -4,7 +4,7 @@
 #SBATCH --job-name=20260424_phenix1_screen_5nM_2.3
 #SBATCH --nodes=1                     # Number of nodes
 #SBATCH --ntasks-per-node=1          # Number of tasks per node           
-#SBATCH --cpus-per-task=73             # Number of CPU cores per task
+#SBATCH --cpus-per-task=80             # Number of CPU cores per task
 #SBATCH --mem-per-cpu=1GB
 #SBATCH --gpus=nvidia_geforce_rtx_5090:2
 #SBATCH --time=02:00:00               # Maximum runtime (D-HH:MM:SS)
@@ -21,7 +21,6 @@
 #       conda environment: pipeline.yaml
 #       Snakefile    
 # rm -rf Yeast_screening_pipeline
-# clone the pipeline repository 
 # git clone https://github.com/IrisBP/Yeast_screening_pipeline.git  
 # cd ./Yeast_screening_pipeline
 # to submit: sbatch pipeline.sh
@@ -46,7 +45,7 @@ echo 'Pipeline conda environment up and running !'
 echo 'Looking at ' $POS 
 
 # --jobs is the number of jobs to run in parallel 
-srun snakemake --cores 73 --sdm conda --workflow-profile profiles \
+srun snakemake --cores 80 --sdm conda --workflow-profile profiles \
     --configfile profiles/config.yaml \
     --snakefile pipeline.smk \
     --config position=$POS sourcedir=$SOURCEDIR workdir=$WORKDIR exp=$EXP
