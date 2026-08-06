@@ -7,8 +7,8 @@
 #SBATCH --mem-per-cpu=1GB
 #SBATCH --gpus=nvidia_geforce_rtx_5090:2
 #SBATCH --time=02:00:00               # Maximum runtime (D-HH:MM:SS)
-#SBATCH --output="/mnt/local_scratch/iris_projects/out.txt
-#SBATCH --error="/mnt/local_scratch/iris_projects/error.txt
+#SBATCH --output=/mnt/local_scratch/iris_projects/out.txt
+#SBATCH --error=/mnt/local_scratch/iris_projects/error.txt
 #SBATCH --default-resources
 
 
@@ -22,7 +22,12 @@
 #       conda environment: pipeline.yaml
 #       Snakefile    
 # rm -rf your-cloned-directory
+# clone the pipeline repository 
+# git clone https://github.com/IrisBP/Yeast_screening_pipeline.git  
+# cd ./Yeast_screening_pipeline
 # to submit: sbatch pipeline.sh
+#
+#
 # sbatch --array=1-96%1  # Job array from task ID 1 to 100, with a step size of 1
 # =====================================================================
 
@@ -32,9 +37,7 @@ WORKDIR="/mnt/local_scratch/iris_projects/"
 POS='p2rep3_r03c08f05'
 # =====================================================================
 
-#clone the pipeline repository 
-#git clone https://github.com/IrisBP/Yeast_screening_pipeline.git  
-#cd ./Yeast_screening_pipeline
+
 
 # find conda on the IBCGPU 
 source /share/miniforge/etc/profile.d/conda.sh
