@@ -8,8 +8,8 @@
 #SBATCH --mem-per-cpu=1GB
 #SBATCH --gpus=nvidia_geforce_rtx_5090:2
 #SBATCH --time=02:00:00               # Maximum runtime (D-HH:MM:SS)
-#SBATCH --output=/mnt/local_scratch/iris_projects/out.txt
-#SBATCH --error=/mnt/local_scratch/iris_projects/error.txt
+#SBATCH --output=/mnt/local_scratch/iris_projects/Yeast_screening_pipeline/out.txt
+#SBATCH --error=/mnt/local_scratch/iris_projects/Yeast_screening_pipeline/error.txt
 
 
 # =====================================================================
@@ -20,7 +20,7 @@
 #       python code: P1, P2, P3, P4, hungarian
 #       conda environment: pipeline.yaml
 #       Snakefile    
-# rm -rf your-cloned-directory
+# rm -rf Yeast_screening_pipeline
 # clone the pipeline repository 
 # git clone https://github.com/IrisBP/Yeast_screening_pipeline.git  
 # cd ./Yeast_screening_pipeline
@@ -48,4 +48,7 @@ echo 'Pipeline conda environment up and running !'
 echo 'Looking at ' $POS 
 
 # --jobs is the number of jobs to run in parallel 
-srun snakemake --cores 35 --sdm conda -–configfile config.yaml  --snakefile pipeline.smk --config position=$POS sourcedir=$SOURCEDIR workdir=$WORKDIR exp=$EXP
+srun snakemake --cores 35 --sdm conda --workflow-profile profiles \
+    --configfile config/config.yaml \
+    --snakefile pipeline.smk \
+    --config position=$POS sourcedir=$SOURCEDIR workdir=$WORKDIR exp=$EXP
