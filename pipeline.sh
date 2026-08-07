@@ -8,7 +8,7 @@
 #SBATCH --time=00:30:00               # Maximum runtime (D-HH:MM:SS)
 #SBATCH --output=out.txt
 #SBATCH --error=error.txt
-#SBATCH --gres=nvidia_rtx_pro_6000_blackwell_workstation_edition:2
+#SBATCH --gpus=nvidia_geforce_rtx_5090:2
 
 # =====================================================================
 #  Pipeline Part 1:

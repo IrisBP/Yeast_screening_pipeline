@@ -8,7 +8,6 @@ jobscript: pipeline.sh
 use-conda: True 
 conda-frontend: conda
 jobs: 80
-scheduler: greedy
 verbose: True 
 
 default-resources:
@@ -16,8 +15,7 @@ default-resources:
  time: 00:30:00
  mem: 4G
  cpus_per_task: 80
- gres: nvidia_rtx_pro_6000_blackwell_workstation_edition:2
- gpus: 1 
+ gpus: nvidia_geforce_rtx_5090:2
 
 
 
