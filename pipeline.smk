@@ -31,10 +31,10 @@ rule segmentation:
         SOURCE+POSITION+'ch3{t}.tiff',
         SOURCE+POSITION+'ch4{t}.tiff',
     params:
-        gpu=True
+        gpu=False
     threads: 1
-    resources:
-        gpus=1
+    #resources:
+        #gpus=1
 
     output:
         OUTPATH+'/'+POSITION+'/masks/'+POSITION+'{t}_mask.tif', 
@@ -83,7 +83,7 @@ rule merge_results:
         f'{OUTPATH}/{POSITION}/{POSITION}_description.csv'.format()
     conda: 
         "pipeline.yaml"
-    threads: 3  
+    threads: 1  
     script:
         './pipeline/P4_mergetable.py'
 
