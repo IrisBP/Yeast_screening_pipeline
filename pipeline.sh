@@ -8,7 +8,7 @@
 #SBATCH --time=00:30:00               # Maximum runtime (D-HH:MM:SS)
 #SBATCH --output=out.txt
 #SBATCH --error=error.txt
-
+#SBATCH --gres=nvidia_rtx_pro_6000_blackwell_workstation_edition:2
 
 # =====================================================================
 #  Pipeline Part 1:
@@ -23,7 +23,7 @@
 # git clone https://github.com/IrisBP/Yeast_screening_pipeline.git  
 # cd ./Yeast_screening_pipeline
 # to submit: sbatch pipeline.sh
-#
+# scontrol show node 
 #
 # sbatch --array=1-96%1  # Job array from task ID 1 to 100, with a step size of 1
 # =====================================================================

@@ -16,6 +16,8 @@ default-resources:
  time: 00:30:00
  mem: 4G
  cpus_per_task: 80
+ gres: nvidia_rtx_pro_6000_blackwell_workstation_edition:2
+ gpus: 1 
 
 
 

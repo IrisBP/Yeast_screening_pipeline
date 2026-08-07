@@ -31,8 +31,10 @@ rule segmentation:
         SOURCE+POSITION+'ch3{t}.tiff',
         SOURCE+POSITION+'ch4{t}.tiff',
     params:
-        gpu=False
+        gpu=True
     threads: 1
+    resources:
+        gpus=1
 
     output:
         OUTPATH+'/'+POSITION+'/masks/'+POSITION+'{t}_mask.tif', 
