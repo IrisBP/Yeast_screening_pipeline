@@ -1,7 +1,7 @@
 
 executor: slurm
 slurm-status-command: squeue
-slurm-status-attempts: 50
+#slurm-status-attempts: 35
 
 conda-prefix: pipeline
 jobscript: pipeline.sh
