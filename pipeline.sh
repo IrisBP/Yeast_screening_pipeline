@@ -2,7 +2,7 @@
 #SBATCH --account=ibarbier 
 #SBATCH --job-name=20260424_phenix1_screen_5nM_2.3
 #SBATCH --nodes=1                     # Number of nodes
-#SBATCH --ntasks-per-node=1          # Number of tasks per node           
+#SBATCH --ntasks-per-node=10         # Number of tasks per node           
 #SBATCH --cpus-per-task=80            # Number of CPU cores per task
 #SBATCH --mem-per-cpu=1GB
 #SBATCH --time=00:30:00               # Maximum runtime (D-HH:MM:SS)

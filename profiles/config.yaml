@@ -10,6 +10,7 @@ conda-frontend: conda
 scheduler: greedy
 jobs: 80
 verbose: True 
+gpus: 1
 
 #default-resources:
  #account: ibarbier 
