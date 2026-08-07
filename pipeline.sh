@@ -1,5 +1,6 @@
 #!/bin/bash
 #SBATCH --account=ibarbier 
+#SBATCH --partition=slurm 
 #SBATCH --job-name=20260424_phenix1_screen_5nM_2.3
 #SBATCH --nodes=1                     # Number of nodes
 #SBATCH --ntasks-per-node=10         # Number of tasks per node           
