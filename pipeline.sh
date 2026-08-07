@@ -8,7 +8,7 @@
 #SBATCH --time=00:30:00               # Maximum runtime (D-HH:MM:SS)
 #SBATCH --output=out.txt
 #SBATCH --error=error.txt
-#SBATCH --gpus=nvidia_geforce_rtx_5090:2
+#SBATCH --gpus=1
 
 # =====================================================================
 #  Pipeline Part 1:
@@ -24,7 +24,7 @@
 # cd ./Yeast_screening_pipeline
 # to submit: sbatch pipeline.sh
 # scontrol show node 
-#
+# scancel --me OR scancel job_ID OR scancel -A ibarbier 
 # sbatch --array=1-96%1  # Job array from task ID 1 to 100, with a step size of 1
 # =====================================================================
 # Euler 

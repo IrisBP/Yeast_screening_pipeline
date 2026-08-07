@@ -15,7 +15,8 @@ default-resources:
  time: 00:30:00
  mem: 4G
  cpus_per_task: 80
- gpus: nvidia_geforce_rtx_5090:2
+ gpus: 1
+ max_runtime: 01:00:00
 
 
 
