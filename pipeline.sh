@@ -1,8 +1,7 @@
 #!/bin/bash
 #SBATCH --account=ibarbier 
 #SBATCH --job-name=20260424_phenix1_screen_5nM_2.3
-#SBATCH --nodes=1                     # Number of nodes
-#SBATCH --ntasks-per-node=10         # Number of tasks per node           
+#SBATCH --ntasks=1          
 #SBATCH --cpus-per-task=80            # Number of CPU cores per task
 #SBATCH --mem-per-cpu=1GB
 #SBATCH --time=00:30:00               # Maximum runtime (D-HH:MM:SS)
@@ -26,6 +25,7 @@
 # scontrol show node 
 # scancel --me OR scancel job_ID OR scancel -A ibarbier 
 # sbatch --array=1-96%1  # Job array from task ID 1 to 100, with a step size of 1
+# S BATCH --nodes=1                     # Number of nodes
 # =====================================================================
 # Euler 
 #SOURCEDIR="/nfs/nas22/fs2202/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260424_phenix1_screen_5nM_2.3__2026-04-24/20260424_phenix1_screen_5nM_2.3__2026-04-24/Images/"
