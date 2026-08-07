@@ -3,10 +3,21 @@ executor: slurm
 slurm-status-command: squeue
 slurm-status-attempts: 50
 
+cluster:
+  sbatch
+    --cpus-per-task={threads}
+    --mem={resources.mem_mb}
+    --job-name=smk-{rule}-{wildcards}
+    --account=account
+    --ntasks=1
+    --nodes=1
+    --time={resources.runtime}
+
 conda-prefix: pipeline
 jobscript: pipeline.sh
 use-conda: True 
 conda-frontend: conda
+scheduler: greedy
 jobs: 80
 verbose: True 
 
@@ -16,7 +27,7 @@ default-resources:
  mem: 4G
  cpus_per_task: 80
  gpus: 1
- max_runtime: 01:00:00
+ qos: sbatch
 
 
 
