@@ -41,7 +41,7 @@ WORKFLOW_PROFILE="$REPO_ROOT/workflow_profiles" #get path to directory to where 
 DEFAULTS="$REPO_ROOT/defaults.yaml" #path to defaults.yaml
 DEFAULTS_LOCAL="$REPO_ROOT/defaults-local.yaml" #path to defaults-local.yaml
 LOGS_DIR="$RESULTS_DIR/.snakemake-local/logs/$(date +%y-%m-%d)" # path to logs - in the results folder - results/.snakemake-local/logs/26-08-10
-RUNTIME_PROFILE="$RESULTS_DIR/.snakemake-local/runtime-profile" # path to tuntimes - in the results folder - results/.snakemake-local/runtime-profile 
+RUNTIME_PROFILE="$RESULTS_DIR/.snakemake-local/runtime-profile" # path to runtimes - in the results folder - results/.snakemake-local/runtime-profile 
 CLUSTER_LOG_ROOT="$RESULTS_DIR/.snakemake-local/cluster-logs" # path to cluser logs - in the resiults folder - results/esults/pipeline/.snakemake-local/cluster-logs
 
 
@@ -71,7 +71,7 @@ mkdir -p "$XDG_CACHE_HOME" "$XDG_CONFIG_HOME" "$XDG_STATE_HOME" "$XDG_DATA_HOME"
 
 # ── Render a runtime Snakemake profile with the correct absolute status script ─
 cp "$PROFILE/config.yaml" "$RUNTIME_PROFILE/config.yaml"
-sed -i.bak "s#__STATUS_CMD__#$REPO_ROOT/software/smk-simple-slurm-local/slurm-status.sh#g" "$RUNTIME_PROFILE/config.yaml"
+sed -i.bak "s#__STATUS_CMD__#$PROFILE/slurm-status-ibc.sh#g" "$RUNTIME_PROFILE/config.yaml"
 sed -i.bak "s#__CLUSTER_LOG_ROOT__#$CLUSTER_LOG_ROOT#g" "$RUNTIME_PROFILE/config.yaml"
 sed -i.bak "s#__TMPDIR__#$TMPDIR#g" "$RUNTIME_PROFILE/config.yaml"
 rm -f "$RUNTIME_PROFILE/config.yaml.bak"
