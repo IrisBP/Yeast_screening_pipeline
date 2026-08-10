@@ -8,8 +8,7 @@
 # Examples:
 #   ./batch-infer-local alphafold3_onegpu results/alphafold3_adhoc_examples
 #   ./batch-infer-local alphafold3_onegpu results/alphafold3_adhoc_examples --dry-run
-#   ./batch-infer-local boltz             results/boltz_example
-#   ./batch-infer-local-iris.sh ./ ./results --dry-run #in /mnt/local_scratch/iris_projects/Yeast_screening_pipeline
+#   sbatch ./Yeast_screening_pipeline/batch-infer-local-iris.sh ./Yeast_screening_pipeline ./Results --dry-run #in /mnt/local_scratch/iris_projects/Yeast_screening_pipeline
     
 #
 # What changed vs the original `batch-infer`:
@@ -36,7 +35,7 @@ EXTRA=${3:-}   # optional --dry-run or other snakemake flags #get any other inpu
 
 
 # ── Paths (all relative to repo root) ────────────────────────────────────────
-REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)" # get full path to current directory : /Users/ibarbier/Desktop/Yeast_screening_pipeline
+REPO_ROOT="/mnt/local_scratch/iris_projects/Yeast_screening_pipeline" # get full path to current directory : /Users/ibarbier/Desktop/Yeast_screening_pipeline
 PROFILE="$REPO_ROOT/profiles" #get path to directory where config.yaml and slurm-status.sh are store 
 WORKFLOW_PROFILE="$REPO_ROOT/workflow_profiles" #get path to directory to where the local_config.yaml is stored 
 DEFAULTS="$REPO_ROOT/defaults.yaml" #path to defaults.yaml
@@ -49,11 +48,12 @@ CLUSTER_LOG_ROOT="$RESULTS_DIR/.snakemake-local/cluster-logs" # path to cluser l
 # ── Fast NVMe scratch ────────────────────────────────────────────────────────
 SCRATCH_ROOT=${BATCH_INFER_TMP_ROOT:-/mnt/local_scratch/iris_projects/tmp/batch-infer} 
 # SCRATCH_ROOT=/mnt/local_scratch/iris_projects/tmp/batch-infer
-SCRATCH_ROOT=${BATCH_INFER_TMP_ROOT:-/mnt/local_scratch/tmp/batch-infer}
+
 RUN_NAME=$(basename "$RESULTS_DIR" | sed -e 's#[^A-Za-z0-9._-]#_#g')
 RUN_ID=${SLURM_JOB_ID:-$$}
 export TMPDIR="$SCRATCH_ROOT/${RUN_NAME}_${RUN_ID}"
 mkdir -p "$TMPDIR" # create a folder in /mnt/local_scratch/iris_projects/tmp/batch-infer/RunName_RunID
+#ex: results_105504
 
 # Some portal users may not have an initialized home directory on the HPC.
 # Keep Conda/Snakemake config and cache writes inside the job folder instead.
@@ -64,17 +64,15 @@ export XDG_CONFIG_HOME="$JOB_HOME/.config"
 export XDG_STATE_HOME="$JOB_HOME/.local/state"
 export XDG_DATA_HOME="$JOB_HOME/.local/share"
 
-SLURM_GID_OPTION=""
-if [ -n "${BATCH_INFER_SLURM_GID:-}" ]; then
-    if [ "$(id -u)" -eq 0 ]; then
-        SLURM_GID_OPTION="--gid=${BATCH_INFER_SLURM_GID}"
-    else
-        echo "[batch-infer-local] Ignoring BATCH_INFER_SLURM_GID=$BATCH_INFER_SLURM_GID because sbatch --gid is only permitte>
-    fi
-fi
-
-
 mkdir -p "$LOGS_DIR"
 mkdir -p "$RUNTIME_PROFILE"
 mkdir -p "$CLUSTER_LOG_ROOT"
 mkdir -p "$XDG_CACHE_HOME" "$XDG_CONFIG_HOME" "$XDG_STATE_HOME" "$XDG_DATA_HOME"
+
+# ── Render a runtime Snakemake profile with the correct absolute status script ─
+cp "$PROFILE/config.yaml" "$RUNTIME_PROFILE/config.yaml"
+sed -i.bak "s#__STATUS_CMD__#$REPO_ROOT/software/smk-simple-slurm-local/slurm-status.sh#g" "$RUNTIME_PROFILE/config.yaml"
+sed -i.bak "s#__CLUSTER_LOG_ROOT__#$CLUSTER_LOG_ROOT#g" "$RUNTIME_PROFILE/config.yaml"
+sed -i.bak "s#__TMPDIR__#$TMPDIR#g" "$RUNTIME_PROFILE/config.yaml"
+rm -f "$RUNTIME_PROFILE/config.yaml.bak"
+
