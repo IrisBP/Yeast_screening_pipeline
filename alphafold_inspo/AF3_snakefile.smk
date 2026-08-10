@@ -1,0 +1,6 @@
+#include: 'rules/common.smk'
+#include: 'rules/alphafold3.smk'
+#include: 'rules/colabfold.smk'
+#include: 'rules/helixfold3.smk'
+#include: 'rules/openfold.smk'
+

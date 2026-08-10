@@ -1,13 +1,13 @@
-
 #/mnt/ibcportal/sgaussmann/alphafold3/p53_interactome_screen/.snakemake-local/runtime-profile
 
 #opt/ibc/alphafold3/batch-infer/current/workflow/profiles/local
 
 #alphafold3_predictions_multigpu
 
+
 executor: cluster-generic
 cluster-generic-submit-cmd:
-  SMK_RULE_DIR=./pipeline.smk &&
+  SMK_RULE_DIR=/mnt/ibcportal/sgaussmann/alphafold3/p53_interactome_screen/.snakemake-local/cluster-logs/`date +"%y-%m-%d"`/{rule} &&
   SMK_WILDCARDS=`echo -n '{wildcards}' | sed -e 's#/#-#g'` &&
   SMK_SLURM_EXTRA=`echo -n '{resources.slurm_extra}' | sed -e 's/%/:/g'` &&
   SMK_SLURM_GID_OPTION="" &&
@@ -24,7 +24,7 @@ cluster-generic-submit-cmd:
     --parsable
     
 
-cluster-generic-status-cmd: ./slurm-status-ibc.sh
+cluster-generic-status-cmd: /opt/ibc/alphafold3/batch-infer/current/software/smk-simple-slurm-local/slurm-status.sh
 cluster-generic-cancel-cmd: scancel
 cluster-generic-cancel-nargs: 1000
 default-resources:

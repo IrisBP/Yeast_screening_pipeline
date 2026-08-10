@@ -27,6 +27,8 @@
 # sbatch --array=1-96%1  # Job array from task ID 1 to 100, with a step size of 1
 # S BATCH --nodes=1                     # Number of nodes
 # S BATCH --gpus=1
+
+#####  "'--partition=slurm --gpus=nvidia_rtx_pro_6000_blackwell_workstation_edition:1'"
 # =====================================================================
 # Euler 
 #SOURCEDIR="/nfs/nas22/fs2202/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260424_phenix1_screen_5nM_2.3__2026-04-24/20260424_phenix1_screen_5nM_2.3__2026-04-24/Images/"

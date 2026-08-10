@@ -1,0 +1,19 @@
+# --workflow-profile: controls workflow behaviour (threads, envmodules)
+# Path: workflow/profiles/local/config.yaml
+#
+# Controls HOW the workflow runs (not how jobs are submitted -- that is the --profile).
+# Disables Euler-specific envmodules. Sets thread counts for EPYC 9654 (96-core).
+
+use-envmodules: false
+
+set-threads:
+  - alphafold3_msas=16
+  - alphafold3_predictions=8
+  - boltz_predict=8
+  - colabfold_predict=4
+  - colabfold_msas=24
+  - colabfold_predictions=1
+  - helixfold3_run_infer=8
+  - openfold_precompute_alignments=16
+  - openfold_run_multimer=8
+  - openfold_run_unit_tests=4

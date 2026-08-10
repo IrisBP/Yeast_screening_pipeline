@@ -152,6 +152,8 @@ dependencies:
       - setuptools==83.0.0
       - snakemake-executor-plugin-slurm==2.7.1
       - snakemake-executor-plugin-slurm-jobstep==0.6.1
+      - snakemake-executor-plugin-cluster-generic 
+      - snakemake-storage-plugin-fs
       - sympy==1.14.0
       - threadpoolctl==3.6.0
       - throttler==1.2.3
