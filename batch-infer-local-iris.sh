@@ -85,4 +85,24 @@ if ! conda run -n "$CONDA_ENV_NAME" snakemake --version &>/dev/null; then
 fi
 
 
+# ── Run ───────────────────────────────────────────────────────────────────────
+
+echo "[batch-infer-local] Starting: method=$METHOD results=$RESULTS_DIR tmpdir=$TMPDIR"
+if [ -n "$SLURM_GID_OPTION" ]; then
+    echo "[batch-infer-local] Slurm gid option: $SLURM_GID_OPTION"
+fi
+echo "[batch-infer-local] Logs: $LOGS_DIR"
+
+conda run -n "$CONDA_ENV_NAME" \
+    snakemake "$METHOD" \
+        --snakefile "$REPO_ROOT/pipeline.smk" \
+        --configfile "$DEFAULTS" "$DEFAULTS_LOCAL" "$RESULTS_DIR/config.yaml" \
+        --profile "$RUNTIME_PROFILE" \
+        --workflow-profile "$WORKFLOW_PROFILE" \
+        --directory "$RESULTS_DIR" \
+        --rerun-triggers input \
+        --keep-going \
+        $EXTRA \
+    2>&1 | tee "$LOGS_DIR/batch-infer-local_${METHOD}_$(date +%H%M%S).log"
+
 
