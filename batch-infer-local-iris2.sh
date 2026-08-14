@@ -28,6 +28,7 @@ umask "$SLURM_UMASK" #used to set default permissions for files or directories t
 METHOD=${1:?Usage: $0 METHOD RESULTS_DIR [--dry-run]}
 RESULTS_DIR=${2:?Usage: $0 METHOD RESULTS_DIR [--dry-run]}
 EXTRA=${3:-}   # optional --dry-run or other snakemake flags
+POS='p2rep3_r07c06f02'
 
 # ── Paths (all relative to repo root) ────────────────────────────────────────
 #REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -77,6 +78,8 @@ mkdir -p "$XDG_CACHE_HOME" "$XDG_CONFIG_HOME" "$XDG_STATE_HOME" "$XDG_DATA_HOME"
 
 # ── Render a runtime Snakemake profile with the correct absolute status script ─
 cp "$PROFILE/config.yaml" "$RUNTIME_PROFILE/config.yaml"
+sed -i.bak "s#__POS__#$EXP#g" "$RUNTIME_PROFILE/config.yaml"
+sed -i.bak "s#__OU__#$RESULTS_DIR#g" "$RUNTIME_PROFILE/config.yaml"
 sed -i.bak "s#__STATUS_CMD__#$REPO_ROOT/software/smk-simple-slurm-local/slurm-status.sh#g" "$RUNTIME_PROFILE/config.yaml"
 sed -i.bak "s#__CLUSTER_LOG_ROOT__#$CLUSTER_LOG_ROOT#g" "$RUNTIME_PROFILE/config.yaml"
 #sed -i.bak "s#__TMPDIR__#$TMPDIR#g" "$RUNTIME_PROFILE/config.yaml"
@@ -96,7 +99,7 @@ fi
 
 # ── Run ───────────────────────────────────────────────────────────────────────
 
-echo "[batch-infer-local] Starting: method=$METHOD results=$RESULTS_DIR tmpdir=$TMPDIR"
+#echo "[batch-infer-local] Starting: method=$METHOD results=$RESULTS_DIR tmpdir=$TMPDIR"
 if [ -n "$SLURM_GID_OPTION" ]; then
     echo "[batch-infer-local] Slurm gid option: $SLURM_GID_OPTION"
 fi
@@ -110,6 +113,6 @@ conda run -n "$CONDA_ENV_NAME" \
         --workflow-profile "$WORKFLOW_PROFILE" \
         --directory "$RESULTS_DIR" \
         --keep-going \
-        --config position='p2rep3_r07c06f02' sourcedir="/mnt/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260424_phenix1_screen_5nM_2.3__2026-04-24/20260424_phenix1_screen_5nM_2.3__2026-04-24/Images/" workdir="/mnt/local_scratch/iris_projects/Yeast_screening_pipeline" exp="20260424_phenix1_screen_5nM_2.3" results="$RESULTS_DIR" \
+        --config position="$POS" sourcedir="/mnt/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260424_phenix1_screen_5nM_2.3__2026-04-24/20260424_phenix1_screen_5nM_2.3__2026-04-24/Images/" workdir="/mnt/local_scratch/iris_projects/Yeast_screening_pipeline" exp="20260424_phenix1_screen_5nM_2.3" results="$RESULTS_DIR" \
         
     2>&1 | tee "$LOGS_DIR/batch-infer-local_${METHOD}_$(date +%H%M%S).log"

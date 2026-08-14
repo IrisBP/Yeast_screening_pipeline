@@ -10,18 +10,13 @@
 executor: cluster-generic
 
 cluster-generic-submit-cmd:
-  SMK_RULE_DIR=__CLUSTER_LOG_ROOT__/`date +"%y-%m-%d"`/{rule} &&
-  SMK_WILDCARDS=`echo -n '{wildcards}' | sed -e 's#/#-#g'` &&
-  SMK_SLURM_EXTRA=`echo -n '{resources.slurm_extra}' | sed -e 's/%/:/g'` &&
-  SMK_SLURM_GID_OPTION="__SLURM_GID_OPTION__"  &&
-  mkdir -p $SMK_RULE_DIR &&
   sbatch
-    --job-name={rule}:{wildcards}
+    --job-name=__POS__
     --ntasks={threads}
     --mem-per-cpu=`expr {resources.mem_mb} / {threads}`
     --time={resources.runtime}
     $SMK_SLURM_GID_OPTION
-    --output=$SMK_RULE_DIR/{rule}:$SMK_WILDCARDS-%j.txt
+    --output=__OUT__/out.txt
     $SMK_SLURM_EXTRA
     --parsable
     
