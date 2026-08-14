@@ -9,7 +9,8 @@
 #   ./batch-infer-local alphafold3_onegpu results/alphafold3_adhoc_examples
 #   ./batch-infer-local alphafold3_onegpu results/alphafold3_adhoc_examples --dry-run
 #   sbatch ./Yeast_screening_pipeline/batch-infer-local-iris.sh ./Yeast_screening_pipeline ./Results --dry-run #in /mnt/local_scratch/iris_projects/Yeast_screening_pipeline
-    
+#   sbatch ./Yeast_screening_pipeline/batch-infer-local-iris.sh ./Yeast_screening_pipeline ./Results 
+
 #
 # What changed vs the original `batch-infer`:
 #   - No longer wraps output in an sbatch heredoc; runs Snakemake directly
@@ -102,6 +103,7 @@ conda run -n "$CONDA_ENV_NAME" \
         --directory "$RESULTS_DIR" \
         --rerun-triggers input \
         --keep-going \
+        --config position='p2rep3_r07c06f02' sourcedir="/mnt/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260424_phenix1_screen_5nM_2.3__2026-04-24/20260424_phenix1_screen_5nM_2.3__2026-04-24/Images/" workdir="/mnt/local_scratch/iris_projects/" exp="20260424_phenix1_screen_5nM_2.3"
         $EXTRA \
     2>&1 | tee "$LOGS_DIR/batch-infer-local_${METHOD}_$(date +%H%M%S).log"
 
