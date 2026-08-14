@@ -94,6 +94,7 @@ echo "[batch-infer-local] Logs: $LOGS_DIR"
 conda run -n "$CONDA_ENV_NAME" \
     snakemake "$METHOD" \
         --snakefile "$REPO_ROOT/pipeline.smk" \
+        --configfile "$RUNTIME_PROFILE/config.yaml" \
         --profile "$RUNTIME_PROFILE" \
         --workflow-profile "$WORKFLOW_PROFILE" \
         --directory "$RESULTS_DIR" \
