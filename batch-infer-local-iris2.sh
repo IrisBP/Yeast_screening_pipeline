@@ -78,7 +78,8 @@ mkdir -p "$XDG_CACHE_HOME" "$XDG_CONFIG_HOME" "$XDG_STATE_HOME" "$XDG_DATA_HOME"
 
 # ── Render a runtime Snakemake profile with the correct absolute status script ─
 cp "$PROFILE/config.yaml" "$RUNTIME_PROFILE/config.yaml"
-sed -i.bak "s#__POS__#$EXP#g" "$RUNTIME_PROFILE/config.yaml"
+sed -i.bak "s#__CACHE__#$XDG_CACHE_HOME#g" "$RUNTIME_PROFILE/config.yaml"
+sed -i.bak "s#__POS__#$POS#g" "$RUNTIME_PROFILE/config.yaml"
 sed -i.bak "s#__OU__#$RESULTS_DIR#g" "$RUNTIME_PROFILE/config.yaml"
 sed -i.bak "s#__STATUS_CMD__#$REPO_ROOT/software/smk-simple-slurm-local/slurm-status.sh#g" "$RUNTIME_PROFILE/config.yaml"
 sed -i.bak "s#__CLUSTER_LOG_ROOT__#$CLUSTER_LOG_ROOT#g" "$RUNTIME_PROFILE/config.yaml"
