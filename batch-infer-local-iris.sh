@@ -99,6 +99,6 @@ conda run -n "$CONDA_ENV_NAME" \
         --workflow-profile "$WORKFLOW_PROFILE" \
         --directory "$RESULTS_DIR" \
         --keep-going \
-        --config position='p2rep3_r07c06f02' sourcedir="/mnt/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260424_phenix1_screen_5nM_2.3__2026-04-24/20260424_phenix1_screen_5nM_2.3__2026-04-24/Images/" workdir="/mnt/local_scratch/iris_projects/" exp="20260424_phenix1_screen_5nM_2.3" \
+        --config position='p2rep3_r07c06f02' sourcedir="/mnt/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260424_phenix1_screen_5nM_2.3__2026-04-24/20260424_phenix1_screen_5nM_2.3__2026-04-24/Images/" workdir="/mnt/local_scratch/iris_projects/Yeast_screening_pipeline" exp="20260424_phenix1_screen_5nM_2.3" results="$RESULTS_DIR" \
         
     2>&1 | tee "$LOGS_DIR/batch-infer-local_${METHOD}_$(date +%H%M%S).log"
