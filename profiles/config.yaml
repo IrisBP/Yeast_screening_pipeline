@@ -10,20 +10,6 @@
 
 executor: cluster-generic
 
-cluster-generic-submit-cmd:
-  SMK_RULE_DIR= ./Yeast_screening_pipeline/pipeline.smk"
-  XDG_CACHE_HOME=__CACHE__
-  XDG_CACHE_SNAKEMAKE=__CACHE__/snakemake
-  sbatch
-    --job-name=__POS__
-    --ntasks={threads}
-    --mem-per-cpu=`expr {resources.mem_mb} / {threads}`
-    --time={resources.runtime}
-    --output=__OUT__/out.txtß
-    --export=ALL,TMPDIR=$XDG_CACHE_SNAKEMAKE
-
-    
-
 cluster-generic-status-cmd: __STATUS_CMD__
 cluster-generic-cancel-cmd: scancel
 cluster-generic-cancel-nargs: 1000

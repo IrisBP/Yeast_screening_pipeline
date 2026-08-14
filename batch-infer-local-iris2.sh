@@ -61,17 +61,7 @@ export XDG_CACHE_SNAKEMAKE="$JOB_HOME/.cache/snakemake"
 export XDG_CONFIG_HOME="$JOB_HOME/.config"
 export XDG_STATE_HOME="$JOB_HOME/.local/state"
 export XDG_DATA_HOME="$JOB_HOME/.local/share"
-
 export TMPDIR="$XDG_CACHE_HOME"
-
-SLURM_GID_OPTION=""
-if [ -n "${BATCH_INFER_SLURM_GID:-}" ]; then
-    if [ "$(id -u)" -eq 0 ]; then
-        SLURM_GID_OPTION="--gid=${BATCH_INFER_SLURM_GID}"
-    else
-        echo "[batch-infer-local] Ignoring BATCH_INFER_SLURM_GID=$BATCH_INFER_SLURM_GID because sbatch --gid is only permitted for root."
-    fi
-fi
 
 mkdir -p "$LOGS_DIR"
 mkdir -p "$RUNTIME_PROFILE"
@@ -80,13 +70,13 @@ mkdir -p "$XDG_CACHE_HOME" "$XDG_CONFIG_HOME" "$XDG_STATE_HOME" "$XDG_DATA_HOME"
 
 # ── Render a runtime Snakemake profile with the correct absolute status script ─
 cp "$PROFILE/config.yaml" "$RUNTIME_PROFILE/config.yaml"
-sed -i.bak "s#__CACHE__#$XDG_CACHE_HOME#g" "$RUNTIME_PROFILE/config.yaml"
-sed -i.bak "s#__POS__#$POS#g" "$RUNTIME_PROFILE/config.yaml"
-sed -i.bak "s#__OU__#$RESULTS_DIR#g" "$RUNTIME_PROFILE/config.yaml"
+#sed -i.bak "s#__CACHE__#$XDG_CACHE_HOME#g" "$RUNTIME_PROFILE/config.yaml"
+#sed -i.bak "s#__POS__#$POS#g" "$RUNTIME_PROFILE/config.yaml"
+#sed -i.bak "s#__OUT__#$RESULTS_DIR#g" "$RUNTIME_PROFILE/config.yaml"
 sed -i.bak "s#__STATUS_CMD__#$REPO_ROOT/software/smk-simple-slurm-local/slurm-status.sh#g" "$RUNTIME_PROFILE/config.yaml"
-sed -i.bak "s#__CLUSTER_LOG_ROOT__#$CLUSTER_LOG_ROOT#g" "$RUNTIME_PROFILE/config.yaml"
+#sed -i.bak "s#__CLUSTER_LOG_ROOT__#$CLUSTER_LOG_ROOT#g" "$RUNTIME_PROFILE/config.yaml"
 #sed -i.bak "s#__TMPDIR__#$TMPDIR#g" "$RUNTIME_PROFILE/config.yaml"
-sed -i.bak "s#__SLURM_GID_OPTION__#$SLURM_GID_OPTION#g" "$RUNTIME_PROFILE/config.yaml"
+#sed -i.bak "s#__SLURM_GID_OPTION__#$SLURM_GID_OPTION#g" "$RUNTIME_PROFILE/config.yaml"
 rm -f "$RUNTIME_PROFILE/config.yaml.bak"
 
 # ── Conda / Snakemake environment ─────────────────────────────────────────────
@@ -103,10 +93,6 @@ fi
 # ── Run ───────────────────────────────────────────────────────────────────────
 
 #echo "[batch-infer-local] Starting: method=$METHOD results=$RESULTS_DIR tmpdir=$TMPDIR"
-if [ -n "$SLURM_GID_OPTION" ]; then
-    echo "[batch-infer-local] Slurm gid option: $SLURM_GID_OPTION"
-fi
-echo "[batch-infer-local] Logs: $LOGS_DIR"
 
 conda run -n "$CONDA_ENV_NAME" \
     snakemake "$METHOD" \
