@@ -5,8 +5,10 @@
 
 #alphafold3_predictions_multigpu
 
+#--export=ALL,TMPDIR=__TMPDIR__
+
 executor: cluster-generic
-cluster-generic-submit-cmd:
+
 cluster-generic-submit-cmd:
   SMK_RULE_DIR=__CLUSTER_LOG_ROOT__/`date +"%y-%m-%d"`/{rule} &&
   SMK_WILDCARDS=`echo -n '{wildcards}' | sed -e 's#/#-#g'` &&
@@ -19,7 +21,6 @@ cluster-generic-submit-cmd:
     --mem-per-cpu=`expr {resources.mem_mb} / {threads}`
     --time={resources.runtime}
     $SMK_SLURM_GID_OPTION
-    --export=ALL,TMPDIR=__TMPDIR__
     --output=$SMK_RULE_DIR/{rule}:$SMK_WILDCARDS-%j.txt
     $SMK_SLURM_EXTRA
     --parsable

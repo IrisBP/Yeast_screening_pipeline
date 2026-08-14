@@ -30,7 +30,8 @@ RESULTS_DIR=${2:?Usage: $0 METHOD RESULTS_DIR [--dry-run]}
 EXTRA=${3:-}   # optional --dry-run or other snakemake flags
 
 # ── Paths (all relative to repo root) ────────────────────────────────────────
-REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+#REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="/mnt/local_scratch/iris_projects"
 PROFILE="$REPO_ROOT/$METHOD/profiles" 
 WORKFLOW_PROFILE="$REPO_ROOT/$METHOD/workflow_profiles"
 #DEFAULTS="$REPO_ROOT/workflow/config/defaults.yaml"
@@ -40,13 +41,15 @@ RUNTIME_PROFILE="$RESULTS_DIR/.snakemake-local/runtime-profile"
 CLUSTER_LOG_ROOT="$RESULTS_DIR/.snakemake-local/cluster-logs"
 
 # ── Fast NVMe scratch ────────────────────────────────────────────────────────
-SCRATCH_ROOT=${BATCH_INFER_TMP_ROOT:-/mnt/local_scratch/tmp/batch-infer}
-RUN_USER=${USER:-$(id -un 2>/dev/null || echo unknown)}
-RUN_USER=$(printf '%s' "$RUN_USER" | sed -e 's#[^A-Za-z0-9._-]#_#g')
-RUN_NAME=$(basename "$RESULTS_DIR" | sed -e 's#[^A-Za-z0-9._-]#_#g')
-RUN_ID=${SLURM_JOB_ID:-$$}
-export TMPDIR="$SCRATCH_ROOT/$RUN_USER/${RUN_NAME}_${RUN_ID}"
-mkdir -p "$TMPDIR"
+
+#SCRATCH_ROOT=${BATCH_INFER_TMP_ROOT:-/mnt/local_scratch/tmp/batch-infer}
+#RUN_USER=${USER:-$(id -un 2>/dev/null || echo unknown)}
+#RUN_USER=$(printf '%s' "$RUN_USER" | sed -e 's#[^A-Za-z0-9._-]#_#g')
+#RUN_NAME=$(basename "$RESULTS_DIR" | sed -e 's#[^A-Za-z0-9._-]#_#g')
+#RUN_ID=${SLURM_JOB_ID:-$$}
+#export TMPDIR="$SCRATCH_ROOT/$RUN_USER/${RUN_NAME}_${RUN_ID}"
+#mkdir -p "$TMPDIR"
+
 
 # Some portal users may not have an initialized home directory on the HPC.
 # Keep Conda/Snakemake config and cache writes inside the job folder instead.
@@ -76,7 +79,7 @@ mkdir -p "$XDG_CACHE_HOME" "$XDG_CONFIG_HOME" "$XDG_STATE_HOME" "$XDG_DATA_HOME"
 cp "$PROFILE/config.yaml" "$RUNTIME_PROFILE/config.yaml"
 sed -i.bak "s#__STATUS_CMD__#$REPO_ROOT/software/smk-simple-slurm-local/slurm-status.sh#g" "$RUNTIME_PROFILE/config.yaml"
 sed -i.bak "s#__CLUSTER_LOG_ROOT__#$CLUSTER_LOG_ROOT#g" "$RUNTIME_PROFILE/config.yaml"
-sed -i.bak "s#__TMPDIR__#$TMPDIR#g" "$RUNTIME_PROFILE/config.yaml"
+#sed -i.bak "s#__TMPDIR__#$TMPDIR#g" "$RUNTIME_PROFILE/config.yaml"
 sed -i.bak "s#__SLURM_GID_OPTION__#$SLURM_GID_OPTION#g" "$RUNTIME_PROFILE/config.yaml"
 rm -f "$RUNTIME_PROFILE/config.yaml.bak"
 
@@ -101,12 +104,12 @@ echo "[batch-infer-local] Logs: $LOGS_DIR"
 
 conda run -n "$CONDA_ENV_NAME" \
     snakemake "$METHOD" \
-        --snakefile "$REPO_ROOT/workflow/targets/$METHOD.smk" \
-        --configfile "$DEFAULTS" "$DEFAULTS_LOCAL" "$RESULTS_DIR/config.yaml" \
+        --snakefile "$REPO_ROOT/$METHOD/pipeline.smk" \
+        --configfile "$RUNTIME_PROFILE/config.yaml" \
         --profile "$RUNTIME_PROFILE" \
         --workflow-profile "$WORKFLOW_PROFILE" \
         --directory "$RESULTS_DIR" \
-        --rerun-triggers input \
         --keep-going \
-        $EXTRA \
+        --config position='p2rep3_r07c06f02' sourcedir="/mnt/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260424_phenix1_screen_5nM_2.3__2026-04-24/20260424_phenix1_screen_5nM_2.3__2026-04-24/Images/" workdir="/mnt/local_scratch/iris_projects/Yeast_screening_pipeline" exp="20260424_phenix1_screen_5nM_2.3" results="$RESULTS_DIR" \
+        
     2>&1 | tee "$LOGS_DIR/batch-infer-local_${METHOD}_$(date +%H%M%S).log"
