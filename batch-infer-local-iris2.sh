@@ -63,7 +63,7 @@ if [ -n "${BATCH_INFER_SLURM_GID:-}" ]; then
     if [ "$(id -u)" -eq 0 ]; then
         SLURM_GID_OPTION="--gid=${BATCH_INFER_SLURM_GID}"
     else
-        echo "[batch-infer-local] Ignoring BATCH_INFER_SLURM_GID=$BATCH_INFER_SLURM_GID because sbatch --gid is only permitte>
+        echo "[batch-infer-local] Ignoring BATCH_INFER_SLURM_GID=$BATCH_INFER_SLURM_GID because sbatch --gid is only permitted for root."
     fi
 fi
 
