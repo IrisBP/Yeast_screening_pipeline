@@ -102,3 +102,7 @@ conda run -n "$CONDA_ENV_NAME" \
         --config position='p2rep3_r07c06f02' sourcedir="/mnt/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260424_phenix1_screen_5nM_2.3__2026-04-24/20260424_phenix1_screen_5nM_2.3__2026-04-24/Images/" workdir="/mnt/local_scratch/iris_projects/Yeast_screening_pipeline" exp="20260424_phenix1_screen_5nM_2.3" results="$RESULTS_DIR" \
         
     2>&1 | tee "$LOGS_DIR/batch-infer-local_${METHOD}_$(date +%H%M%S).log"
+
+
+'/mnt/local_scratch/iris_projects/tmp/batch-infer/Results_2155/
+Results/.snakemake-local/home/.cache/snakemake/snakemake/source-cache/runtime-cache/tmpmioocw45/file/mnt/local_scratch/iris_projects/Yeast_screening_pipeline/pipeline.smkg86y1p18'

@@ -7,10 +7,11 @@
 
 executor: cluster-generic
 cluster-generic-submit-cmd:
-  SMK_RULE_DIR=./pipeline.smk &&
+cluster-generic-submit-cmd:
+  SMK_RULE_DIR=__CLUSTER_LOG_ROOT__/`date +"%y-%m-%d"`/{rule} &&
   SMK_WILDCARDS=`echo -n '{wildcards}' | sed -e 's#/#-#g'` &&
   SMK_SLURM_EXTRA=`echo -n '{resources.slurm_extra}' | sed -e 's/%/:/g'` &&
-  SMK_SLURM_GID_OPTION="" &&
+  SMK_SLURM_GID_OPTION="__SLURM_GID_OPTION__"  &&
   mkdir -p $SMK_RULE_DIR &&
   sbatch
     --job-name={rule}:{wildcards}
@@ -18,13 +19,13 @@ cluster-generic-submit-cmd:
     --mem-per-cpu=`expr {resources.mem_mb} / {threads}`
     --time={resources.runtime}
     $SMK_SLURM_GID_OPTION
-    --export=ALL,TMPDIR=/mnt/local_scratch/tmp/batch-infer/sgaussmann/p53_interactome_screen_1508
+    --export=ALL,TMPDIR=__TMPDIR__
     --output=$SMK_RULE_DIR/{rule}:$SMK_WILDCARDS-%j.txt
     $SMK_SLURM_EXTRA
     --parsable
     
 
-cluster-generic-status-cmd: ./slurm-status-ibc.sh
+cluster-generic-status-cmd: __STATUS_CMD__
 cluster-generic-cancel-cmd: scancel
 cluster-generic-cancel-nargs: 1000
 default-resources:
@@ -43,3 +44,4 @@ rerun-incomplete: true
 printshellcmds: true
 scheduler: greedy
 cores: 64
+
