@@ -12,7 +12,7 @@ executor: cluster-generic
 
 cluster-generic-submit-cmd:
   XDG_CACHE_HOME=__CACHE__
-
+  XDG_CACHE_SNAKEMAKE="__CACHE__/snakemake"
   sbatch
     --job-name=__POS__
     --ntasks={threads}
