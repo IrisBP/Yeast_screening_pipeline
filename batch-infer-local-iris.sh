@@ -96,6 +96,7 @@ conda run -n "$CONDA_ENV_NAME" \
         --snakefile "$REPO_ROOT/pipeline.smk" \
         --configfile "$RUNTIME_PROFILE/config.yaml" \
         --profile "$RUNTIME_PROFILE" \
+        --workflow-profile "$WORKFLOW_PROFILE" \
         --directory "$RESULTS_DIR" \
         --rerun-triggers input \
         --keep-going \
