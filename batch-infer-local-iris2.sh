@@ -32,52 +32,8 @@ POS='p2rep3_r07c06f02'
 
 # ── Paths (all relative to repo root) ────────────────────────────────────────
 #REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_ROOT="/mnt/local_scratch/iris_projects"
-PROFILE="$REPO_ROOT/$METHOD/profiles" 
-WORKFLOW_PROFILE="$REPO_ROOT/$METHOD/workflow_profiles"
-#DEFAULTS="$REPO_ROOT/workflow/config/defaults.yaml"
-#DEFAULTS_LOCAL="$REPO_ROOT/workflow/config/defaults-local.yaml"
-LOGS_DIR="$RESULTS_DIR/.snakemake-local/logs/$(date +%y-%m-%d)"
-RUNTIME_PROFILE="$RESULTS_DIR/.snakemake-local/runtime-profile"
-CLUSTER_LOG_ROOT="$RESULTS_DIR/.snakemake-local/cluster-logs"
+REPO_ROOT="/mnt/local_scratch/iris_projects/$METHOD"
 
-# ── Fast NVMe scratch ────────────────────────────────────────────────────────
-
-#SCRATCH_ROOT=${BATCH_INFER_TMP_ROOT:-/mnt/local_scratch/tmp/batch-infer}
-#RUN_USER=${USER:-$(id -un 2>/dev/null || echo unknown)}
-#RUN_USER=$(printf '%s' "$RUN_USER" | sed -e 's#[^A-Za-z0-9._-]#_#g')
-#RUN_NAME=$(basename "$RESULTS_DIR" | sed -e 's#[^A-Za-z0-9._-]#_#g')
-#RUN_ID=${SLURM_JOB_ID:-$$}
-
-#mkdir -p "$TMPDIR"
-
-
-# Some portal users may not have an initialized home directory on the HPC.
-# Keep Conda/Snakemake config and cache writes inside the job folder instead.
-JOB_HOME="$RESULTS_DIR/.snakemake-local/home"
-export HOME="$JOB_HOME"
-export XDG_CACHE_HOME="$JOB_HOME/.cache"
-export XDG_CACHE_SNAKEMAKE="$JOB_HOME/.cache/snakemake"
-export XDG_CONFIG_HOME="$JOB_HOME/.config"
-export XDG_STATE_HOME="$JOB_HOME/.local/state"
-export XDG_DATA_HOME="$JOB_HOME/.local/share"
-export TMPDIR="$XDG_CACHE_HOME"
-
-mkdir -p "$LOGS_DIR"
-mkdir -p "$RUNTIME_PROFILE"
-mkdir -p "$CLUSTER_LOG_ROOT"
-mkdir -p "$XDG_CACHE_HOME" "$XDG_CONFIG_HOME" "$XDG_STATE_HOME" "$XDG_DATA_HOME" "$XDG_CACHE_SNAKEMAKE"
-
-# ── Render a runtime Snakemake profile with the correct absolute status script ─
-cp "$PROFILE/config.yaml" "$RUNTIME_PROFILE/config.yaml"
-#sed -i.bak "s#__CACHE__#$XDG_CACHE_HOME#g" "$RUNTIME_PROFILE/config.yaml"
-#sed -i.bak "s#__POS__#$POS#g" "$RUNTIME_PROFILE/config.yaml"
-#sed -i.bak "s#__OUT__#$RESULTS_DIR#g" "$RUNTIME_PROFILE/config.yaml"
-sed -i.bak "s#__STATUS_CMD__#$REPO_ROOT/software/smk-simple-slurm-local/slurm-status.sh#g" "$RUNTIME_PROFILE/config.yaml"
-#sed -i.bak "s#__CLUSTER_LOG_ROOT__#$CLUSTER_LOG_ROOT#g" "$RUNTIME_PROFILE/config.yaml"
-#sed -i.bak "s#__TMPDIR__#$TMPDIR#g" "$RUNTIME_PROFILE/config.yaml"
-#sed -i.bak "s#__SLURM_GID_OPTION__#$SLURM_GID_OPTION#g" "$RUNTIME_PROFILE/config.yaml"
-rm -f "$RUNTIME_PROFILE/config.yaml.bak"
 
 # ── Conda / Snakemake environment ─────────────────────────────────────────────
 
@@ -85,8 +41,8 @@ rm -f "$RUNTIME_PROFILE/config.yaml.bak"
 
 CONDA_ENV_NAME="batch-infer-env"
 if ! conda run -n "$CONDA_ENV_NAME" snakemake --version &>/dev/null; then
-    echo "[batch-infer-local] Creating conda env '$CONDA_ENV_NAME' from workflow/envs/batch-infer.yaml ..."
-    conda env create -n "$CONDA_ENV_NAME" -f "$REPO_ROOT/workflow/envs/batch-infer.yaml"
+    echo "[batch-infer-local] Creating conda env '$CONDA_ENV_NAME' from '$REPO_ROOT'/workflow_profiles/batch_infer_env.yaml ..."
+    conda env create -n "$CONDA_ENV_NAME" -f "$REPO_ROOT/workflow_profiles/batch_infer_env.yaml"
 fi
 
 
@@ -96,9 +52,9 @@ fi
 
 conda run -n "$CONDA_ENV_NAME" \
     snakemake "$METHOD" \
-        --snakefile "$REPO_ROOT/$METHOD/pipeline.smk" \
-        --configfile "$RUNTIME_PROFILE/config.yaml" \
-        --workflow-profile "$RUNTIME_PROFILE" \
+        --snakefile "$REPO_ROOT/pipeline.smk" \
+        --configfile "$REPO_ROOT/profiles/config.yaml" \
+        --workflow-profile "$REPO_ROOT/profiles" \
         --keep-going \
         --config position="$POS" sourcedir="/mnt/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260424_phenix1_screen_5nM_2.3__2026-04-24/20260424_phenix1_screen_5nM_2.3__2026-04-24/Images/" workdir="/mnt/local_scratch/iris_projects/Yeast_screening_pipeline" exp="20260424_phenix1_screen_5nM_2.3" results="$RESULTS_DIR" \
         
