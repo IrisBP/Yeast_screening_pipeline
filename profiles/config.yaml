@@ -6,11 +6,13 @@
 #alphafold3_predictions_multigpu
 
 #--export=ALL,TMPDIR=__TMPDIR__
+#this is a test 
 
 executor: cluster-generic
 
 cluster-generic-submit-cmd:
   XDG_CACHE_HOME=__CACHE__
+
   sbatch
     --job-name=__POS__
     --ntasks={threads}
