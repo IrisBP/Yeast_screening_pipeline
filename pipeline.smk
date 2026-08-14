@@ -55,7 +55,7 @@ rule tracking:
         OUTPATH+'/'+POSITION+'/'+POSITION+'_mask.tif',
         OUTPATH+'/'+POSITION+'/'+POSITION+'_nucleus_mask.tif'
     conda: 
-        batch-infer-env"
+        "batch-infer-env"
     script: 
         WORK+"/python_scripts/P2_tracking.py"
 

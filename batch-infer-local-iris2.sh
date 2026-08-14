@@ -29,10 +29,22 @@ METHOD=${1:?Usage: $0 METHOD RESULTS_DIR [--dry-run]}
 RESULTS_DIR=${2:?Usage: $0 METHOD RESULTS_DIR [--dry-run]}
 EXTRA=${3:-}   # optional --dry-run or other snakemake flags
 POS='p2rep3_r07c06f02'
+SOURCEDIR="/mnt/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260424_phenix1_screen_5nM_2.3__2026-04-24/20260424_phenix1_screen_5nM_2.3__2026-04-24/Images/"
+WORKDIR="/mnt/local_scratch/iris_projects"
+EXP="20260424_phenix1_screen_5nM_2.3"
 
 # ── Paths (all relative to repo root) ────────────────────────────────────────
 #REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_ROOT="/mnt/local_scratch/iris_projects/$METHOD"
+REPO_ROOT="$WORKDIR/$METHOD"
+PROFILE="$REPO_ROOT/profiles"
+RUNTIME_PROFILE="$RESULTS_DIR/runtime-profile/$POS"
+cp "$PROFILE/config.yaml" "$RUNTIME_PROFILE/config.yaml"
+sed -i.bak "s#__STATUS_CMD__#$PROFILE/slurm-status-ibc.sh#g" "$RUNTIME_PROFILE/config.yaml"
+sed -i.bak "s#____POS__ __#$POS#g" "$RUNTIME_PROFILE/config.yaml"
+sed -i.bak "s#__SOURCE__#$SOURCEDIR#g" "$RUNTIME_PROFILE/config.yaml"
+sed -i.bak "s#__EXP__#$EXP#g" "$RUNTIME_PROFILE/config.yaml"
+sed -i.bak "s#__WORK__#$WORKDIR#g" "$RUNTIME_PROFILE/config.yaml"
+rm -f "$RUNTIME_PROFILE/config.yaml.bak"
 
 
 # ── Conda / Snakemake environment ─────────────────────────────────────────────
@@ -51,11 +63,11 @@ fi
 #echo "[batch-infer-local] Starting: method=$METHOD results=$RESULTS_DIR tmpdir=$TMPDIR"
 
 conda run -n "$CONDA_ENV_NAME" \
-    snakemake "$METHOD" \
+    snakemake \
         --snakefile "$REPO_ROOT/pipeline.smk" \
-        --configfile "$REPO_ROOT/profiles/config.yaml" \
-        --workflow-profile "$REPO_ROOT/profiles" \
+        --configfile "$RUNTIME_PROFILE/config.yaml" \
+        --workflow-profile "$RUNTIME_PROFILE" \
         --keep-going \
-        --config position="$POS" sourcedir="/mnt/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260424_phenix1_screen_5nM_2.3__2026-04-24/20260424_phenix1_screen_5nM_2.3__2026-04-24/Images/" workdir="/mnt/local_scratch/iris_projects/Yeast_screening_pipeline" exp="20260424_phenix1_screen_5nM_2.3" results="$RESULTS_DIR" \
+        
         
     

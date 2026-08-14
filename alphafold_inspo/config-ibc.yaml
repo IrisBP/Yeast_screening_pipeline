@@ -35,6 +35,7 @@ printshellcmds: true
 scheduler: greedy
 cores: 64
 
+
 set-resources:
   alphafold3_msas:
     runtime: "4h"
