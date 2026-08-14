@@ -5,7 +5,7 @@
 #   ./batch-infer-local METHOD RESULTS_DIR [--dry-run]
 #
 # Examples:
-#   sbatch ./Yeast_screening_pipeline/batch-infer-local-iris2.sh ./Yeast_screening_pipeline ./Results 
+#   sbatch ./Yeast_screening_pipeline/batch-infer-local-iris2.sh Yeast_screening_pipeline ./Results 
 #   
 # What changed vs the original `batch-infer`:
 #   - No longer wraps output in an sbatch heredoc; runs Snakemake directly

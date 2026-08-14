@@ -41,7 +41,7 @@ rule segmentation:
         OUTPATH+'/'+POSITION+'/masks/'+POSITION+'{t}_mask.tif', 
         OUTPATH+'/'+POSITION+'/masks/'+POSITION+'{t}_NuclearMask.tif', 
     conda: 
-        batch-infer-env"
+        "batch-infer-env"
     script: 
         WORK+"/python_scripts/P1_segmentation.py"
 
