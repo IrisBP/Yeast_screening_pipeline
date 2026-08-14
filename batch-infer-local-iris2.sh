@@ -48,7 +48,7 @@ CLUSTER_LOG_ROOT="$RESULTS_DIR/.snakemake-local/cluster-logs"
 #RUN_USER=$(printf '%s' "$RUN_USER" | sed -e 's#[^A-Za-z0-9._-]#_#g')
 #RUN_NAME=$(basename "$RESULTS_DIR" | sed -e 's#[^A-Za-z0-9._-]#_#g')
 #RUN_ID=${SLURM_JOB_ID:-$$}
-#export TMPDIR="$SCRATCH_ROOT/$RUN_USER/${RUN_NAME}_${RUN_ID}"
+
 #mkdir -p "$TMPDIR"
 
 
@@ -61,6 +61,8 @@ export XDG_CACHE_SNAKEMAKE="$JOB_HOME/.cache/snakemake"
 export XDG_CONFIG_HOME="$JOB_HOME/.config"
 export XDG_STATE_HOME="$JOB_HOME/.local/state"
 export XDG_DATA_HOME="$JOB_HOME/.local/share"
+
+export TMPDIR="$XDG_CACHE_HOME"
 
 SLURM_GID_OPTION=""
 if [ -n "${BATCH_INFER_SLURM_GID:-}" ]; then

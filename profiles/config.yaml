@@ -11,6 +11,7 @@
 executor: cluster-generic
 
 cluster-generic-submit-cmd:
+  SMK_RULE_DIR= ./Yeast_screening_pipeline/pipeline.smk"
   XDG_CACHE_HOME=__CACHE__
   XDG_CACHE_SNAKEMAKE=__CACHE__/snakemake
   sbatch
@@ -18,11 +19,9 @@ cluster-generic-submit-cmd:
     --ntasks={threads}
     --mem-per-cpu=`expr {resources.mem_mb} / {threads}`
     --time={resources.runtime}
-    $SMK_SLURM_GID_OPTION
-    --output=__OUT__/out.txt
+    --output=__OUT__/out.txtß
     --export=ALL,TMPDIR=$XDG_CACHE_SNAKEMAKE
-    $SMK_SLURM_EXTRA
-    --parsable
+
     
 
 cluster-generic-status-cmd: __STATUS_CMD__
