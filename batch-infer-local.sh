@@ -50,6 +50,7 @@ mkdir -p "$TMPDIR"
 JOB_HOME="$RESULTS_DIR/.snakemake-local/home"
 export HOME="$JOB_HOME"
 export XDG_CACHE_HOME="$JOB_HOME/.cache"
+export XDG_CACHE_SNAKEMAKE="$JOB_HOME/.cache/snakemake"
 export XDG_CONFIG_HOME="$JOB_HOME/.config"
 export XDG_STATE_HOME="$JOB_HOME/.local/state"
 export XDG_DATA_HOME="$JOB_HOME/.local/share"
@@ -66,7 +67,7 @@ fi
 mkdir -p "$LOGS_DIR"
 mkdir -p "$RUNTIME_PROFILE"
 mkdir -p "$CLUSTER_LOG_ROOT"
-mkdir -p "$XDG_CACHE_HOME" "$XDG_CONFIG_HOME" "$XDG_STATE_HOME" "$XDG_DATA_HOME"
+mkdir -p "$XDG_CACHE_HOME" "$XDG_CONFIG_HOME" "$XDG_STATE_HOME" "$XDG_DATA_HOME" "$XDG_CACHE_SNAKEMAKE"
 
 # ── Render a runtime Snakemake profile with the correct absolute status script ─
 cp "$PROFILE/config.yaml" "$RUNTIME_PROFILE/config.yaml"

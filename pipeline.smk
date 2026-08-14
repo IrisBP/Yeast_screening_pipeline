@@ -5,8 +5,9 @@ import glob
 POSITION=config["position"]
 SOURCE=config["sourcedir"]
 WORK=config["workdir"]
+OUTPATH=config["results"]
 EXP=config["exp"]
-OUTPATH=WORK+EXP
+
 
 # first, find matches to filenames of this form:
 
@@ -40,9 +41,9 @@ rule segmentation:
         OUTPATH+'/'+POSITION+'/masks/'+POSITION+'{t}_mask.tif', 
         OUTPATH+'/'+POSITION+'/masks/'+POSITION+'{t}_NuclearMask.tif', 
     conda: 
-        "pipeline.yaml"
+        batch-infer-env"
     script: 
-        "./python_scripts/P1_segmentation.py"
+        WORK+"/python_scripts/P1_segmentation.py"
 
 
 
@@ -54,9 +55,9 @@ rule tracking:
         OUTPATH+'/'+POSITION+'/'+POSITION+'_mask.tif',
         OUTPATH+'/'+POSITION+'/'+POSITION+'_nucleus_mask.tif'
     conda: 
-        "pipeline.yaml"
+        batch-infer-env"
     script: 
-        "./python_scripts/P2_tracking.py"
+        WORK+"/python_scripts/P2_tracking.py"
 
 rule description: 
     input: 
@@ -68,10 +69,10 @@ rule description:
     output: 
         OUTPATH+'/'+POSITION+'/temp/description_{t}.csv'
     conda: 
-        "pipeline.yaml"
+        "batch-infer-env"
     threads: 10   
     script:
-        './python_scripts/P3_description.py'
+        WORK+'/python_scripts/P3_description.py'
         
         
 rule merge_results:
@@ -82,10 +83,10 @@ rule merge_results:
     output:
         f'{OUTPATH}/{POSITION}/{POSITION}_description.csv'.format()
     conda: 
-        "pipeline.yaml"
+        "batch-infer-env"
     threads: 1  
     script:
-        './python_scripts/P4_mergetable.py'
+        WORK+'/python_scripts/P4_mergetable.py'
 
 
 
