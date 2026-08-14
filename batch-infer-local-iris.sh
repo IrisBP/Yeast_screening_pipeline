@@ -39,8 +39,8 @@ EXTRA=${3:-}   # optional --dry-run or other snakemake flags #get any other inpu
 REPO_ROOT="/mnt/local_scratch/iris_projects/Yeast_screening_pipeline" # get full path to current directory : /Users/ibarbier/Desktop/Yeast_screening_pipeline
 PROFILE="$REPO_ROOT/profiles" #get path to directory where config.yaml and slurm-status.sh are store 
 WORKFLOW_PROFILE="$REPO_ROOT/workflow_profiles" #get path to directory to where the local_config.yaml is stored 
-DEFAULTS="$REPO_ROOT/defaults.yaml" #path to defaults.yaml
-DEFAULTS_LOCAL="$REPO_ROOT/defaults-local.yaml" #path to defaults-local.yaml
+# DEFAULTS="$REPO_ROOT/defaults.yaml" #path to defaults.yaml + removed --configfile "$DEFAULTS" "$DEFAULTS_LOCAL" "$RESULTS_DIR/config.yaml" \ from cmd 
+# DEFAULTS_LOCAL="$REPO_ROOT/defaults-local.yaml" #path to defaults-local.yaml
 LOGS_DIR="$RESULTS_DIR/.snakemake-local/logs/$(date +%y-%m-%d)" # path to logs - in the results folder - results/.snakemake-local/logs/26-08-10
 RUNTIME_PROFILE="$RESULTS_DIR/.snakemake-local/runtime-profile" # path to runtimes - in the results folder - results/.snakemake-local/runtime-profile 
 CLUSTER_LOG_ROOT="$RESULTS_DIR/.snakemake-local/cluster-logs" # path to cluser logs - in the resiults folder - results/esults/pipeline/.snakemake-local/cluster-logs
@@ -81,7 +81,7 @@ rm -f "$RUNTIME_PROFILE/config.yaml.bak"
 # Activate the batch-infer conda env (create it first if needed — see README)
 CONDA_ENV_NAME="batch-infer-env"
 if ! conda run -n "$CONDA_ENV_NAME" snakemake --version &>/dev/null; then
-    echo "[batch-infer-local] Creating conda env '$CONDA_ENV_NAME' from workflow/envs/batch-infer.yaml ..."
+    echo "[batch-infer-local] Creating conda env '$CONDA_ENV_NAME' from workflow_profiles/batch_infer_env.yaml ..."
     conda env create -n "$CONDA_ENV_NAME" -f "$REPO_ROOT/workflow_profiles/batch_infer_env.yaml"
 fi
 
@@ -94,7 +94,6 @@ echo "[batch-infer-local] Logs: $LOGS_DIR"
 conda run -n "$CONDA_ENV_NAME" \
     snakemake "$METHOD" \
         --snakefile "$REPO_ROOT/pipeline.smk" \
-        --configfile "$DEFAULTS" "$DEFAULTS_LOCAL" "$RESULTS_DIR/config.yaml" \
         --profile "$RUNTIME_PROFILE" \
         --workflow-profile "$WORKFLOW_PROFILE" \
         --directory "$RESULTS_DIR" \
