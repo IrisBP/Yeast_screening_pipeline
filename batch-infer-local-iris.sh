@@ -47,14 +47,14 @@ CLUSTER_LOG_ROOT="$RESULTS_DIR/.snakemake-local/cluster-logs" # path to cluser l
 
 
 # ── Fast NVMe scratch ────────────────────────────────────────────────────────
-SCRATCH_ROOT=${BATCH_INFER_TMP_ROOT:-/mnt/local_scratch/iris_projects/tmp/batch-infer} 
-# SCRATCH_ROOT=/mnt/local_scratch/iris_projects/tmp/batch-infer
 
+SCRATCH_ROOT=${BATCH_INFER_TMP_ROOT:-/mnt/local_scratch/tmp/batch-infer}
+RUN_USER=${USER:-$(id -un 2>/dev/null || echo unknown)}
 RUN_NAME=$(basename "$RESULTS_DIR" | sed -e 's#[^A-Za-z0-9._-]#_#g')
 RUN_ID=${SLURM_JOB_ID:-$$}
-export TMPDIR="$SCRATCH_ROOT/${RUN_NAME}_${RUN_ID}"
-mkdir -p "$TMPDIR" # create a folder in /mnt/local_scratch/iris_projects/tmp/batch-infer/RunName_RunID
-#ex: results_105504
+export TMPDIR="$SCRATCH_ROOT/ibarbier/${RUN_NAME}_${RUN_ID}"
+mkdir -p "$TMPDIR"
+
 
 # Some portal users may not have an initialized home directory on the HPC.
 # Keep Conda/Snakemake config and cache writes inside the job folder instead.
@@ -69,6 +69,8 @@ mkdir -p "$LOGS_DIR"
 mkdir -p "$RUNTIME_PROFILE"
 mkdir -p "$CLUSTER_LOG_ROOT"
 mkdir -p "$XDG_CACHE_HOME" "$XDG_CONFIG_HOME" "$XDG_STATE_HOME" "$XDG_DATA_HOME"
+
+export XDG_CACHE_TMP="$TMPDIR/.cache"
 
 # ── Render a runtime Snakemake profile with the correct absolute status script ─
 cp "$PROFILE/config.yaml" "$RUNTIME_PROFILE/config.yaml"
