@@ -89,9 +89,6 @@ fi
 # ── Run ───────────────────────────────────────────────────────────────────────
 
 echo "[batch-infer-local] Starting: method=$METHOD results=$RESULTS_DIR tmpdir=$TMPDIR"
-if [ -n "$SLURM_GID_OPTION" ]; then
-    echo "[batch-infer-local] Slurm gid option: $SLURM_GID_OPTION"
-fi
 echo "[batch-infer-local] Logs: $LOGS_DIR"
 
 conda run -n "$CONDA_ENV_NAME" \
@@ -103,8 +100,8 @@ conda run -n "$CONDA_ENV_NAME" \
         --directory "$RESULTS_DIR" \
         --rerun-triggers input \
         --keep-going \
-        --config position='p2rep3_r07c06f02' sourcedir="/mnt/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260424_phenix1_screen_5nM_2.3__2026-04-24/20260424_phenix1_screen_5nM_2.3__2026-04-24/Images/" workdir="/mnt/local_scratch/iris_projects/" exp="20260424_phenix1_screen_5nM_2.3"
-        $EXTRA \
+        --config position='p2rep3_r07c06f02' sourcedir="/mnt/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260424_phenix1_screen_5nM_2.3__2026-04-24/20260424_phenix1_screen_5nM_2.3__2026-04-24/Images/" workdir="/mnt/local_scratch/iris_projects/" exp="20260424_phenix1_screen_5nM_2.3" \
+        
     2>&1 | tee "$LOGS_DIR/batch-infer-local_${METHOD}_$(date +%H%M%S).log"
 
 
