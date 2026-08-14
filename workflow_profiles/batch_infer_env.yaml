@@ -1,0 +1,13 @@
+name: batch-infer-env
+channels:
+- bioconda
+- conda-forge
+- defaults
+dependencies:
+- awscli
+- aria2
+- pandas
+- snakemake-minimal==8.16  # https://github.com/snakemake/snakemake/issues/3019
+- snakemake-executor-plugin-slurm  # replaces cluster-generic for native v8 SLURM support
+- snakemake-executor-plugin-cluster-generic  # kept for colabfold target compatibility
+- wget

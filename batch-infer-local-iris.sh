@@ -76,3 +76,13 @@ sed -i.bak "s#__CLUSTER_LOG_ROOT__#$CLUSTER_LOG_ROOT#g" "$RUNTIME_PROFILE/config
 sed -i.bak "s#__TMPDIR__#$TMPDIR#g" "$RUNTIME_PROFILE/config.yaml"
 rm -f "$RUNTIME_PROFILE/config.yaml.bak"
 
+# ── Conda / Snakemake environment ─────────────────────────────────────────────
+# Activate the batch-infer conda env (create it first if needed — see README)
+CONDA_ENV_NAME="batch-infer-env"
+if ! conda run -n "$CONDA_ENV_NAME" snakemake --version &>/dev/null; then
+    echo "[batch-infer-local] Creating conda env '$CONDA_ENV_NAME' from workflow/envs/batch-infer.yaml ..."
+    conda env create -n "$CONDA_ENV_NAME" -f "$REPO_ROOT/workflow_profiles/batch_infer_env.yaml"
+fi
+
+
+
