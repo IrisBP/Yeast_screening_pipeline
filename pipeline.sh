@@ -23,25 +23,27 @@ SOURCEDIR="/nfs/nas22/fs2202/biol_bc_barral_2/ibarbier/2026_GFP_screen/$EXP_DAY/
 CODEDIR="/cluster/home/ibarbier/Yeast_screening_pipeline/"
 
 #================ Script =======================
-echo $WORKDIR
-echo $SOURCEDIR
-echo $RESULTS_DIR
-echo $CODEDIR
-echo $IMGDIR
 
 source ~/.bashrc
 conda activate pipeline
 
+# create the image folder and copy the data
 if [ ! -d "$IMGDIR" ]; then
   echo "$IMGDIR does not exist. Copying data now"
   mkdir $WORKDIR
   cp -R $SOURCEDIR $WORKDIR
+else
+  echo "Data already copied"
 fi
 
+# create the result folder 
+if [ ! -d "$RESULTSDIR" ]; then
+  mkdir $RESULTSDIR
+fi
 
-mkdir $RESULTSDIR
-
+# create the array ID table 
 python /cluster/home/ibarbier/Yeast_screening_pipeline/make_array_file.py  $WORKDIR $EXP_ID
 
-snakemake --slurm --use-conda --conda-frontend conda --scheduler greedy --snakefile pipeline.smk --config position=$POS codedir=$CODEDIR workdir=$WORKDIR
+# submit snakemake 
+snakemake --use-conda --conda-frontend conda --scheduler greedy --snakefile pipeline.smk --config position=$POS codedir=$CODEDIR workdir=$WORKDIR
 
