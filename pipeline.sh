@@ -16,13 +16,19 @@ POS='p2rep3_r05c06f02'
 
 #============= Localization Variables =============
 # path to the various directory required for the pipeline 
-WORKDIR='/cluster/scratch/ibarbier/'+$EXP_DAY+'/'
-RESULTSDIR='/cluster/scratch/ibarbier/'+$EXP_DAY+'/results/'
-IMGDIR='/cluster/scratch/ibarbier/'+$EXP_DAY+'/Images/'
-SOURCEDIR='/nfs/nas22/fs2202/biol_bc_barral_2/ibarbier/2026_GFP_screen/'+$EXP_DAY+'/'+$EXP_DAY+'/Images/'
-CODEDIR=/cluster/home/ibarbier/Yeast_screening_pipeline/
+WORKDIR="/cluster/scratch/ibarbier/$EXP_DAY/"
+RESULTSDIR="/cluster/scratch/ibarbier/$EXP_DAY/results/"
+IMGDIR="/cluster/scratch/ibarbier/$EXP_DAY/Images/"
+SOURCEDIR="/nfs/nas22/fs2202/biol_bc_barral_2/ibarbier/2026_GFP_screen/$EXP_DAY/$EXP_DAY/Images/"
+CODEDIR="/cluster/home/ibarbier/Yeast_screening_pipeline/"
 
 #================ Script =======================
+echo $WORKDIR
+echo $SOURCEDIR
+echo $RESULTS_DIR
+echo $CODEDIR
+echo $IMGDIR
+
 source ~/.bashrc
 conda activate pipeline
 
@@ -32,9 +38,10 @@ if [ ! -d "$IMGDIR" ]; then
   cp -R $SOURCEDIR $WORKDIR
 fi
 
-mkdir RESULTSDIR
 
-#python make_array_file.py $WORKDIR $EXP_ID
+mkdir $RESULTSDIR
 
-snakemake --slurm --default-resources slurm_account='es_biol' --snakefile pipeline.smk --config position=$POS codedir=$CODEDIR workdir=$WORKDIR
+python /cluster/home/ibarbier/Yeast_screening_pipeline/make_array_file.py  $WORKDIR $EXP_ID
+
+snakemake --slurm --use-conda --conda-frontend conda --scheduler greedy --snakefile pipeline.smk --config position=$POS codedir=$CODEDIR workdir=$WORKDIR
 
