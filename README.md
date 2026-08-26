@@ -7,7 +7,13 @@ The pipeline performs segmentation (CellPose), tracking (Hungarian) and single c
 
 Parallel execution implemented with Snakemake - designed for SLURM on cluster 
 
-in home directory (/cluster/home/user_name): 
+in home directory (/cluster/home/ibarbier): 
 > wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 > bash ~/Miniconda3-latest-Linux-x86_64.sh
 + check version > conda -V 
+To install the pipeline
+> git clone https://github.com/IrisBP/Yeast_screening_pipeline.git  
+
+Navigate to scratch: cd /cluster/scratch/ibarbier 
+to run the pipeline:
+sbatch /cluster/home/ibarbier/Yeast_screening_pipeline/pipeline.sh

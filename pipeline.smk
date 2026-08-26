@@ -2,18 +2,19 @@
 # requires P1, P2, P3, P4 and hungarian in the working directory 
 import glob 
 
+#get input from CLI / .sh script
 POSITION=config["position"]
-SOURCE=config["sourcedir"]
-WORK=config["workdir"]
-OUTPATH=config["results"]
-EXP=config["exp"]
+CODEDIR=config["codedir"]
+WORKDIR=config["workdir"]
 
+# create path to images and results 
+OUTPATH=f'{WORKDIR}/results/{POSITION}/'.format()
+SOURCE=f'{WORKDIR}/Images/'.format()
 
-# first, find matches to filenames of this form:
-
+# first, find matches to filenames of this form to get the Time wildcard:
 PATH=f"{SOURCE}{POSITION}".format()
 TIMES=glob_wildcards(PATH+"ch1{time}.tiff")
-# collect all results we want to generate for the run 
+
 
 # collect all results we want to generate for the run 
 rule all:
@@ -24,7 +25,7 @@ rule all:
         f'{OUTPATH}/{POSITION}/{POSITION}_nucleus_mask.tif'.format(), # tracked nuclear masks with all 35 frames 
         f'{OUTPATH}/{POSITION}/{POSITION}_description.csv'.format()
 
-
+# segmentation 
 rule segmentation:
     input:
         SOURCE+POSITION+'ch1{t}.tiff',
@@ -34,19 +35,16 @@ rule segmentation:
     params:
         gpu=False
     threads: 1
-    #resources:
-        #gpus=1
-
     output:
         OUTPATH+'/'+POSITION+'/masks/'+POSITION+'{t}_mask.tif', 
         OUTPATH+'/'+POSITION+'/masks/'+POSITION+'{t}_NuclearMask.tif', 
     conda: 
-        "batch-infer-env"
+        "pipeline"
     script: 
-        WORK+"/python_scripts/P1_segmentation.py"
+        CODEDIR+"/python_scripts/P1_segmentation.py"
 
 
-
+# tracking 
 rule tracking: 
     input: 
         cell=[f'{OUTPATH}/{POSITION}/masks/{POSITION}t{i}_mask.tif'.format() for i in range(1,36)],
@@ -55,10 +53,11 @@ rule tracking:
         OUTPATH+'/'+POSITION+'/'+POSITION+'_mask.tif',
         OUTPATH+'/'+POSITION+'/'+POSITION+'_nucleus_mask.tif'
     conda: 
-        "batch-infer-env"
+        "pipeline"
     script: 
-        WORK+"/python_scripts/P2_tracking.py"
+        CODEDIR+"/python_scripts/P2_tracking.py"
 
+# single cell description of intensity
 rule description: 
     input: 
         f'{OUTPATH}/{POSITION}/{POSITION}_mask.tif'.format(),
@@ -69,12 +68,12 @@ rule description:
     output: 
         OUTPATH+'/'+POSITION+'/temp/description_{t}.csv'
     conda: 
-        "batch-infer-env"
+        "pipepline"
     threads: 10   
     script:
-        WORK+'/python_scripts/P3_description.py'
+        CODEDIR+'/python_scripts/P3_description.py'
         
-        
+# collecting all the description files and merging them into 1 single large file for the position    
 rule merge_results:
     input: 
         table=[f'{OUTPATH}/{POSITION}/temp/description_t{i}.csv'.format() for i in range(1,36)],
@@ -83,10 +82,10 @@ rule merge_results:
     output:
         f'{OUTPATH}/{POSITION}/{POSITION}_description.csv'.format()
     conda: 
-        "batch-infer-env"
+        "pipeline"
     threads: 1  
     script:
-        WORK+'/python_scripts/P4_mergetable.py'
+        CODEDIR+'/python_scripts/P4_mergetable.py'
 
 
 
