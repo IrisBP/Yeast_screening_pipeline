@@ -8,6 +8,8 @@
 #SBATCH --output=slurm-%j.out
 #SBATCH --error=slurm-%j.err
 
+export OMP_NUM_THREADS=35
+
 #================ To modify =======================
 
 EXP_DAY='20260424_phenix1_screen_5nM_2.3'
@@ -29,6 +31,9 @@ SNAKEFILE=/cluster/home/ibarbier/Yeast_screening_pipeline/pipeline.smk
 source ~/.bashrc
 conda activate pipeline
 
+# check that the conda environment has been activated properly
+echo $CONDA_DEFAULT_ENV
+
 # create the image folder and copy the data
 if [ ! -d "$IMGDIR" ]; then
   echo "$IMGDIR does not exist. Copying data now"
@@ -47,5 +52,6 @@ fi
 python $ARRAY_PY $WORKDIR $EXP_ID
 
 # submit snakemake 
-snakemake --use-conda --conda-frontend conda --scheduler greedy --snakefile $SNAKEFILE --config position=$POS codedir=$CODEDIR workdir=$WORKDIR
+# --use-conda --conda-frontend conda
+snakemake --cores all --scheduler greedy --snakefile $SNAKEFILE --config position=$POS codedir=$CODEDIR workdir=$WORKDIR
 

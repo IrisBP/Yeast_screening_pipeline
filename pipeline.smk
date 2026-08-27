@@ -8,8 +8,8 @@ CODEDIR=config["codedir"]
 WORKDIR=config["workdir"]
 
 # create path to images and results 
-OUTPATH=f'{WORKDIR}/results/{POSITION}/'.format()
-SOURCE=f'{WORKDIR}/Images/'.format()
+OUTPATH=f'{WORKDIR}results/{POSITION}/'.format()
+SOURCE=f'{WORKDIR}Images/'.format()
 
 # first, find matches to filenames of this form to get the Time wildcard:
 PATH=f"{SOURCE}{POSITION}".format()
@@ -32,8 +32,6 @@ rule segmentation:
         SOURCE+POSITION+'ch2{t}.tiff',
         SOURCE+POSITION+'ch3{t}.tiff',
         SOURCE+POSITION+'ch4{t}.tiff',
-    params:
-        gpu=False
     threads: 1
     output:
         OUTPATH+'/'+POSITION+'/masks/'+POSITION+'{t}_mask.tif', 
