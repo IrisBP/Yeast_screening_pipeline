@@ -8,8 +8,6 @@ dependencies:
   - attrs=26.1.0
   - backports.zstd=1.6.0
   - bzip2=1.0.8
-  - ca-certificates=2026.7.22
-  - certifi=2026.7.22
   - configargparse=1.7.5
   - connection_pool=0.0.3
   - numpy=2.5.1
@@ -80,7 +78,6 @@ dependencies:
   - libbrotlidec=1.2.0
   - libbrotlienc=1.2.0
   - libcurl=8.21.0
-  - libev=4.331
   - libexpat=2.8.2
   - libffi=3.4.8
   - libgcc=15.2.0
@@ -114,7 +111,7 @@ dependencies:
   - ncurses=6.5
   - nlohmann_json=3.11.2
   - openssl=3.5.7
-  - packaging=26.0
+  - packaging=25.0
   - pcre2=10.46
   - pip=26.1.2
   - pkce=1.0.3
