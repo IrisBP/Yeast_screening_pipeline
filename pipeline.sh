@@ -22,6 +22,8 @@ IMGDIR="/cluster/scratch/ibarbier/$EXP_DAY/Images/"
 SOURCEDIR="/nfs/nas22/fs2202/biol_bc_barral_2/ibarbier/2026_GFP_screen/$EXP_DAY/$EXP_DAY/Images/"
 CODEDIR="/cluster/home/ibarbier/Yeast_screening_pipeline/"
 
+ARRAY_PY=/cluster/home/ibarbier/Yeast_screening_pipeline/make_array_file.py
+SNAKEFILE=/cluster/home/ibarbier/Yeast_screening_pipeline/pipeline.smk
 #================ Script =======================
 
 source ~/.bashrc
@@ -42,8 +44,8 @@ if [ ! -d "$RESULTSDIR" ]; then
 fi
 
 # create the array ID table 
-python /cluster/home/ibarbier/Yeast_screening_pipeline/make_array_file.py  $WORKDIR $EXP_ID
+python $ARRAY_PY $WORKDIR $EXP_ID
 
 # submit snakemake 
-snakemake --use-conda --conda-frontend conda --scheduler greedy --snakefile pipeline.smk --config position=$POS codedir=$CODEDIR workdir=$WORKDIR
+snakemake --use-conda --conda-frontend conda --scheduler greedy --snakefile $SNAKEFILE --config position=$POS codedir=$CODEDIR workdir=$WORKDIR
 

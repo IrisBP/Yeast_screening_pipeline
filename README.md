@@ -15,6 +15,7 @@ To install the pipeline
 > git clone https://github.com/IrisBP/Yeast_screening_pipeline.git  
 ( rm -rf Yeast_screening_pipeline )
 
-Navigate to scratch: cd /cluster/scratch/ibarbier 
 to run the pipeline:
 sbatch /cluster/home/ibarbier/Yeast_screening_pipeline/pipeline.sh
+
+Navigate to scratch: cd /cluster/scratch/ibarbier 
