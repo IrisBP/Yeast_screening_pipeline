@@ -32,7 +32,7 @@ source ~/.bashrc
 conda activate pipeline
 
 # check that the conda environment has been activated properly
-echo "Conda environment currently acitvated: "
+echo "Conda environment currently activated: "
 echo "-- $CONDA_DEFAULT_ENV"
 
 # create the image folder and copy the data
@@ -55,6 +55,6 @@ python $ARRAY_PY $WORKDIR $EXP_ID
 
 # submit snakemake 
 # --use-conda --conda-frontend conda
-snakemake --unlock --snakefile $SNAKEFILE
-snakemake --cores 35 --use-conda --conda-frontend conda --scheduler greedy --snakefile $SNAKEFILE --config position=$POS codedir=$CODEDIR workdir=$WORKDIR
+
+snakemake --unlock --cores 35 --use-conda --conda-frontend conda --scheduler greedy --snakefile $SNAKEFILE --config position=$POS codedir=$CODEDIR workdir=$WORKDIR
 
