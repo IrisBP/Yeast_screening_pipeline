@@ -1,8 +1,6 @@
 ###################################### Segment cells and nucleii ############################
 # Made by Iris Barbier - summer 2026
 # Snakemake implementation of cellpose segmentation 
-# very fast - can be run locally 
-
 ##############################################################################################################################
 import os 
 from collections import Counter

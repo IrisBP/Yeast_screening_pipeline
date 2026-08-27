@@ -14,6 +14,8 @@ in home directory (/cluster/home/ibarbier):
 To install the pipeline
 > git clone https://github.com/IrisBP/Yeast_screening_pipeline.git  
 ( rm -rf Yeast_screening_pipeline )
+> conda env create -f /cluster/home/ibarbier/Yeast_screening_pipeline/pipeline.yaml 
+( conda env remove -n pipeline )
 
 to run the pipeline:
 sbatch /cluster/home/ibarbier/Yeast_screening_pipeline/pipeline.sh

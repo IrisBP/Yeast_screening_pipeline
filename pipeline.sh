@@ -53,5 +53,5 @@ python $ARRAY_PY $WORKDIR $EXP_ID
 
 # submit snakemake 
 # --use-conda --conda-frontend conda
-snakemake --cores all --scheduler greedy --snakefile $SNAKEFILE --config position=$POS codedir=$CODEDIR workdir=$WORKDIR
+snakemake --cores 35 --use-conda --conda-frontend conda --scheduler greedy --snakefile $SNAKEFILE --config position=$POS codedir=$CODEDIR workdir=$WORKDIR
 

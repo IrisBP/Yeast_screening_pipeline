@@ -1,3 +1,7 @@
+############################################## Track cell masks objects  ###################################
+# Made by Iris Barbier - summer 2026
+# Snakemake tracking cells in cellpose masks  
+##############################################################################################################################
 import os 
 from collections import Counter 
 import tifffile as tif 
@@ -12,6 +16,7 @@ import tqdm
 ################################################################ functions #################################################################
 
 def check_for_missing_frames(pos, T, mask_path):
+    # check that all 35 frames have beem segmented and are in the mask_path 
     for t in range(1,T+1):
         if f"{pos}t{t}_mask.tif".format() not in os.listdir(mask_path):
             return False
@@ -67,6 +72,9 @@ def missing_number(myList): # myList is assumed to be sorted ascending
     return sorted(set(myList).symmetric_difference(range(myList[0], myList[-1]+1)))
 
 def correction_match_value(m1, m2):
+    '''
+    Match the values of cells in 2 consecutive frames 
+    '''
     feat2, ix_to_cell2 = hu.get_features(m2, 2)
     new_id = [get_new_id(m1, int(feat2['com_x'][i]), int(feat2['com_y'][i])) for i in range(len(feat2))]
     feat2['new_id']=new_id 
@@ -106,7 +114,10 @@ def rmv_weird_border(img):
     return new_img
 
 def correct_shift(m1, m2):
-    
+    '''
+    correct frameshift (match m2 to m1 using the warp affine correction of the OpenCv library)
+    '''
+    # define the type of motion 
     warp_mode = cv2.MOTION_AFFINE
     warp_matrix = np.eye(2, 3, dtype=np.float32)
 
@@ -120,8 +131,6 @@ def correct_shift(m1, m2):
     criteria = (cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_COUNT, 
                 number_of_iterations, termination_eps)
     
-
-
     try:
          # Run the ECC algorithm. The results are stored in warp_matrix.
         (cc, warp_matrix) = cv2.findTransformECC(m1, m2, warp_matrix, 
@@ -138,7 +147,6 @@ def correct_shift(m1, m2):
         #applying the warpAffine transformation adds a weird border to the mask that needs to be removed 
         aligned_image=rmv_weird_border(aligned_image)
         return aligned_image
-    
     except cv2.error as e: #if the the algorithm doesn't converge 
         return m2
 
@@ -266,20 +274,22 @@ def main_tracker(path):
     return 
 
 def tracking_snakemake(cell_masks, nucleus_masks, path_cell_track, path_nucleus_track):
-
-    #initialise the tracking 
+    '''
+    Snakemake implementation of tracking using the hungarian algorithm from the YeaZ pipeline 
+    '''
+    #initialise the tracking with the 1st frames for both the cell and nuclear masks 
     img0=tif.imread(cell_masks[0]).astype('uint16')
     nuc0=tif.imread(nucleus_masks[0]).astype('uint16')
+    # match the nuclear IDs to the cell IDs 
     nuc0=img0*nuc0
-
+    # add the first frame to the tracks 
     cell_track=[img0]
     nucleus_track=[nuc0]
     for t in range(1, len(cell_masks)):
-    #for t in range(1, len(cell_masks)):
         prev=cell_track[t-1]         
         curr=tif.imread(cell_masks[t])
         curr_n=tif.imread(nucleus_masks[t])
-        if curr.max()>0:
+        if curr.max()>0: #if the current frame isn't blank 
             curr=curr.astype('uint16')
             # correct for potential frame shift / plate movement
             # tracking is done on shift corrected timelaps 
@@ -296,10 +306,12 @@ def tracking_snakemake(cell_masks, nucleus_masks, path_cell_track, path_nucleus_
         else:
             #account for missing frames by copying the previous frame 
             corrected=prev
-
+        # add the corrected frame to the cell track
         cell_track.append(corrected)
+        # match the nuclear IDs to the cell IDs and add the frame to the nuclear track 
         corrected_n=corrected*curr_n
         nucleus_track.append(corrected_n)
+    # save the final tracked masks to the provided path 
     tif.imwrite(path_cell_track, np.array(cell_track))
     tif.imwrite(path_nucleus_track, np.array(nucleus_track))
     return 
@@ -308,8 +320,6 @@ def tracking_snakemake(cell_masks, nucleus_masks, path_cell_track, path_nucleus_
 
 #path='/Volumes/ADATA SD810/20260514_phenix1_screen_5nM_1.1__2026-05-14T17_10_46/images/'
 #main_tracker(path)
-
-
 
 cell_masks=snakemake.input.cell[:]
 nucleus_masks=snakemake.input.nucleus[:]
