@@ -51,18 +51,26 @@ def correction_min_dist(m1, m2):
     return new 
 
 def get_new_id(m1, cx,cy):
+    '''
+    Given a centroid coordinate (cx, cy), return the pixel value most represented in the 3 by 3 square around the centroid in the image m1
+    Used to match cell IDs between frames 
+    '''
+    # erode the image for more precise result
     X,Y=m1.shape
     kernel = np.ones((5, 5), np.uint8)
     m1_temp = cv2.erode(m1, kernel)
+    # get all the pixel values in the 3 x 3 square around the (cx,cy) centroid
     list_ids=[]
     for i in range(-1,2):
         for j in range(-1,2):
             if cx+i<X and cy+j <Y:
                 list_ids.append(m1_temp[cx+i,cy+j])
+    # remove the 0 
     list_ids=[i for i in list_ids if i!=0]
-    if len(list_ids)<1:
+    
+    if len(list_ids)<1: # if the list is empty, the new Id is zeros
         new_id=0
-    else:
+    else: # if the list isnt empty, the new ID is the most represented value in the square 
         list_ids=Counter(list_ids)
         sorted_dict = dict(sorted(list_ids.items(), key=lambda item: item[1], reverse=True)) 
         new_id=list(sorted_dict.keys())[0]
@@ -75,23 +83,25 @@ def correction_match_value(m1, m2):
     '''
     Match the values of cells in 2 consecutive frames 
     '''
+    # get the object features including the centroid coordinates
     feat2, ix_to_cell2 = hu.get_features(m2, 2)
+    # get the new ID by getting the pixel value around the centroid in the previous frame 
     new_id = [get_new_id(m1, int(feat2['com_x'][i]), int(feat2['com_y'][i])) for i in range(len(feat2))]
     feat2['new_id']=new_id 
+    # modify m2 with the new IDs => new is m2 with IDs matching m1 
     new = m2.copy()
-    #available_values=missing_number(list(feat2["new_id"]))
     maximum=max(list(feat2["new_id"]))
     for i in range(len(feat2)):
         key=feat2['cell'][i]
         val=feat2['new_id'][i]
-        if val==0:
+        if val==0: # deal with new cells 
             maximum += 1
             val=maximum 
         feat2.loc[i, 'new_id']=val
+        # update the pixel values of m2 
         new[m2==key] = val
     kernel = np.ones((3, 3), np.uint8)
     new = cv2.morphologyEx(new, cv2.MORPH_CLOSE, kernel)
-
     return new 
 
 def rmv_weird_border(img):

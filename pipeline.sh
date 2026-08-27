@@ -8,7 +8,7 @@
 #SBATCH --output=slurm-%j.out
 #SBATCH --error=slurm-%j.err
 
-export OMP_NUM_THREADS=35
+#export OMP_NUM_THREADS=35
 
 #================ To modify =======================
 
