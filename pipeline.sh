@@ -32,15 +32,17 @@ source ~/.bashrc
 conda activate pipeline
 
 # check that the conda environment has been activated properly
-echo $CONDA_DEFAULT_ENV
+echo "Conda environment currently acitvated: "
+echo "-- $CONDA_DEFAULT_ENV"
 
 # create the image folder and copy the data
+echo "Raw images status: "
 if [ ! -d "$IMGDIR" ]; then
-  echo "$IMGDIR does not exist. Copying data now"
+  echo "-- $IMGDIR does not exist. Copying data now"
   mkdir $WORKDIR
   cp -R $SOURCEDIR $WORKDIR
 else
-  echo "Data already copied"
+  echo "-- Data already copied from source"
 fi
 
 # create the result folder 
