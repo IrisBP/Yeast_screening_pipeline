@@ -146,7 +146,6 @@ dependencies:
   - semver=3.0.4
   - setuptools=83.0.0
   - shellingham=1.5.4
-  - simdjson=3.10.10
   - sqlite=3.53.2
   - tk=8.6.15
   - tomli=2.4.0
