@@ -18,9 +18,9 @@ To install the pipeline
 ( conda env remove -n pipeline )
 
 to run the pipeline:
-sbatch /cluster/home/ibarbier/Yeast_screening_pipeline/pipeline.sh
+> sbatch /cluster/home/ibarbier/Yeast_screening_pipeline/pipeline.sh 
 
 Navigate to scratch: cd /cluster/scratch/ibarbier 
 
-snakemake --cores 35 --use-conda --conda-frontend conda --scheduler greedy --snakefile /cluster/home/ibarbier/Yeast_screening_pipeline/pipeline.smk --unlock
 
+Command 'source activate 'pipeline'; set -euo pipefail;  python died with <Signals.SIGKILL: 9>.

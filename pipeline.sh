@@ -4,7 +4,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
 #SBATCH --time=24:00:00
-#SBATCH --mem-per-cpu=8000
+#SBATCH --mem-per-cpu=20000
 #SBATCH --output=slurm-%j.out
 #SBATCH --error=slurm-%j.err
 
@@ -56,5 +56,5 @@ python $ARRAY_PY $WORKDIR $EXP_ID
 # submit snakemake 
 # --use-conda --conda-frontend conda
 
-snakemake --unlock --cores 35 --use-conda --conda-frontend conda --scheduler greedy --snakefile $SNAKEFILE --config position=$POS codedir=$CODEDIR workdir=$WORKDIR
+snakemake --cores 35 --use-conda --conda-frontend conda --scheduler greedy --snakefile $SNAKEFILE --config position=$POS codedir=$CODEDIR workdir=$WORKDIR
 
