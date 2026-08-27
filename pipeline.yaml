@@ -9,6 +9,7 @@ dependencies:
   - pip=26.2.1
   - python=3.13.14
   - snakemake=9.25.1
+  - urllib3=2.7.0
   - pip:
       - cellpose==4.2.1.1
       - contourpy==1.3.3

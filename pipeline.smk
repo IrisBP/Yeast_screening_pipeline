@@ -19,11 +19,11 @@ TIMES=glob_wildcards(PATH+"ch1{time}.tiff")
 # collect all results we want to generate for the run 
 rule all:
     input:
-        expand(OUTPATH+'/{pos}/masks/{pos}{t}_mask.tif', t=TIMES.time, pos=POSITION), #single frame segmentation masks
-        expand(OUTPATH+'/{pos}/masks/{pos}{t}_NuclearMask.tif', t=TIMES.time, pos=POSITION), #single frame nuclear segmentation mask
-        f'{OUTPATH}/{POSITION}/{POSITION}_mask.tif'.format(), # tracked mask - with all 35 frames 
-        f'{OUTPATH}/{POSITION}/{POSITION}_nucleus_mask.tif'.format(), # tracked nuclear masks with all 35 frames 
-        f'{OUTPATH}/{POSITION}/{POSITION}_description.csv'.format()
+        expand(OUTPATH+'masks/{pos}{t}_mask.tif', t=TIMES.time, pos=POSITION), #single frame segmentation masks
+        expand(OUTPATH+'masks/{pos}{t}_NuclearMask.tif', t=TIMES.time, pos=POSITION), #single frame nuclear segmentation mask
+        f'{OUTPATH}{POSITION}_mask.tif'.format(), # tracked mask - with all 35 frames 
+        f'{OUTPATH}{POSITION}_nucleus_mask.tif'.format(), # tracked nuclear masks with all 35 frames 
+        f'{OUTPATH}{POSITION}_description.csv'.format()
 
 # segmentation 
 rule segmentation:
@@ -34,8 +34,8 @@ rule segmentation:
         SOURCE+POSITION+'ch4{t}.tiff',
     threads: 1
     output:
-        OUTPATH+'/'+POSITION+'/masks/'+POSITION+'{t}_mask.tif', 
-        OUTPATH+'/'+POSITION+'/masks/'+POSITION+'{t}_NuclearMask.tif', 
+        OUTPATH+'masks/'+POSITION+'{t}_mask.tif', 
+        OUTPATH+'masks/'+POSITION+'{t}_NuclearMask.tif', 
     conda: 
         "pipeline"
     script: 
@@ -45,11 +45,11 @@ rule segmentation:
 # tracking 
 rule tracking: 
     input: 
-        cell=[f'{OUTPATH}/{POSITION}/masks/{POSITION}t{i}_mask.tif'.format() for i in range(1,36)],
-        nucleus=[f'{OUTPATH}/{POSITION}/masks/{POSITION}t{i}_NuclearMask.tif'.format() for i in range(1,36)]
+        cell=[f'{OUTPATH}masks/{POSITION}t{i}_mask.tif'.format() for i in range(1,36)],
+        nucleus=[f'{OUTPATH}masks/{POSITION}t{i}_NuclearMask.tif'.format() for i in range(1,36)]
     output:
-        OUTPATH+'/'+POSITION+'/'+POSITION+'_mask.tif',
-        OUTPATH+'/'+POSITION+'/'+POSITION+'_nucleus_mask.tif'
+        OUTPATH+POSITION+'_mask.tif',
+        OUTPATH+POSITION+'_nucleus_mask.tif'
     conda: 
         "pipeline"
     script: 
@@ -58,13 +58,13 @@ rule tracking:
 # single cell description of intensity
 rule description: 
     input: 
-        f'{OUTPATH}/{POSITION}/{POSITION}_mask.tif'.format(),
-        f'{OUTPATH}/{POSITION}/{POSITION}_nucleus_mask.tif'.format(),
+        f'{OUTPATH}{POSITION}_mask.tif'.format(),
+        f'{OUTPATH}{POSITION}_nucleus_mask.tif'.format(),
         SOURCE+POSITION+'ch2{t}.tiff',
         SOURCE+POSITION+'ch3{t}.tiff',
         SOURCE+POSITION+'ch4{t}.tiff',
     output: 
-        OUTPATH+'/'+POSITION+'/temp/description_{t}.csv'
+        OUTPATH+'temp/description_{t}.csv'
     conda: 
         "pipepline"
     threads: 10   
@@ -74,11 +74,11 @@ rule description:
 # collecting all the description files and merging them into 1 single large file for the position    
 rule merge_results:
     input: 
-        table=[f'{OUTPATH}/{POSITION}/temp/description_t{i}.csv'.format() for i in range(1,36)],
+        table=[f'{OUTPATH}temp/description_t{i}.csv'.format() for i in range(1,36)],
     params:
-        path=f'{OUTPATH}/{POSITION}/temp/'.format()
+        path=f'{OUTPATH}temp/'.format()
     output:
-        f'{OUTPATH}/{POSITION}/{POSITION}_description.csv'.format()
+        f'{OUTPATH}{POSITION}_description.csv'.format()
     conda: 
         "pipeline"
     threads: 1  
