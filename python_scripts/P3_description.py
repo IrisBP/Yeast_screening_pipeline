@@ -1,3 +1,7 @@
+############################################## Describe cell objects (size and fluo I)  ###################################
+# Made by Iris Barbier - summer 2026
+# Snakemake implementation of object description
+##############################################################################################################################
 import pandas as pd 
 import numpy as np
 import tifffile as tif 
@@ -5,12 +9,14 @@ import pipeline.hungarian as hu
 from multiprocessing import Pool, cpu_count
 
 def get_dist(mask, raw):
-        masked=mask*raw
-        dist=np.array([i for i in masked.ravel() if i !=0])
-        if len(dist)>0:
-                return dist.mean(), dist.max(), dist.std()
-        else:
-            return 0,0, 0 
+    '''
+    '''
+    masked=mask*raw
+    dist=np.array([i for i in masked.ravel() if i !=0])
+    if len(dist)>0:
+            return dist.mean(), dist.max(), dist.std()
+    else:
+        return 0,0, 0 
 
 def get_fluo_info(V):
     c, mask, G, R, FR = V 
