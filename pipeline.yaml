@@ -51,7 +51,7 @@ dependencies:
   - conda-self=0.2.1
   - cpp-expected=1.1.0
   - cryptography=49.0.0
-  - dbus=1.16.2=
+  - dbus=1.16.2
   - distro=1.9.0
   - expat=2.8.2
   - filelock=3.29.4
@@ -153,7 +153,7 @@ dependencies:
   - sqlite=3.53.2
   - tk=8.6.15
   - tomli=2.4.0
-  - tomli-w=1.2.0=
+  - tomli-w=1.2.0
   - tomlkit=0.15.1
   - tqdm=4.68.2
   - truststore=0.10.4
