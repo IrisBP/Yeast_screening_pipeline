@@ -36,7 +36,8 @@ rule segmentation:
     output:
         OUTPATH+'masks/'+POSITION+'{t}_mask.tif', 
         OUTPATH+'masks/'+POSITION+'{t}_NuclearMask.tif', 
-
+    conda: 
+        "/cluster/home/ibarbier/miniconda3/envs/pipeline"
     script: 
         CODEDIR+"/python_scripts/P1_segmentation.py"
 
@@ -49,7 +50,8 @@ rule tracking:
     output:
         OUTPATH+POSITION+'_mask.tif',
         OUTPATH+POSITION+'_nucleus_mask.tif'
-
+    conda: 
+        "/cluster/home/ibarbier/miniconda3/envs/pipeline"
     script: 
         CODEDIR+"/python_scripts/P2_tracking.py"
 
@@ -63,7 +65,8 @@ rule description:
         SOURCE+POSITION+'ch4{t}.tiff',
     output: 
         OUTPATH+'temp/description_{t}.csv'
-
+    conda: 
+        "/cluster/home/ibarbier/miniconda3/envs/pipeline"
     threads: 10   
     script:
         CODEDIR+'/python_scripts/P3_description.py'
@@ -76,7 +79,8 @@ rule merge_results:
         path=f'{OUTPATH}temp/'.format()
     output:
         f'{OUTPATH}{POSITION}_description.csv'.format()
-
+    conda: 
+        "/cluster/home/ibarbier/miniconda3/envs/pipeline"
     threads: 1  
     script:
         CODEDIR+'/python_scripts/P4_mergetable.py'
