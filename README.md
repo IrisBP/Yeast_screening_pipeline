@@ -31,6 +31,7 @@ Note to self:
             .py => when loading the model: gpu=True 
             .sh #SBATCH --gpus=1
                 #SBATCH --gres=gpumem:20000m
+        Works super well and very fast !!
 
     >> test of pipeline_WIP.sh
     only the segmentation test with 1 position 

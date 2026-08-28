@@ -38,7 +38,7 @@ rule segmentation:
         "/cluster/home/ibarbier/miniconda3/envs/pipeline"
 
     script: 
-        CODEDIR+"/python_scripts/P1_segmentation.py"
+        CODEDIR+"/python_scripts/P1_segmentation_GPU.py"
 
 
 
