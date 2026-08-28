@@ -41,7 +41,7 @@ rule segmentation:
         OUTPATH+'masks/'+POSITION+'{t}_NuclearMask.tif', 
 
     script: 
-        CODEDIR+"/python_scripts/P1_segmentation.py"
+        CODEDIR+"/python_scripts/P1_segmentation_GPU.py"
 
 
 # tracking 
