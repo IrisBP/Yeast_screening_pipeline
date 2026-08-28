@@ -29,7 +29,7 @@ SNAKEFILE=/cluster/home/ibarbier/Yeast_screening_pipeline/pipeline.smk
 #================ Script =======================
 
 source ~/.bashrc
-conda activate pipeline
+conda activate /cluster/home/ibarbier/miniconda3/envs/pipeline
 
 # check that the conda environment has been activated properly
 echo "Conda environment currently activated: "
