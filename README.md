@@ -45,6 +45,8 @@ Note to self:
     ---- assigning more thread to each segmentation job seem to have fixed the OOM issue
     3) On GPU, doing segmentation and tracking 
         11min in and holding good !
+    ---- Tracking OK!
+    4) On GPU, testing full snakemake pipeline 
     
 
 

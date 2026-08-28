@@ -23,8 +23,7 @@ rule all:
         expand(OUTPATH+'masks/{pos}{t}_NuclearMask.tif', t=TIMES.time, pos=POSITION), #single frame nuclear segmentation mask
         f'{OUTPATH}{POSITION}_mask.tif'.format(), # tracked mask - with all 35 frames 
         f'{OUTPATH}{POSITION}_nucleus_mask.tif'.format(), # tracked nuclear masks with all 35 frames 
-        f'{OUTPATH}{POSITION}_description.csv'.format()
-
+        f'{OUTPATH}{POSITION}_description.csv'.format(),
 # segmentation 
 rule segmentation:
     input:
