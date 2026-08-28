@@ -6,7 +6,6 @@ import glob
 POSITION=config["position"]
 CODEDIR=config["codedir"]
 WORKDIR=config["workdir"]
-IMGDIR=config["imgdir"]
 
 # create path to images and results 
 OUTPATH=f'{WORKDIR}results/{POSITION}/'.format()

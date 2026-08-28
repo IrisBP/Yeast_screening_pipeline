@@ -54,22 +54,9 @@ def segmentation_snakemake(dpc,g,r,fr, cell_outpath, nucleus_outpath):
 # Snakemake implementation 
 # snakemake inputs 0-3 : all 4 channels (dpc, g, r, fr)
 # snakemake outputs: paths to save the cell and nuclear masks 
-#segmentation_snakemake(snakemake.input[0],snakemake.input[1],snakemake.input[2],snakemake.input[3],snakemake.output[0], snakemake.output[1])
+segmentation_snakemake(snakemake.input[0],snakemake.input[1],snakemake.input[2],snakemake.input[3],snakemake.output[0], snakemake.output[1])
 
 
-# CLI implementation 
-
-in_path=sys.argv[1]
-out_path=sys.argv[2]
-dpc=in_path+'ch1t1.tiff'
-g=in_path+'ch2t1.tiff'
-r=in_path+'ch3t1.tiff'
-fr=in_path+'ch4t1.tiff'
-
-cell_out=out_path+"_CellMask.tif"
-nucleus_out=out_path+"_NuclearMask.tif"
-
-segmentation_snakemake(dpc,g,r,fr, cell_out, nucleus_out)
 
 
 
