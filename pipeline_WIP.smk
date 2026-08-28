@@ -66,7 +66,7 @@ rule description:
         SOURCE+POSITION+'ch2{t}.tiff',
         SOURCE+POSITION+'ch3{t}.tiff',
         SOURCE+POSITION+'ch4{t}.tiff', 
-        CODEDIR+'/ref_table.csv',
+        CODEDIR+'/ref_table.txt',
     output: 
         OUTPATH+'temp/description_{t}.csv'
     conda:

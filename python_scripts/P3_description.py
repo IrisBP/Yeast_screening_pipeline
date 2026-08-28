@@ -71,7 +71,7 @@ def describe(cell_masks, nucleus_masks, t, thread_count, g, r , fr , ref_table):
             results = pd.merge(results, infos_table_nucleus, on="cell", how="left")
 
     else: 
-        results=pd.read_csv(ref_table)
+        results=pd.read_table(ref_table, sep=',')
     return results
 
 

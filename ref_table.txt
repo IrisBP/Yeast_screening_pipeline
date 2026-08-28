@@ -1,0 +1,1 @@
+cell,time,sqrtarea,area,com_x,com_y,N_sqrtarea,N_area,N_com_x,N_com_y,G_mean,G_max,G_std,R_mean,R_max,R_std,Fr_mean,Fr_max,Fr_std,N_G_mean,N_G_max,N_G_std,N_R_mean,N_R_max,N_R_std,N_Fr_mean,N_Fr_max,N_Fr_std
