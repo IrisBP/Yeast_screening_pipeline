@@ -22,7 +22,7 @@ to run the pipeline:
 
 Navigate to scratch: cd /cluster/scratch/ibarbier 
 path to output: /cluster/scratch/ibarbier/20260424_phenix1_screen_5nM_2.3/results/p2rep3_r05c06f02/masks
-
+to count file nb: > ls -1q | wc -l
 
 Note to self:
     >> see test_cellpose 
@@ -41,6 +41,7 @@ Note to self:
     2) Trying with GPU and all 35 positions 
         first test with 20GB of ram lead to Out of memory error under 10min 
         trying again with 40GB
+        Failed again => trying with assigning 4 threads to each segmentation job within the snakefile 
     
 
 

@@ -21,7 +21,8 @@ rule all:
     input:
         expand(OUTPATH+'masks/{pos}{t}_mask.tif', t=TIMES.time, pos=POSITION), #single frame segmentation masks
         expand(OUTPATH+'masks/{pos}{t}_NuclearMask.tif',t=TIMES.time, pos=POSITION), #single frame nuclear segmentation mask
-
+        f'{OUTPATH}{POSITION}_mask.tif'.format(), # tracked mask - with all 35 frames 
+        f'{OUTPATH}{POSITION}_nucleus_mask.tif'.format(), # tracked nuclear masks with all 35 frames
 
 # segmentation 
 rule segmentation:
@@ -39,6 +40,20 @@ rule segmentation:
 
     script: 
         CODEDIR+"/python_scripts/P1_segmentation_GPU.py"
+
+# tracking 
+rule tracking: 
+    input: 
+        cell=[f'{OUTPATH}masks/{POSITION}t{i}_mask.tif'.format() for i in range(1,36)],
+        nucleus=[f'{OUTPATH}masks/{POSITION}t{i}_NuclearMask.tif'.format() for i in range(1,36)]
+    output:
+        OUTPATH+POSITION+'_mask.tif',
+        OUTPATH+POSITION+'_nucleus_mask.tif'
+    conda:
+        "/cluster/home/ibarbier/miniconda3/envs/pipeline"
+
+    script: 
+        CODEDIR+"/python_scripts/P2_tracking.py"
 
 
 
