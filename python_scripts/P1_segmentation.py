@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 from cellpose import models, io
 import tifffile as tif # requires pip install imagecodecs for .tiff 
 import cv2 
+import sys 
 #############################################################################################################################
 
 def segmentation_snakemake(dpc,g,r,fr, cell_outpath, nucleus_outpath): 
@@ -53,14 +54,18 @@ def segmentation_snakemake(dpc,g,r,fr, cell_outpath, nucleus_outpath):
 # Snakemake implementation 
 # snakemake inputs 0-3 : all 4 channels (dpc, g, r, fr)
 # snakemake outputs: paths to save the cell and nuclear masks 
-segmentation_snakemake(snakemake.input[0],snakemake.input[1],snakemake.input[2],snakemake.input[3],
-            snakemake.output[0], snakemake.output[1])
+#segmentation_snakemake(snakemake.input[0],snakemake.input[1],snakemake.input[2],snakemake.input[3],snakemake.output[0], snakemake.output[1])
 
 
+# CLI implementation 
 
-
-
-
+dpc=sys.argv[1]
+g=sys.argv[2]
+r=sys.argv[3]
+fr=sys.argv[4]
+cell_out=sys.argv[5]
+nucleus_out=sys.argv[6]
+segmentation_snakemake(dpc,g,r,fr, cell_out, nucleus_out)
 
 
 
