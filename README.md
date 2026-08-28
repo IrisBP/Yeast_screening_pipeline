@@ -23,7 +23,7 @@ to run the pipeline:
 Navigate to scratch: cd /cluster/scratch/ibarbier 
 
 
-Note to self: 
+Note to self:
     >> see test_cellpose 
     1) test run of Cellpose on 1 image submitted to the slurm system => took over 1h for the segmentation 
      but it worked ok => mask was generated 
@@ -32,7 +32,7 @@ Note to self:
             .sh #SBATCH --gpus=1
                 #SBATCH --gres=gpumem:20000m
         Works super well and very fast !!
-
+--- it seems that running the model in the home directory once before sending to slurm solved the download problem as seen in error.txt (leading to OSError: [Errno 99] Cannot assign requested address)
     >> test of pipeline_WIP.sh
     only the segmentation test with 1 position 
     took around 1h30 
