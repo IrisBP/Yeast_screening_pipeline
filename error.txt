@@ -1,103 +1,69 @@
-File "/cluster/home/ibarbier/miniconda3/envs/pipeline/lib/python3.13/urllib/request.py", line 1319, in do_open
+  Traceback (most recent call last):
+  File "/cluster/home/ibarbier/miniconda3/lib/python3.14/urllib/request.py", line 1321, in do_open
     h.request(req.get_method(), req.selector, req.data, headers,
     ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
               encode_chunked=req.has_header('Transfer-encoding'))
               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/cluster/home/ibarbier/miniconda3/envs/pipeline/lib/python3.13/http/client.py", line 1367, in request
+  File "/cluster/home/ibarbier/miniconda3/lib/python3.14/http/client.py", line 1367, in request
     self._send_request(method, url, body, headers, encode_chunked)
     ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/cluster/home/ibarbier/miniconda3/envs/pipeline/lib/python3.13/http/client.py", line 1413, in _send_request
+  File "/cluster/home/ibarbier/miniconda3/lib/python3.14/http/client.py", line 1413, in _send_request
     self.endheaders(body, encode_chunked=encode_chunked)
     ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/cluster/home/ibarbier/miniconda3/envs/pipeline/lib/python3.13/http/client.py", line 1362, in endheaders
+  File "/cluster/home/ibarbier/miniconda3/lib/python3.14/http/client.py", line 1362, in endheaders
     self._send_output(message_body, encode_chunked=encode_chunked)
     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/cluster/home/ibarbier/miniconda3/envs/pipeline/lib/python3.13/http/client.py", line 1122, in _send_output
+  File "/cluster/home/ibarbier/miniconda3/lib/python3.14/http/client.py", line 1122, in _send_output
     self.send(msg)
     ~~~~~~~~~^^^^^
-  File "/cluster/home/ibarbier/miniconda3/envs/pipeline/lib/python3.13/http/client.py", line 1066, in send
+  File "/cluster/home/ibarbier/miniconda3/lib/python3.14/http/client.py", line 1066, in send
     self.connect()
     ~~~~~~~~~~~~^^
-  File "/cluster/home/ibarbier/miniconda3/envs/pipeline/lib/python3.13/http/client.py", line 1501, in connect
+    File "/cluster/home/ibarbier/miniconda3/lib/python3.14/http/client.py", line 1501, in connect
     super().connect()
     ~~~~~~~~~~~~~~~^^
-  File "/cluster/home/ibarbier/miniconda3/envs/pipeline/lib/python3.13/http/client.py", line 1032, in connect
+  File "/cluster/home/ibarbier/miniconda3/lib/python3.14/http/client.py", line 1032, in connect
     self.sock = self._create_connection(
                 ~~~~~~~~~~~~~~~~~~~~~~~^
         (self.host,self.port), self.timeout, self.source_address)
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/cluster/home/ibarbier/miniconda3/envs/pipeline/lib/python3.13/socket.py", line 868, in create_connection
+  File "/cluster/home/ibarbier/miniconda3/lib/python3.14/socket.py", line 874, in create_connection
     raise exceptions[0]
-  File "/cluster/home/ibarbier/miniconda3/envs/pipeline/lib/python3.13/socket.py", line 853, in create_connection
+  File "/cluster/home/ibarbier/miniconda3/lib/python3.14/socket.py", line 859, in create_connection
     sock.connect(sa)
     ~~~~~~~~~~~~^^^^
 OSError: [Errno 99] Cannot assign requested address
 
+During handling of the above exception, another exception occurred:
 
 Traceback (most recent call last):
-  File "/cluster/home/ibarbier/.snakemake/scripts/tmp1p8mfnwl.P1_segmentation.py", line 59, in <module>
-    segmentation_snakemake(snakemake.input[0],snakemake.input[1],snakemake.input[2],snakemake.input[3],
-    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-                snakemake.output[0], snakemake.output[1])
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/cluster/home/ibarbier/.snakemake/scripts/tmp1p8mfnwl.P1_segmentation.py", line 35, in segmentation_snakemake
+  File "/cluster/home/ibarbier/Yeast_screening_pipeline/python_scripts/P1_segmentation.py", line 72, in <module>
+    segmentation_snakemake(dpc,g,r,fr, cell_out, nucleus_out)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/cluster/home/ibarbier/Yeast_screening_pipeline/python_scripts/P1_segmentation.py", line 33, in segmentation_snakemake
     model = models.CellposeModel(gpu=False)
-  File "/cluster/home/ibarbier/miniconda3/envs/pipeline/lib/python3.13/site-packages/cellpose/models.py", line 147, in __init__
+  File "/cluster/home/ibarbier/VenvPipeline/lib/python3.14/site-packages/cellpose/models.py", line 147, in __init__
     pretrained_model = cache_model_path(pretrained_model)
-  File "/cluster/home/ibarbier/miniconda3/envs/pipeline/lib/python3.13/site-packages/cellpose/models.py", line 53, in cache_model_path
+  File "/cluster/home/ibarbier/VenvPipeline/lib/python3.14/site-packages/cellpose/models.py", line 53, in cache_model_path
     utils.download_url_to_file(_MODEL_URL + backbone, cached_file, progress=True)
     ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/cluster/home/ibarbier/miniconda3/envs/pipeline/lib/python3.13/site-packages/cellpose/utils.py", line 74, in download_url_to_file
+  File "/cluster/home/ibarbier/VenvPipeline/lib/python3.14/site-packages/cellpose/utils.py", line 74, in download_url_to_file
     u = urlopen(url)
-  File "/cluster/home/ibarbier/miniconda3/envs/pipeline/lib/python3.13/urllib/request.py", line 189, in urlopen
+  File "/cluster/home/ibarbier/miniconda3/lib/python3.14/urllib/request.py", line 187, in urlopen
     return opener.open(url, data, timeout)
            ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
-  File "/cluster/home/ibarbier/miniconda3/envs/pipeline/lib/python3.13/urllib/request.py", line 489, in open
+  File "/cluster/home/ibarbier/miniconda3/lib/python3.14/urllib/request.py", line 487, in open
     response = self._open(req, data)
-  File "/cluster/home/ibarbier/miniconda3/envs/pipeline/lib/python3.13/urllib/request.py", line 506, in _open
+  File "/cluster/home/ibarbier/miniconda3/lib/python3.14/urllib/request.py", line 504, in _open
     result = self._call_chain(self.handle_open, protocol, protocol +
                               '_open', req)
-  File "/cluster/home/ibarbier/miniconda3/envs/pipeline/lib/python3.13/urllib/request.py", line 466, in _call_chain
+  File "/cluster/home/ibarbier/miniconda3/lib/python3.14/urllib/request.py", line 464, in _call_chain
     result = func(*args)
-  File "/cluster/home/ibarbier/miniconda3/envs/pipeline/lib/python3.13/urllib/request.py", line 1367, in https_open
+  File "/cluster/home/ibarbier/miniconda3/lib/python3.14/urllib/request.py", line 1369, in https_open
     return self.do_open(http.client.HTTPSConnection, req,
            ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
                         context=self._context)
-  File "/cluster/home/ibarbier/miniconda3/envs/pipeline/lib/python3.13/urllib/request.py", line 1322, in do_open
+                        ^^^^^^^^^^^^^^^^^^^^^^
+  File "/cluster/home/ibarbier/miniconda3/lib/python3.14/urllib/request.py", line 1324, in do_open
     raise URLError(err)
 urllib.error.URLError: <urlopen error [Errno 99] Cannot assign requested address>
-Traceback (most recent call last):
-  File "/cluster/home/ibarbier/miniconda3/envs/pipeline/lib/python3.13/urllib/request.py", line 1319, in do_open
-    h.request(req.get_method(), req.selector, req.data, headers,
-    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-              encode_chunked=req.has_header('Transfer-encoding'))
-              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/cluster/home/ibarbier/miniconda3/envs/pipeline/lib/python3.13/http/client.py", line 1367, in request
-    self._send_request(method, url, body, headers, encode_chunked)
-    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/cluster/home/ibarbier/miniconda3/envs/pipeline/lib/python3.13/http/client.py", line 1413, in _send_request
-    self.endheaders(body, encode_chunked=encode_chunked)
-    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/cluster/home/ibarbier/miniconda3/envs/pipeline/lib/python3.13/http/client.py", line 1362, in endheaders
-    self._send_output(message_body, encode_chunked=encode_chunked)
-    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/cluster/home/ibarbier/miniconda3/envs/pipeline/lib/python3.13/http/client.py", line 1122, in _send_output
-    self.send(msg)
-    ~~~~~~~~~^^^^^
-  File "/cluster/home/ibarbier/miniconda3/envs/pipeline/lib/python3.13/http/client.py", line 1066, in send
-    self.connect()
-    ~~~~~~~~~~~~^^
-  File "/cluster/home/ibarbier/miniconda3/envs/pipeline/lib/python3.13/http/client.py", line 1501, in connect
-    super().connect()
-    ~~~~~~~~~~~~~~~^^
-  File "/cluster/home/ibarbier/miniconda3/envs/pipeline/lib/python3.13/http/client.py", line 1032, in connect
-    self.sock = self._create_connection(
-                ~~~~~~~~~~~~~~~~~~~~~~~^
-        (self.host,self.port), self.timeout, self.source_address)
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/cluster/home/ibarbier/miniconda3/envs/pipeline/lib/python3.13/socket.py", line 868, in create_connection
-    raise exceptions[0]
-  File "/cluster/home/ibarbier/miniconda3/envs/pipeline/lib/python3.13/socket.py", line 853, in create_connection
-    sock.connect(sa)
-    ~~~~~~~~~~~~^^^^
-OSError: [Errno 99] Cannot assign requested address

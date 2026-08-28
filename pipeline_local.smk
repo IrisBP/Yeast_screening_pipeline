@@ -3,14 +3,14 @@
 import glob 
 
 #get input from CLI / .sh script
+#get input from CLI / .sh script
 POSITION=config["position"]
 CODEDIR=config["codedir"]
 WORKDIR=config["workdir"]
-IMGDIR=config["imgdir"]
 
 # create path to images and results 
-OUTPATH=f'{WORKDIR}results/{POSITION}/'.format()
-SOURCE=f'{WORKDIR}Images/'.format()
+OUTPATH=f'{WORKDIR}/results/{POSITION}/'.format()
+SOURCE=config["imgdir"]
 
 # first, find matches to filenames of this form to get the Time wildcard:
 PATH=f"{SOURCE}{POSITION}".format()
@@ -34,6 +34,8 @@ rule segmentation:
         SOURCE+POSITION+'ch3{t}.tiff',
         SOURCE+POSITION+'ch4{t}.tiff',
     threads: 1
+    conda:
+        "/opt/miniconda3/envs/pipeline"
     output:
         OUTPATH+'masks/'+POSITION+'{t}_mask.tif', 
         OUTPATH+'masks/'+POSITION+'{t}_NuclearMask.tif', 
@@ -50,6 +52,8 @@ rule tracking:
     output:
         OUTPATH+POSITION+'_mask.tif',
         OUTPATH+POSITION+'_nucleus_mask.tif'
+    conda:
+        "/opt/miniconda3/envs/pipeline"
 
     script: 
         CODEDIR+"/python_scripts/P2_tracking.py"
@@ -64,6 +68,8 @@ rule description:
         SOURCE+POSITION+'ch4{t}.tiff',
     output: 
         OUTPATH+'temp/description_{t}.csv'
+    conda:
+        "/opt/miniconda3/envs/pipeline"
 
     threads: 10   
     script:
@@ -77,7 +83,8 @@ rule merge_results:
         path=f'{OUTPATH}temp/'.format()
     output:
         f'{OUTPATH}{POSITION}_description.csv'.format()
-
+    conda:
+        "/opt/miniconda3/envs/pipeline"
     threads: 1  
     script:
         CODEDIR+'/python_scripts/P4_mergetable.py'

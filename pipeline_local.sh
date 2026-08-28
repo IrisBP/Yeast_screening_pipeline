@@ -1,15 +1,5 @@
 #!/bin/bash
 
-#SBATCH --account=es_biol
-#SBATCH --ntasks=1
-#SBATCH --cpus-per-task=1
-#SBATCH --time=24:00:00
-#SBATCH --mem-per-cpu=20000
-#SBATCH --output=slurm-%j.out
-#SBATCH --error=slurm-%j.err
-
-#export OMP_NUM_THREADS=35
-
 #================ To modify =======================
 
 EXP_DAY='20260424_phenix1_screen_5nM_2.3'
@@ -18,18 +8,17 @@ POS='p2rep3_r05c06f02'
 
 #============= Localization Variables =============
 # path to the various directory required for the pipeline 
-WORKDIR="./$EXP_DAY"
+WORKDIR="/Users/ibarbier/Desktop/local_pipeline/$EXP_DAY"
 RESULTSDIR="$WORKDIR/results/"
 
-IMGDIR="/Volumes/biol_bc_barral_2/ibarbier/2026_GFP_screen/$EXP_DAY/$EXP_DAY/Images/"
+IMGDIR="/Volumes/ADATA_SE880/20260424_phenix1_screen_5nM_2.3__2026-04-24/Images/"
 
-CODEDIR="./Yeast_screening_pipeline"
-SNAKEFILE="$CODEDIR/pipeline.smk"
+CODEDIR="/Users/ibarbier/Desktop/local_pipeline//Yeast_screening_pipeline"
+SNAKEFILE="$CODEDIR/pipeline_local.smk"
 
 #================ Script =======================
 
-source ~/.bashrc
-conda activate pipeline
+conda activate /opt/miniconda3/envs/pipeline
 
 # check that the conda environment has been activated properly
 echo "Conda environment currently activated: "
@@ -48,6 +37,6 @@ fi
 # submit snakemake 
 # --use-conda --conda-frontend conda
 
-snakemake --cores 35 --use-conda --conda-frontend conda --scheduler greedy --snakefile $SNAKEFILE --config position=$POS codedir=$CODEDIR workdir=$WORKDIR
+snakemake --cores 6 --use-conda --conda-frontend conda --scheduler greedy --snakefile $SNAKEFILE --config position=$POS codedir=$CODEDIR workdir=$WORKDIR imgdir=$IMGDIR
 
 

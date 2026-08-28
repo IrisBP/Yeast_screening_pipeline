@@ -19,21 +19,21 @@ POS='p2rep3_r05c06f02'
 #============= Localization Variables =============
 # path to the various directory required for the pipeline 
 WORKDIR="/cluster/scratch/ibarbier/$EXP_DAY/"
-RESULTSDIR="/cluster/scratch/ibarbier/$EXP_DAY/results"
-IMGDIR="/cluster/scratch/ibarbier/$EXP_DAY/Images"
+RESULTSDIR="/cluster/scratch/ibarbier/$EXP_DAY/results/"
+IMGDIR="/cluster/scratch/ibarbier/$EXP_DAY/Images/"
 SOURCEDIR="/nfs/nas22/fs2202/biol_bc_barral_2/ibarbier/2026_GFP_screen/$EXP_DAY/$EXP_DAY/Images/"
 CODEDIR="/cluster/home/ibarbier/Yeast_screening_pipeline/"
 
 ARRAY_PY=/cluster/home/ibarbier/Yeast_screening_pipeline/make_array_file.py
-SNAKEFILE=/cluster/home/ibarbier/Yeast_screening_pipeline/pipeline.smk
+SNAKEFILE=/cluster/home/ibarbier/Yeast_screening_pipeline/pipeline_WIP.smk
 #================ Script =======================
 
-module load python 
-source VenvPipeline/bin/activate
+source ~/.bashrc
+conda activate /cluster/home/ibarbier/miniconda3/envs/pipeline
 
 # check that the conda environment has been activated properly
-echo "Virtual python environment currently activated: "
-echo "-- $VIRTUAL_ENV"
+echo "Conda environment currently activated: "
+echo "-- $CONDA_DEFAULT_ENV"
 
 # create the image folder and copy the data
 echo "Raw images status: "
@@ -50,12 +50,8 @@ if [ ! -d "$RESULTSDIR" ]; then
   mkdir $RESULTSDIR
 fi
 
-# create the array ID table 
-IN="$IMGDIR/$POS" 
-OUT="$RESULTSDIR/$POS"
+# submit snakemake 
+# --use-conda --conda-frontend conda
 
-echo $IN
-echo $OUT
-echo "Ready to try" 
+snakemake --cores 35 --scheduler greedy --snakefile $SNAKEFILE --config position=$POS codedir=$CODEDIR workdir=$WORKDIR
 
-python "/cluster/home/ibarbier/Yeast_screening_pipeline/python_scripts/P1_segmentation.py" $IN $OUT
