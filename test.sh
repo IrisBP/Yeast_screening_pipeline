@@ -28,12 +28,11 @@ ARRAY_PY=/cluster/home/ibarbier/Yeast_screening_pipeline/make_array_file.py
 SNAKEFILE=/cluster/home/ibarbier/Yeast_screening_pipeline/pipeline.smk
 #================ Script =======================
 
-source ~/.bashrc
-conda activate /cluster/home/ibarbier/miniconda3/envs/pipeline
+source VenvPipeline/bin/activate
 
 # check that the conda environment has been activated properly
-echo "Conda environment currently activated: "
-echo "-- $CONDA_DEFAULT_ENV"
+echo "Virtual python environment currently activated: "
+echo "-- $VIRTUAL_ENV"
 
 # create the image folder and copy the data
 echo "Raw images status: "
@@ -56,5 +55,6 @@ OUT="$RESULTSDIR/$POS"
 
 echo $IN
 echo $OUT
+echo "Ready to try" 
 
 python "/cluster/home/ibarbier/Yeast_screening_pipeline/python_scripts/P1_segmentation.py" $IN $OUT
