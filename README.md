@@ -25,8 +25,13 @@ Navigate to scratch: cd /cluster/scratch/ibarbier
 
 Note to self: 
     >> see test_cellpose 
-    test run of Cellpose on 1 image submitted to the slurm system => took over 1h for the segmentation 
-    but it worked ok => mask was generated 
+    1) test run of Cellpose on 1 image submitted to the slurm system => took over 1h for the segmentation 
+     but it worked ok => mask was generated 
+     2) now trying with GPU 
+            .py => when loading the model: gpu=True 
+            .sh #SBATCH --gpus=1
+                #SBATCH --gres=gpumem:20000m
+
     >> test of pipeline_WIP.sh
     only the segmentation test with 1 position 
     took around 1h30 
