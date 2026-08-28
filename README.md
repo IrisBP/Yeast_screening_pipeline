@@ -23,4 +23,13 @@ to run the pipeline:
 Navigate to scratch: cd /cluster/scratch/ibarbier 
 
 
-Command 'source activate 'pipeline'; set -euo pipefail;  python died with <Signals.SIGKILL: 9>.
+Note to self: 
+    >> see test_cellpose 
+    test run of Cellpose on 1 image submitted to the slurm system => took over 1h for the segmentation 
+    but it worked ok => mask was generated 
+    >> test of pipeline_WIP.sh
+    only the segmentation test with 1 position 
+    took around 1h30 
+    completed without error + masks were generated ! 
+
+

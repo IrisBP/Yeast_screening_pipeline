@@ -19,21 +19,23 @@ TIMES=glob_wildcards(PATH+"ch1{time}.tiff")
 # collect all results we want to generate for the run 
 rule all:
     input:
-        expand(OUTPATH+'masks/{pos}t11_mask.tif', pos=POSITION), #single frame segmentation masks
-        expand(OUTPATH+'masks/{pos}t11_NuclearMask.tif', pos=POSITION), #single frame nuclear segmentation mask
+        expand(OUTPATH+'masks/{pos}{t}_mask.tif', t=TIMES, pos=POSITION), #single frame segmentation masks
+        expand(OUTPATH+'masks/{pos}{t}_NuclearMask.tif',t=TIMES, pos=POSITION), #single frame nuclear segmentation mask
 
 
 # segmentation 
 rule segmentation:
     input:
-        SOURCE+POSITION+'ch1t11.tiff',
-        SOURCE+POSITION+'ch2t11.tiff',
-        SOURCE+POSITION+'ch3t11.tiff',
-        SOURCE+POSITION+'ch4t11.tiff',
+        SOURCE+POSITION+'ch1{t}.tiff',
+        SOURCE+POSITION+'ch2{t}.tiff',
+        SOURCE+POSITION+'ch3{t}.tiff',
+        SOURCE+POSITION+'ch4{t}.tiff',
     threads: 1
     output:
-        OUTPATH+'masks/'+POSITION+'t11_mask.tif', 
-        OUTPATH+'masks/'+POSITION+'t11_NuclearMask.tif', 
+        OUTPATH+'masks/'+POSITION+'{t}_mask.tif', 
+        OUTPATH+'masks/'+POSITION+'{t}_NuclearMask.tif', 
+    conda:
+        "/cluster/home/ibarbier/miniconda3/envs/pipeline"
 
     script: 
         CODEDIR+"/python_scripts/P1_segmentation.py"
