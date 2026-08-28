@@ -6,7 +6,7 @@ import os
 from collections import Counter 
 import tifffile as tif 
 import numpy as np 
-import pipeline.hungarian as hu
+import python_scripts.hungarian as hu
 import matplotlib.pyplot as plt 
 import math 
 import cv2 

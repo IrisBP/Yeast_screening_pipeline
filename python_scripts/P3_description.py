@@ -5,7 +5,7 @@
 import pandas as pd 
 import numpy as np
 import tifffile as tif 
-import pipeline.hungarian as hu 
+import python_scripts.hungarian as hu 
 from multiprocessing import Pool, cpu_count
 
 def get_dist(mask, raw):

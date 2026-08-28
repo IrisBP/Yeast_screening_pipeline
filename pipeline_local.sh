@@ -37,6 +37,8 @@ fi
 # submit snakemake 
 # --use-conda --conda-frontend conda
 
+python $ARRAY_PY $WORKDIR $EXP_ID
+
 snakemake --cores 6 --use-conda --conda-frontend conda --scheduler greedy --snakefile $SNAKEFILE --config position=$POS codedir=$CODEDIR workdir=$WORKDIR imgdir=$IMGDIR
 
 
