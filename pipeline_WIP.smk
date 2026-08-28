@@ -57,6 +57,39 @@ rule tracking:
 
 
 
+# single cell description of intensity
+rule description: 
+    input: 
+        f'{OUTPATH}{POSITION}_mask.tif'.format(),
+        f'{OUTPATH}{POSITION}_nucleus_mask.tif'.format(),
+        SOURCE+POSITION+'ch2{t}.tiff',
+        SOURCE+POSITION+'ch3{t}.tiff',
+        SOURCE+POSITION+'ch4{t}.tiff', 
+        CODEDIR+'/ref_table.csv',
+    output: 
+        OUTPATH+'temp/description_{t}.csv'
+    conda:
+        "/cluster/home/ibarbier/miniconda3/envs/pipeline"
+    threads: 10   
+    script:
+        CODEDIR+'/python_scripts/P3_description.py'
+        
+# collecting all the description files and merging them into 1 single large file for the position    
+rule merge_results:
+    input: 
+        table=[f'{OUTPATH}temp/description_t{i}.csv'.format() for i in range(1,36)],
+    params:
+        path=f'{OUTPATH}temp/'.format()
+    output:
+        f'{OUTPATH}{POSITION}_description.csv'.format()
+    conda:
+        "/cluster/home/ibarbier/miniconda3/envs/pipeline"
+    threads: 1 
+    script:
+        CODEDIR+'/python_scripts/P4_mergetable.py'
+
+
+
 
 
         

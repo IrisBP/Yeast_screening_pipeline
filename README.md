@@ -11,7 +11,7 @@ in home directory (/cluster/home/ibarbier):
 > wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 > bash ~/Miniconda3-latest-Linux-x86_64.sh
 + check version > conda -V 
-To install the pipeline
+To install the pipelinecd 
 > git clone https://github.com/IrisBP/Yeast_screening_pipeline.git  
 ( rm -rf Yeast_screening_pipeline )
 > conda env create -f /cluster/home/ibarbier/Yeast_screening_pipeline/pipeline.yaml 
@@ -42,6 +42,9 @@ Note to self:
         first test with 20GB of ram lead to Out of memory error under 10min 
         trying again with 40GB
         Failed again => trying with assigning 4 threads to each segmentation job within the snakefile 
+    ---- assigning more thread to each segmentation job seem to have fixed the OOM issue
+    3) On GPU, doing segmentation and tracking 
+        11min in and holding good !
     
 
 
