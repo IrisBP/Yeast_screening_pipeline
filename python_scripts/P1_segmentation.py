@@ -59,12 +59,16 @@ def segmentation_snakemake(dpc,g,r,fr, cell_outpath, nucleus_outpath):
 
 # CLI implementation 
 
-dpc=sys.argv[1]
-g=sys.argv[2]
-r=sys.argv[3]
-fr=sys.argv[4]
-cell_out=sys.argv[5]
-nucleus_out=sys.argv[6]
+in_path=sys.argv[1]
+out_path=sys.argv[2]
+dpc=in_path+'ch1t1.tiff'
+g=in_path+'ch2t1.tiff'
+r=in_path+'ch3t1.tiff'
+fr=in_path+'ch4t1.tiff'
+
+cell_out=out_path+"_CellMask.tif"
+nucleus_out=out_path+"_NuclearMask.tif"
+
 segmentation_snakemake(dpc,g,r,fr, cell_out, nucleus_out)
 
 

@@ -51,14 +51,10 @@ if [ ! -d "$RESULTSDIR" ]; then
 fi
 
 # create the array ID table 
-DPC="$IMGDIR/$POS" + "ch1t1.tiff"
-G="$IMGDIR/$POS" + "ch2t1.tiff"
-R="$IMGDIR/$POS" + "ch3t1.tiff"
-FR="$IMGDIR/$POS" + "ch4t1.tiff"
+IN="$IMGDIR/$POS" 
+OUT="$RESULTSDIR/$POS"
 
-C_OUT="$RESULTSDIR/$POS" + "_mask.tiff" 
-N_OUT="$RESULTSDIR/$POS" + "_Nmask.tiff"
-echo $DPC 
-echo $C_OUT
+echo $IN
+echo $OUT
 
-python "/cluster/home/ibarbier/Yeast_screening_pipeline/python_scripts/P1_segmentation.py" $DPC $G $R $FR $C_OUT $N_OUT
+python "/cluster/home/ibarbier/Yeast_screening_pipeline/python_scripts/P1_segmentation.py" $IN $OUT
