@@ -21,6 +21,7 @@ to run the pipeline:
 > sbatch /cluster/home/ibarbier/Yeast_screening_pipeline/pipeline.sh 
 
 Navigate to scratch: cd /cluster/scratch/ibarbier 
+path to output: /cluster/scratch/ibarbier/20260424_phenix1_screen_5nM_2.3/results/p2rep3_r05c06f02/masks
 
 
 Note to self:
@@ -34,8 +35,12 @@ Note to self:
         Works super well and very fast !!
 --- it seems that running the model in the home directory once before sending to slurm solved the download problem as seen in error.txt (leading to OSError: [Errno 99] Cannot assign requested address)
     >> test of pipeline_WIP.sh
-    only the segmentation test with 1 position 
-    took around 1h30 
-    completed without error + masks were generated ! 
+    1) only the segmentation test with 1 position 
+        took around 1h30 
+        completed without error + masks were generated ! 
+    2) Trying with GPU and all 35 positions 
+        first test with 20GB of ram lead to Out of memory error under 10min 
+        trying again with 40GB
+    
 
 

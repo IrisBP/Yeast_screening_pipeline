@@ -30,7 +30,7 @@ rule segmentation:
         SOURCE+POSITION+'ch2{t}.tiff',
         SOURCE+POSITION+'ch3{t}.tiff',
         SOURCE+POSITION+'ch4{t}.tiff',
-    threads: 1
+    threads: 4
     output:
         OUTPATH+'masks/'+POSITION+'{t}_mask.tif', 
         OUTPATH+'masks/'+POSITION+'{t}_NuclearMask.tif', 
