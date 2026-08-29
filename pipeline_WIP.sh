@@ -24,7 +24,7 @@ WORKDIR="/cluster/scratch/ibarbier/$EXP_DAY/"
 RESULTSDIR="/cluster/scratch/ibarbier/$EXP_DAY/results/"
 IMGDIR="/cluster/scratch/ibarbier/$EXP_DAY/Images/"
 SOURCEDIR="/nfs/nas22/fs2202/biol_bc_barral_2/ibarbier/2026_GFP_screen/$EXP_DAY/$EXP_DAY/Images/"
-CODEDIR="/cluster/home/ibarbier/Yeast_screening_pipeline/"
+CODEDIR="/cluster/home/ibarbier/Yeast_screening_pipeline"
 
 ARRAY_PY=/cluster/home/ibarbier/Yeast_screening_pipeline/make_array_file.py
 SNAKEFILE=/cluster/home/ibarbier/Yeast_screening_pipeline/pipeline_WIP.smk
