@@ -48,6 +48,9 @@ Note to self:
     ---- Tracking OK!
     4) On GPU, testing full snakemake pipeline 
         successful run - 73 jobs completed - runtime: 1h20 
+----- Pipeline_WIP.sh renamed to pipeline_1pos_GPU.sh 
+    Creation of pipeline_1pos_CPU.sh and associated snakefile 
+    attempting to run the pipeline on CPU only 
     
 
 

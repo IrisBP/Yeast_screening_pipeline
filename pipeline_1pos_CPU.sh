@@ -14,7 +14,7 @@
 
 EXP_DAY='20260424_phenix1_screen_5nM_2.3'
 EXP_ID='p2rep3'
-POS='p2rep3_r07c04f01'
+POS='p2rep3_r01c06f03'
 
 #============= Localization Variables =============
 # path to the various directory required for the pipeline 
