@@ -4,7 +4,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
 #SBATCH --time=24:00:00
-#SBATCH --mem-per-cpu=20000
+#SBATCH --mem-per-cpu=40000
 #SBATCH --output=slurm-%j.out
 #SBATCH --error=slurm-%j.err
 
@@ -14,7 +14,7 @@
 
 EXP_DAY='20260424_phenix1_screen_5nM_2.3'
 EXP_ID='p2rep3'
-POS='p2rep3_r05c06f02'
+POS='p2rep3_r07c04f01'
 
 #============= Localization Variables =============
 # path to the various directory required for the pipeline 
@@ -22,11 +22,13 @@ WORKDIR="/cluster/scratch/ibarbier/$EXP_DAY/"
 RESULTSDIR="/cluster/scratch/ibarbier/$EXP_DAY/results/"
 IMGDIR="/cluster/scratch/ibarbier/$EXP_DAY/Images/"
 SOURCEDIR="/nfs/nas22/fs2202/biol_bc_barral_2/ibarbier/2026_GFP_screen/$EXP_DAY/$EXP_DAY/Images/"
-CODEDIR="/cluster/home/ibarbier/Yeast_screening_pipeline/"
+CODEDIR="/cluster/home/ibarbier/Yeast_screening_pipeline"
 
 ARRAY_PY=/cluster/home/ibarbier/Yeast_screening_pipeline/make_array_file.py
-SNAKEFILE=/cluster/home/ibarbier/Yeast_screening_pipeline/pipeline.smk
+SNAKEFILE=/cluster/home/ibarbier/Yeast_screening_pipeline/pipeline_CPU.smk
 #================ Script =======================
+now="$(date +"%T")"
+echo "Start time : $now"
 
 source ~/.bashrc
 conda activate /cluster/home/ibarbier/miniconda3/envs/pipeline
@@ -50,11 +52,10 @@ if [ ! -d "$RESULTSDIR" ]; then
   mkdir $RESULTSDIR
 fi
 
-# create the array ID table 
-python $ARRAY_PY $WORKDIR $EXP_ID
-
 # submit snakemake 
 # --use-conda --conda-frontend conda
 
-snakemake --cores 35 --use-conda --conda-frontend conda --scheduler greedy --snakefile $SNAKEFILE --config position=$POS codedir=$CODEDIR workdir=$WORKDIR
+snakemake --cores 35 --scheduler greedy --snakefile $SNAKEFILE --config position=$POS codedir=$CODEDIR workdir=$WORKDIR
 
+now="$(date +"%T")"
+echo "End time : $now"

@@ -47,6 +47,7 @@ Note to self:
         11min in and holding good !
     ---- Tracking OK!
     4) On GPU, testing full snakemake pipeline 
+        successful run - 73 jobs completed - runtime: 1h20 
     
 
 
