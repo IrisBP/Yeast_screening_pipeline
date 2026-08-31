@@ -5,12 +5,15 @@
 # source /cluster/home/ibarbier/Yeast_screening_pipeline/pipeline_array_CPU_launch.sh 20260427_phenix1_screen_5nM_3.3
 EXP_DAY=$1
 
+echo "------------ $EXP_DAY ------------"
+
 #================ EXP ID =======================
 # extracting the experimental ID from the name of the experimental day 
 IFS="_" read -r date scope screen conc expID  <<< "$EXP_DAY"
 IFS="." read -r p rep  <<< "$expID"
 
 EXP_ID="p${p}rep${rep}"
+
 
 #============= Localization Variables =============
 # path to the various directory required for the pipeline 

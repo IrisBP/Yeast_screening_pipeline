@@ -8,6 +8,21 @@
 #SBATCH --output=/cluster/scratch/ibarbier/slurm_out/slurm-%j.out
 #SBATCH --error=/cluster/scratch/ibarbier/slurm_out/slurm-%j.err
 
+#================ Experimental day =======================
+# extract from command line 
+# sbatch --array=[1-3] --output="/cluster/home/ibarbier/test_out/result.%A.%a" --wrap="sbatch /cluster/home/ibarbier/test.sh \$SLURM_ARRAY_TASK_ID 20260427_phenix1_screen_5nM_3.3"
+EXP_DAY=$2
+echo "------------ $EXP_DAY ------------"
+
+
+#================ EXP ID =======================
+# extracting the experimental ID from the name of the experimental day 
+IFS="_" read -r date scope screen conc expID  <<< "$EXP_DAY"
+IFS="." read -r p rep  <<< "$expID"
+
+EXP_ID="p${p}rep${rep}"
+
+
 #============= Path Variables =============
 # path to the various directory required for the pipeline 
 WORKDIR="/cluster/scratch/ibarbier/$EXP_DAY/"
@@ -29,17 +44,7 @@ conda activate /cluster/home/ibarbier/miniconda3/envs/pipeline
 echo "Conda environment currently activated: "
 echo "-- $CONDA_DEFAULT_ENV"
 
-#================ Experimental day =======================
-# extract from command line 
-# sbatch --array=[1-3] --output="/cluster/home/ibarbier/test_out/result.%A.%a" --wrap="sbatch /cluster/home/ibarbier/test.sh \$SLURM_ARRAY_TASK_ID 20260427_phenix1_screen_5nM_3.3"
-EXP_DAY=$2
 
-#================ EXP ID =======================
-# extracting the experimental ID from the name of the experimental day 
-IFS="_" read -r date scope screen conc expID  <<< "$EXP_DAY"
-IFS="." read -r p rep  <<< "$expID"
-
-EXP_ID="p${p}rep${rep}"
 
 #================ Position =======================
 
