@@ -59,7 +59,7 @@ python $ARRAY_PY $WORKDIR $EXP_ID
 echo 'Array ID created' 
 
 # submit array job to the slurm system 
-sbatch --array=[1-3] --output="/cluster/home/ibarbier/array_slurm_out/result.%A.%a" --wrap="sbatch /cluster/home/ibarbier/pipeline_array_CPU.sh \$SLURM_ARRAY_TASK_ID $EXP_DAY"
+sbatch --array=[1-3] --output="/cluster/home/ibarbier/array_slurm_out/result.%A.%a" --wrap="sbatch $BASHFILE \$SLURM_ARRAY_TASK_ID $EXP_DAY"
 
 echo 'Jobs submitted'
 
