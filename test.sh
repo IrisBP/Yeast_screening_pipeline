@@ -5,57 +5,24 @@
 #SBATCH --cpus-per-task=1
 #SBATCH --time=24:00:00
 #SBATCH --mem-per-cpu=20000
-#SBATCH --output=slurm-%j.out
-#SBATCH --error=slurm-%j.err
+#SBATCH --output=/cluster/home/ibarbier/test_out/slurm-%j.out
+#SBATCH --error=/cluster/home/ibarbier/test_out/slurm-%j.err
 
-#export OMP_NUM_THREADS=35
+source ~/.bashrc
+conda activate /cluster/home/ibarbier/miniconda3/envs/pipeline
+echo "Conda environment currently activated: "
+echo "-- $CONDA_DEFAULT_ENV"
 
-#================ To modify =======================
+POS_ARRAY="./Yeast_screening_pipeline/arrayID.csv"
 
-EXP_DAY='20260424_phenix1_screen_5nM_2.3'
-EXP_ID='p2rep3'
-POS='p2rep3_r05c06f02'
+EXP_DAY=$2
+echo "$EXP_DAY"
 
-#============= Localization Variables =============
-# path to the various directory required for the pipeline 
-WORKDIR="/cluster/scratch/ibarbier/$EXP_DAY/"
-RESULTSDIR="/cluster/scratch/ibarbier/$EXP_DAY/results"
-IMGDIR="/cluster/scratch/ibarbier/$EXP_DAY/Images"
-SOURCEDIR="/nfs/nas22/fs2202/biol_bc_barral_2/ibarbier/2026_GFP_screen/$EXP_DAY/$EXP_DAY/Images/"
-CODEDIR="/cluster/home/ibarbier/Yeast_screening_pipeline/"
+job_nb=$1
+echo "$job_nb"
+line=$((job_nb+1))
+echo "$line"
+POS=$(awk -v var1=$line -F ',' 'NR ==var1  { print $1 }' $POS_ARRAY)
+echo "$POS"
+echo "successful test - job nb ${job_nb}" 
 
-ARRAY_PY=/cluster/home/ibarbier/Yeast_screening_pipeline/make_array_file.py
-SNAKEFILE=/cluster/home/ibarbier/Yeast_screening_pipeline/pipeline.smk
-#================ Script =======================
-
-module load python 
-source VenvPipeline/bin/activate
-
-# check that the conda environment has been activated properly
-echo "Virtual python environment currently activated: "
-echo "-- $VIRTUAL_ENV"
-
-# create the image folder and copy the data
-echo "Raw images status: "
-if [ ! -d "$IMGDIR" ]; then
-  echo "-- $IMGDIR does not exist. Copying data now"
-  mkdir $WORKDIR
-  cp -R $SOURCEDIR $WORKDIR
-else
-  echo "-- Data already copied from source"
-fi
-
-# create the result folder 
-if [ ! -d "$RESULTSDIR" ]; then
-  mkdir $RESULTSDIR
-fi
-
-# create the array ID table 
-IN="$IMGDIR/$POS" 
-OUT="$RESULTSDIR/$POS"
-
-echo $IN
-echo $OUT
-echo "Ready to try" 
-
-python "/cluster/home/ibarbier/Yeast_screening_pipeline/python_scripts/P1_segmentation.py" $IN $OUT

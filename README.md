@@ -7,6 +7,12 @@ The pipeline performs segmentation (CellPose), tracking (Hungarian) and single c
 
 Parallel execution implemented with Snakemake - designed for SLURM on cluster 
 
+check ressources: > my_share_info
+3688 CPU cores, 25552 GiB of system RAM, and 61 GPUs
+
+mkdir /cluster/scratch/ibarbier/20260427_phenix1_screen_5nM_3.3/
+cp -R /nfs/nas22/fs2202/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260427_phenix1_screen_5nM_3.3/20260427_phenix1_screen_5nM_3.3/Images /cluster/scratch/ibarbier/20260427_phenix1_screen_5nM_3.3
+
 in home directory (/cluster/home/ibarbier): 
 > wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 > bash ~/Miniconda3-latest-Linux-x86_64.sh
@@ -16,6 +22,10 @@ To install the pipelinecd
 ( rm -rf Yeast_screening_pipeline )
 > conda env create -f /cluster/home/ibarbier/Yeast_screening_pipeline/pipeline.yaml 
 ( conda env remove -n pipeline )
+# create the output folder 
+> mkdir /cluster/scratch/ibarbier/20260427_phenix1_screen_5nM_3.3/
+# copy the data from nas 
+> cp -R /nfs/nas22/fs2202/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260427_phenix1_screen_5nM_3.3/20260427_phenix1_screen_5nM_3.3/Images /cluster/scratch/ibarbier/20260427_phenix1_screen_5nM_3.3
 
 to run the pipeline:
 > sbatch /cluster/home/ibarbier/Yeast_screening_pipeline/pipeline.sh 
@@ -28,7 +38,7 @@ Note to self:
     >> see test_cellpose 
     1) test run of Cellpose on 1 image submitted to the slurm system => took over 1h for the segmentation 
      but it worked ok => mask was generated 
-     2) now trying with GPU 
+    2) now trying with GPU 
             .py => when loading the model: gpu=True 
             .sh #SBATCH --gpus=1
                 #SBATCH --gres=gpumem:20000m
@@ -49,8 +59,28 @@ Note to self:
     4) On GPU, testing full snakemake pipeline 
         successful run - 73 jobs completed - runtime: 1h20 
 ----- Pipeline_WIP.sh renamed to pipeline_1pos_GPU.sh 
-    Creation of pipeline_1pos_CPU.sh and associated snakefile 
-    attempting to run the pipeline on CPU only 
+        Creation of pipeline_1pos_CPU.sh and associated snakefile 
+        attempting to run the pipeline on CPU only 
+        +> cpu-per-task=10
+        +> mem-per_cpu=40000   
+        Ran successfully in ~5h30 
+----- Trying with array for a couple of positions 
+        > sbatch --array=[1-5] --wrap="echo \"Hello, I am an independent job\""
+        when submitted => Submitted batch job 12258111
+        then when finished =>  slurm-12258111_1.out to  slurm-122581
+        11_5.out
+        > sbatch --array=[1-3] --output="/cluster/home/ibarbier/test_out/result.%A.%a" --wrap="sbatch /cluster/home/ibarbier/test.sh \$SLURM_ARRAY_TASK_ID"
+            + use $1 to call the job number within the bash script 
+            1) submit 1 array job
+            2) submit 5 independant jobs 
+            3) those job then submit the test.sh job 
+        mkdir array_slurm_out
+        rm -rf array_slurm_out
+     trying pipeline_array_CPU_launch.sh 
+     > source /cluster/home/ibarbier/Yeast_screening_pipeline/pipeline_array_CPU_launch.sh 20260427_phenix1_screen_5nM_3.3
+
+
+
     
 
 
