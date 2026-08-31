@@ -19,20 +19,21 @@ To remove conda environment: `conda env remove -n pipeline`
 
 ## INSTALLATION ON EULER 
 in home directory: 
-- Download Miniconda and install:
+- Download Miniconda and install: \
 `wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh` \
 `bash ~/Miniconda3-latest-Linux-x86_64.sh` \ 
-to check the installation and version: `conda -V `\ 
+to check the installation and version: `conda -V `
 - Download the pipeline: 
-`git clone https://github.com/IrisBP/Yeast_screening_pipeline.git`  \
+`git clone https://github.com/IrisBP/Yeast_screening_pipeline.git`  
 - Create the conda environment: 
-`conda env create -f /cluster/home/ibarbier/Yeast_screening_pipeline/pipeline.yaml` \
+`conda env create -f /cluster/home/ibarbier/Yeast_screening_pipeline/pipeline.yaml` 
 - Might need to run Cellpose once to avoid URL errors: `source /cluster/home/ibarbier/Yeast_screening_pipeline/DL_cellpose.sh`
 
 ## RUNNING THE PIPELINE
-This require the experimental data to be copied on the Nas with the following path: biol_bc_barral_2/ibarbier/2026_GFP_screen/$EXP_DAY/$EXP_DAY/Images/
-Pass the name of the experimental day as CL variable (ex: 20260427_phenix1_screen_5nM_3.3): 
-`source /cluster/home/ibarbier/Yeast_screening_pipeline/pipeline_array_CPU_launch.sh exp_day`.
+This require the experimental data to be copied on the Nas with the following path:\
+ `biol_bc_barral_2/ibarbier/2026_GFP_screen/$EXP_DAY/$EXP_DAY/Images/` \
+Pass the name of the experimental day as CL variable (ex: 20260427_phenix1_screen_5nM_3.3): \
+`source /cluster/home/ibarbier/Yeast_screening_pipeline/pipeline_array_CPU_launch.sh exp_day`. \
 The pipeline first create the output folder in scratch and copy the data from the NAS to the scratch.
 Given the name of the experiment, it extract the experimental IDs and create a list of positions
 For each position, a job is submitted using an array sbatch submission. 
