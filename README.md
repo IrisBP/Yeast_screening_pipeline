@@ -78,8 +78,14 @@ Note to self:
         rm -rf array_slurm_out
      trying pipeline_array_CPU_launch.sh 
      > source /cluster/home/ibarbier/Yeast_screening_pipeline/pipeline_array_CPU_launch.sh 20260427_phenix1_screen_5nM_3.3
-        pipeline_array_CPU_launch.sh worked and submitted job  12277213_[1-3]
+        pipeline_array_CPU_launch.sh worked and submitted job  - job ID 12282628
         Jobs well separated and waiting to be submitted 
+            JOBID     PARTITION    NODEs
+            12282807  bigmem.24  eu-g5-004-3
+            12282808  bigmem.24  eu-g5-004-4
+            12282811  bigmem.24  eu-g5-005-1
+        Yippppeeeee it seems to work! 
+        
   
 
 
