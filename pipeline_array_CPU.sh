@@ -11,14 +11,14 @@
 #============= Path Variables =============
 # path to the various directory required for the pipeline 
 WORKDIR="/cluster/scratch/ibarbier/$EXP_DAY/"
-RESULTSDIR="$WORKDIR/results/"
-IMGDIR="/cluster/scratch/ibarbier/$EXP_DAY/Images/"
+RESULTSDIR="${WORKDIR}results/"
+IMGDIR="${WORKDIR}Images/"
 SOURCEDIR="/nfs/nas22/fs2202/biol_bc_barral_2/ibarbier/2026_GFP_screen/$EXP_DAY/$EXP_DAY/Images/"
 CODEDIR="/cluster/home/ibarbier/Yeast_screening_pipeline"
 
-POS_ARRAY="$WORKDIR/arrayID.csv"
+POS_ARRAY="${WORKDIR}/arrayID.csv"
 
-SNAKEFILE="$CODEDIR/pipeline_CPU.smk"
+SNAKEFILE="${CODEDIR}/pipeline_CPU.smk"
 
 #================ Conda environment =======================
 # activate the conda environment 

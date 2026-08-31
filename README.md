@@ -78,7 +78,9 @@ Note to self:
         rm -rf array_slurm_out
      trying pipeline_array_CPU_launch.sh 
      > source /cluster/home/ibarbier/Yeast_screening_pipeline/pipeline_array_CPU_launch.sh 20260427_phenix1_screen_5nM_3.3
-        pipeline_array_CPU_launch.sh worked and submitted job  12275613_[1-3]
+        pipeline_array_CPU_launch.sh worked and submitted job  12276146_[1-3]
+        Jobs well separated and waiting to be submitted 
+        Jobs submitted + crashed TwT 
 
 
 
