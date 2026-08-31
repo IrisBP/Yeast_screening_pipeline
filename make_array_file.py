@@ -1,3 +1,6 @@
+# create a list of position stored in a csv file 
+# used by the array job system to determine which position to look at from the job ID 
+
 import pandas as pd 
 import sys
 

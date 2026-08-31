@@ -4,7 +4,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=10
 #SBATCH --time=24:00:00
-#SBATCH --mem-per-cpu=40000
+#SBATCH --mem-per-cpu=20000
 #SBATCH --output=/cluster/scratch/ibarbier/slurm_out/slurm-%j.out
 #SBATCH --error=/cluster/scratch/ibarbier/slurm_out/slurm-%j.err
 
@@ -65,7 +65,7 @@ now="$(date +"%T")"
 echo "Start time : $now"
 
 # start the snakemake pipeline 
-snakemake --cores 35 --scheduler greedy --snakefile $SNAKEFILE --config position=$POS codedir=$CODEDIR workdir=$WORKDIR
+snakemake --cores 32 --scheduler greedy --snakefile $SNAKEFILE --config position=$POS codedir=$CODEDIR workdir=$WORKDIR
 
 now="$(date +"%T")"
 echo "End time : $now"

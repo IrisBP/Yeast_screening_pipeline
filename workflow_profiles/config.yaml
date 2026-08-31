@@ -1,7 +1,0 @@
-# --workflow-profile: controls workflow behaviour (threads, envmodules)
-# Path: workflow/profiles/local/config.yaml
-#
-# Controls HOW the workflow runs (not how jobs are submitted -- that is the --profile).
-# Disables Euler-specific envmodules. Sets thread counts for EPYC 9654 (96-core).
-
-use-envmodules: false
