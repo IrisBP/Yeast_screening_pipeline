@@ -16,7 +16,7 @@ IMGDIR="${WORKDIR}Images/"
 SOURCEDIR="/nfs/nas22/fs2202/biol_bc_barral_2/ibarbier/2026_GFP_screen/$EXP_DAY/$EXP_DAY/Images/"
 CODEDIR="/cluster/home/ibarbier/Yeast_screening_pipeline"
 
-POS_ARRAY="${WORKDIR}/arrayID.csv"
+POS_ARRAY="${WORKDIR}arrayID.csv"
 
 SNAKEFILE="${CODEDIR}/pipeline_CPU.smk"
 
@@ -28,8 +28,6 @@ conda activate /cluster/home/ibarbier/miniconda3/envs/pipeline
 # check that the conda environment has been activated properly
 echo "Conda environment currently activated: "
 echo "-- $CONDA_DEFAULT_ENV"
-
-
 
 #================ Experimental day =======================
 # extract from command line 
