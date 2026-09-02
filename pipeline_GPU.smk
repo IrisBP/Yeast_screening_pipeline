@@ -19,8 +19,6 @@ TIMES=glob_wildcards(PATH+"ch1{time}.tiff")
 # collect all results we want to generate for the run 
 rule all:
     input:
-        expand(OUTPATH+'masks/{pos}{t}_mask.tif', t=TIMES.time, pos=POSITION), #single frame segmentation masks
-        expand(OUTPATH+'masks/{pos}{t}_NuclearMask.tif',t=TIMES.time, pos=POSITION), #single frame nuclear segmentation mask
         f'{OUTPATH}{POSITION}_mask.tif'.format(), # tracked mask - with all 35 frames 
         f'{OUTPATH}{POSITION}_nucleus_mask.tif'.format(), # tracked nuclear masks with all 35 frames
         f'{OUTPATH}{POSITION}_description.csv'.format(), #final description file 
@@ -80,7 +78,8 @@ rule merge_results:
     input: 
         table=[f'{OUTPATH}temp/description_t{i}.csv'.format() for i in range(1,36)],
     params:
-        path=f'{OUTPATH}temp/'.format()
+        path_temp=f'{OUTPATH}temp/'.format(),
+        path_masks=f'{OUTPATH}masks/'.format(),
     output:
         f'{OUTPATH}{POSITION}_description.csv'.format()
     conda:

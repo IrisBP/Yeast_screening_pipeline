@@ -55,13 +55,14 @@ path to output: /cluster/scratch/ibarbier/EXPDAY/results/POSITION/
 - have the data on the Nas with the following data structure: \
  `/Volumes/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260511_phenix1_screen_5nM_5.1/20260511_phenix1_screen_5nM_5.1/Images` \
  Use `rsyncy -av --ignore-existing '/Volumes/ADATA_SE880/20260501_phenix1_screen_5nM_2.2__2026-05-01T16_57_27' '/Volumes/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260501_phenix1_screen_5nM_2.2__2026-05-01T16_57_27' ` to copy data to NAS then rename the folder by remobing the 2026-05-01T16_57_27 extension
-- Connect to Euler home directory and run `source /cluster/home/ibarbier/Yeast_screening_pipeline/pipeline_array_CPU_launch.sh exp_day` \
+- Connect to Euler home directory and run `source /cluster/home/ibarbier/Yeast_screening_pipeline/pipeline_array_CPU_launch.sh 20260429_phenix1_screen_5nM_1.2` \
  This should take ~8h 
 - Copy the data back to NAS: `rsync -av --ignore-existing ibarbier@euler.ethz.ch:/cluster/scratch/ibarbier/20260511_phenix1_screen_5nM_5.1/results/ /nfs/nas22/fs2202/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260511_phenix1_screen_5nM_5.1/Results/`
 - Make sure that every positions has been run correctly use the local_pipeline: \
  `cd Desktop/local_pipeline` \
  `source ./Yeast_screening_pipeline/pipeline_local2.sh 20260511_phenix1_screen_5nM_5.1 /Volumes/biol_bc_barral_2/ibarbier/2026_GFP_screen`
-- Copy the data to final destination 
+- Copy the data to final destination:\
+`rsyncy -av --ignore-existing '/Volumes/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260511_phenix1_screen_5nM_5.1/Results' '/Users/ibarbier/Desktop/GFP_screen_results/20260511_phenix1_screen_5nM_5.1'`
 
 
 ## Note to self: 

@@ -17,5 +17,8 @@ for filename in list_files:
     if os.path.isfile(filename):
         os.remove(filename)  # Remove the file
 
-shutil.rmtree(snakemake.params.path, ignore_errors=False)
+
+shutil.rmtree(snakemake.params.path_masks, ignore_errors=False)
+
+shutil.rmtree(snakemake.params.path_temp, ignore_errors=False)
     
