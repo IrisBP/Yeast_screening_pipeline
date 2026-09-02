@@ -1,5 +1,4 @@
 # Yeast screening pipeline
-Last update: 31 August 2026
 
 Last update: 31 August 2026 \
 Trying the pipeline on 20260427_phenix1_screen_5nM_3.3 => ran successfully for 476 positions \ 
