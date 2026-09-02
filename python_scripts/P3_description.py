@@ -72,6 +72,7 @@ def describe(cell_masks, nucleus_masks, t, thread_count, g, r , fr , ref_table):
 
     else: 
         results=pd.read_table(ref_table, sep=',')
+        
     return results
 
 

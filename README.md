@@ -1,5 +1,13 @@
 # Yeast_screening_pipeline
 
+Last update: 31 August 2026 \
+Trying the pipeline on 20260427_phenix1_screen_5nM_3.3 => ran successfully for 476 positions \ 
+After a first successful run, applying the pipeline to the other positions: \
+- 20260428_phenix1_screen_5nM_4.3 
+- 20260511_phenix1_screen_5nM_5.1
+- 20260514_phenix1_screen_5nM_1.1
+
+
 ## Analysis pipeline for image based screening in yeast
 
 This pipeline takes as input images acquired on the Phenix Microscope over multiple time points. 
@@ -9,15 +17,16 @@ The pipeline performs segmentation (CellPose), tracking (Hungarian) and single c
 Parallel execution implemented with Snakemake - designed for SLURM on cluster 
 
 ## Useful Euler / Bash commands 
-Check ressources: `my_share_info` \
-Navigate to home directory: `/cluster/home/ibarbier` \
+Navigate to home directory: `cd /cluster/home/ibarbier` \
 Navigate to scratch: `cd /cluster/scratch/ibarbier ` \
 To count file nb: `ls -1q | wc -l` \
 To remove entire directory and its content: `rm -rf Dir_name`\
 To remove conda environment: `conda env remove -n pipeline`
+To copy back to NAS: `rsync -av --ignore-existing ibarbier@euler.ethz.ch:/cluster/scratch/ibarbier/20260511_phenix1_screen_5nM_5.1/results/ /nfs/nas22/fs2202/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260511_phenix1_screen_5nM_5.1/Results/`
 
 
 ## INSTALLATION ON EULER 
+
 in home directory: 
 - Download Miniconda and install: \
 `wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh` \
@@ -27,6 +36,7 @@ to check the installation and version: `conda -V `
 `git clone https://github.com/IrisBP/Yeast_screening_pipeline.git`  
 - Create the conda environment: 
 `conda env create -f /cluster/home/ibarbier/Yeast_screening_pipeline/pipeline.yaml` 
+- Create a slurm_out folder in home directory: `mkdir array_slurm_out`
 - Might need to run Cellpose once to avoid URL errors: `source /cluster/home/ibarbier/Yeast_screening_pipeline/DL_cellpose.sh`
 
 ## RUNNING THE PIPELINE
@@ -40,6 +50,18 @@ For each position, a job is submitted using an array sbatch submission.
 The job run the `pipeline_array_CPU.sh` script which consist of a bash wrapper for the snakemake pipeline. 
 
 path to output: /cluster/scratch/ibarbier/EXPDAY/results/POSITION/
+
+## STEPS:
+- have the data on the Nas with the following data structure: \
+ `/Volumes/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260511_phenix1_screen_5nM_5.1/20260511_phenix1_screen_5nM_5.1/Images` \
+ Use `rsyncy -av --ignore-existing '/Volumes/ADATA_SE880/20260501_phenix1_screen_5nM_2.2__2026-05-01T16_57_27' '/Volumes/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260501_phenix1_screen_5nM_2.2__2026-05-01T16_57_27' ` to copy data to NAS then rename the folder by remobing the 2026-05-01T16_57_27 extension
+- Connect to Euler home directory and run `source /cluster/home/ibarbier/Yeast_screening_pipeline/pipeline_array_CPU_launch.sh exp_day` \
+ This should take ~8h 
+- Copy the data back to NAS: `rsync -av --ignore-existing ibarbier@euler.ethz.ch:/cluster/scratch/ibarbier/20260511_phenix1_screen_5nM_5.1/results/ /nfs/nas22/fs2202/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260511_phenix1_screen_5nM_5.1/Results/`
+- Make sure that every positions has been run correctly use the local_pipeline: \
+ `cd Desktop/local_pipeline` \
+ `source ./Yeast_screening_pipeline/pipeline_local2.sh 20260511_phenix1_screen_5nM_5.1 /Volumes/biol_bc_barral_2/ibarbier/2026_GFP_screen`
+- Copy the data to final destination 
 
 
 ## Note to self: 
@@ -93,6 +115,7 @@ see test_cellpose \
             12282808  bigmem.24  eu-g5-004-4\
             12282811  bigmem.24  eu-g5-005-1\
         Yippppeeeee it seems to work! \
+
 
   
 
