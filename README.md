@@ -5,7 +5,13 @@ Trying the pipeline on 20260427_phenix1_screen_5nM_3.3 => ran successfully for 4
 After a first successful run, applying the pipeline to the other positions: \
 - 20260428_phenix1_screen_5nM_4.3  
 - 20260511_phenix1_screen_5nM_5.1
-- 20260514_phenix1_screen_5nM_1.1 (currently running)
+- 20260514_phenix1_screen_5nM_1.1 
+- 20260429_phenix1_screen_5nM_1.2
+- 20260501_phenix1_screen_5nM_2.2 
+- 20260502_phenix1_screen_5nM_3.2 
+- 20260512_phenix1_screen_5nM_5.2 
+- 20260513_phenix1_screen_5nM_5.3 
+
 
 
 ## Analysis pipeline for image based screening in yeast
@@ -22,7 +28,10 @@ Navigate to scratch: `cd /cluster/scratch/ibarbier ` \
 To count file nb: `ls -1q | wc -l` \
 To remove entire directory and its content: `rm -rf Dir_name`\
 To remove conda environment: `conda env remove -n pipeline`
-To copy back to NAS: `rsync -av --ignore-existing ibarbier@euler.ethz.ch:/cluster/scratch/ibarbier/20260511_phenix1_screen_5nM_5.1/results/ /nfs/nas22/fs2202/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260511_phenix1_screen_5nM_5.1/Results/`
+To copy back to NAS: `rsync -av --ignore-existing ibarbier@euler.ethz.ch:/cluster/scratch/ibarbier/20260513_phenix1_screen_5nM_5.3/results/ /nfs/nas22/fs2202/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260513_phenix1_screen_5nM_5.3/Results/`
+
++ if cache issues\
+check .cache and .snakemake in home directory 
 
 
 ## INSTALLATION ON EULER 
@@ -54,15 +63,16 @@ path to output: /cluster/scratch/ibarbier/EXPDAY/results/POSITION/
 ## STEPS:
 - have the data on the Nas with the following data structure: \
  `/Volumes/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260511_phenix1_screen_5nM_5.1/20260511_phenix1_screen_5nM_5.1/Images` \
- Use `rsyncy -av --ignore-existing '/Volumes/ADATA_SE880/20260501_phenix1_screen_5nM_2.2__2026-05-01T16_57_27' '/Volumes/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260501_phenix1_screen_5nM_2.2__2026-05-01T16_57_27' ` to copy data to NAS then rename the folder by remobing the 2026-05-01T16_57_27 extension
-- Connect to Euler home directory and run `source /cluster/home/ibarbier/Yeast_screening_pipeline/pipeline_array_CPU_launch.sh 20260429_phenix1_screen_5nM_1.2` \
- This should take ~8h 
-- Copy the data back to NAS: `rsync -av --ignore-existing ibarbier@euler.ethz.ch:/cluster/scratch/ibarbier/20260511_phenix1_screen_5nM_5.1/results/ /nfs/nas22/fs2202/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260511_phenix1_screen_5nM_5.1/Results/`
+ Use `rsyncy -av --ignore-existing '/Volumes/ADATA_SE880/20260510_phenix1_screen_5nM_1.3__2026-05-10T16_28_10' '/Volumes/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260510_phenix1_screen_5nM_1.3__2026-05-10T16_28_10' ` to copy data to NAS then rename the folder by remobing the 2026-05-01T16_57_27 extension
+- Connect to Euler home directory and run `source /cluster/home/ibarbier/Yeast_screening_pipeline/pipeline_array_CPU_launch.sh 20260512_phenix1_screen_5nM_5.2` \
+ This should take ~8h \
+ To run the pipeline without tracking the cells: `source /cluster/home/ibarbier/Yeast_screening_pipeline/pipeline_array_CPU_noTracking_launch.sh 20260512_phenix1_screen_5nM_5.2`
+ 
+- Make a Results folder on NAS and copy the data back to NAS: `rsync -av --ignore-existing ibarbier@euler.ethz.ch:/cluster/scratch/ibarbier/20260502_phenix1_screen_5nM_3.2/results/ /nfs/nas22/fs2202/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260502_phenix1_screen_5nM_3.2/Results/`
 - Make sure that every positions has been run correctly use the local_pipeline: \
  `cd Desktop/local_pipeline` \
  `source ./Yeast_screening_pipeline/pipeline_local2.sh 20260511_phenix1_screen_5nM_5.1 /Volumes/biol_bc_barral_2/ibarbier/2026_GFP_screen`
-- Copy the data to final destination:\
-`rsyncy -av --ignore-existing '/Volumes/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260511_phenix1_screen_5nM_5.1/Results' '/Users/ibarbier/Desktop/GFP_screen_results/20260511_phenix1_screen_5nM_5.1'`
+
 
 
 ## Note to self: 
