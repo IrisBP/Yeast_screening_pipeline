@@ -27,7 +27,7 @@ SOURCEDES="/nfs/nas22/fs2202/biol_bc_barral_2/ibarbier/2026_GFP_screen/${EXP_DAY
 
 SLURM_OUT="/cluster/scratch/ibarbier/slurm_out/"
 
-CODEDIR="/cluster/home/ibarbier/Yeast_screening_pipeline"
+CODEDIR="/cluster/home/ibarbier/Yeast_screening_pipeline/"
 
 BASHFILE="${CODEDIR}PIFIA_array_CPU.sh"
 ARRAY_PY="${CODEDIR}make_array_file.py"

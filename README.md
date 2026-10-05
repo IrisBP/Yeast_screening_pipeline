@@ -79,6 +79,7 @@ path to output: /cluster/scratch/ibarbier/EXPDAY/results/POSITION/
 Running the PIFIA implementation: \
 - have the latest version of the pipeline installed.
 - install the conda environment: `conda env create -f /cluster/home/ibarbier/Yeast_screening_pipeline/pifia.yml`
+- run `source /cluster/home/ibarbier/Yeast_screening_pipeline/PIFIA_array_CPU_launch.sh 20260512_phenix1_screen_5nM_5.2`
 
 
 ## Note to self: 
