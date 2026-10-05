@@ -11,6 +11,7 @@ After a first successful run, applying the pipeline to the other positions: \
 - 20260502_phenix1_screen_5nM_3.2 
 - 20260512_phenix1_screen_5nM_5.2 
 - 20260513_phenix1_screen_5nM_5.3 
+- 20260505_phenix1_screen_5nM_2.1
 
 
 
@@ -28,7 +29,7 @@ Navigate to scratch: `cd /cluster/scratch/ibarbier ` \
 To count file nb: `ls -1q | wc -l` \
 To remove entire directory and its content: `rm -rf Dir_name`\
 To remove conda environment: `conda env remove -n pipeline`
-To copy back to NAS: `rsync -av --ignore-existing ibarbier@euler.ethz.ch:/cluster/scratch/ibarbier/20260513_phenix1_screen_5nM_5.3/results/ /nfs/nas22/fs2202/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260513_phenix1_screen_5nM_5.3/Results/`
+To copy back to NAS: `rsync -av --ignore-existing ibarbier@euler.ethz.ch:/cluster/scratch/ibarbier/20260506_phenix1_screen_5nM_3.1/results/ /nfs/nas22/fs2202/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260506_phenix1_screen_5nM_3.1/Results/`
 
 + if cache issues\
 check .cache and .snakemake in home directory 
@@ -66,7 +67,7 @@ path to output: /cluster/scratch/ibarbier/EXPDAY/results/POSITION/
  Use `rsyncy -av --ignore-existing '/Volumes/ADATA_SE880/20260510_phenix1_screen_5nM_1.3__2026-05-10T16_28_10' '/Volumes/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260510_phenix1_screen_5nM_1.3__2026-05-10T16_28_10' ` to copy data to NAS then rename the folder by remobing the 2026-05-01T16_57_27 extension
 - Connect to Euler home directory and run `source /cluster/home/ibarbier/Yeast_screening_pipeline/pipeline_array_CPU_launch.sh 20260512_phenix1_screen_5nM_5.2` \
  This should take ~8h \
- To run the pipeline without tracking the cells: `source /cluster/home/ibarbier/Yeast_screening_pipeline/pipeline_array_CPU_noTracking_launch.sh 20260512_phenix1_screen_5nM_5.2`
+ To run the pipeline without tracking the cells: `source /cluster/home/ibarbier/Yeast_screening_pipeline/pipeline_array_CPU_noTracking_launch.sh 20260506_phenix1_screen_5nM_3.1`
  
 - Make a Results folder on NAS and copy the data back to NAS: `rsync -av --ignore-existing ibarbier@euler.ethz.ch:/cluster/scratch/ibarbier/20260502_phenix1_screen_5nM_3.2/results/ /nfs/nas22/fs2202/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260502_phenix1_screen_5nM_3.2/Results/`
 - Make sure that every positions has been run correctly use the local_pipeline: \
