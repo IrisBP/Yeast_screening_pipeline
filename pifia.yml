@@ -9,7 +9,7 @@ dependencies:
   - pandas=3.0.6
   - pip=26.2.1
   - python=3.11.16
-  - tensorflow=2.12.1=cpu_py311hfb078d8_1
+  - tensorflow=2.12.1
   - pip:
       - matplotlib==3.11.2
       - pillow==12.3.0
