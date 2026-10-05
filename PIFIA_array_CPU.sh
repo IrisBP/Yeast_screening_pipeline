@@ -29,9 +29,6 @@ WORKDIR="/cluster/scratch/ibarbier/$EXP_DAY/"
 RESULTSDIR="${WORKDIR}PIFIA/"
 IMGDIR="${WORKDIR}Images/"
 
-SOURCEIMG="/nfs/nas22/fs2202/biol_bc_barral_2/ibarbier/2026_GFP_screen/$EXP_DAY/$EXP_DAY/Images/"
-SOURCEDES="/nfs/nas22/fs2202/biol_bc_barral_2/ibarbier/2026_GFP_screen/${EXP_DAY}/${EXP_DAY}/Results/"
-
 CODEDIR="/cluster/home/ibarbier/Yeast_screening_pipeline"
 
 POS_ARRAY="${WORKDIR}arrayID.csv"

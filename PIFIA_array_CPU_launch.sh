@@ -18,12 +18,12 @@ EXP_ID="p${p}rep${rep}"
 #============= Localization Variables =============
 # path to the various directory required for the pipeline 
 WORKDIR="/cluster/scratch/ibarbier/$EXP_DAY/"
-RESULTSDIR="${WORKDIR}results/"
+RESULTSDIR="${WORKDIR}Results/"
 IMGDIR="${WORKDIR}Images/"
 PIFIA_DIR="${WORKDIR}PIFIA/"
 
 SOURCEIMG="/nfs/nas22/fs2202/biol_bc_barral_2/ibarbier/2026_GFP_screen/$EXP_DAY/$EXP_DAY/Images/"
-SOURCEDES="/nfs/nas22/fs2202/biol_bc_barral_2/ibarbier/2026_GFP_screen/${EXP_DAY}/${EXP_DAY}/Results/"
+SOURCEDES="/nfs/nas22/fs2202/biol_bc_barral_2/ibarbier/2026_GFP_screen/${EXP_DAY}/Results/"
 
 SLURM_OUT="/cluster/scratch/ibarbier/slurm_out/"
 
