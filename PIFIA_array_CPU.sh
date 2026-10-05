@@ -34,6 +34,7 @@ CODEDIR="/cluster/home/ibarbier/Yeast_screening_pipeline"
 POS_ARRAY="${WORKDIR}arrayID.csv"
 
 CODEFILE="${CODEDIR}/python_scripts/P6_PIFA.py"
+echo "running ${CODEFILE}"
 
 #================ Conda environment =======================
 # activate the conda environment 
@@ -75,7 +76,7 @@ now="$(date +"%T")"
 echo "Start time : $now"
 
 # start the snakemake pipeline 
-python CODEFILE -i $IMGDIR -d $DESDIR -o $RESULTSDIR
+python $CODEFILE -i $IMGDIR -d $DESDIR -o $RESULTSDIR
 
 now="$(date +"%T")"
 echo "End time : $now"
