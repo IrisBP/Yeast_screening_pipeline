@@ -18,11 +18,11 @@ def decode_img_py_func(file_path1, file_path_mask, crop_size,  do_mask=True):
 
    
     crop_size=int(crop_size.numpy())
-    print(type(crop_size), crop_size)
+  
 
-       
     if do_mask:
-        file_path_mask = str(file_path_mask.numpy())
+        file_path_mask = file_path_mask.numpy()
+        file_path_mask = file_path_mask.decode()
         if '.tif' in file_path_mask:
             mask_path_split = file_path_mask.split('.tif')
             mask_path = f'{mask_path_split[0]}.tif'
@@ -35,9 +35,8 @@ def decode_img_py_func(file_path1, file_path_mask, crop_size,  do_mask=True):
 
     file_path1=file_path1[0]
     file_path = file_path1.numpy()
-    print(type(file_path), file_path)
     file_path=file_path.decode()
-    print(type(file_path), file_path)
+    
 
     #file_path1 = str -D:/20260219_phenix1_6nM__2026-02-19T17_24_32-Measurement_1/Images/r01c02f01p01-ch2sk1fk1fl1.tiff_X_719_Y_47
 
