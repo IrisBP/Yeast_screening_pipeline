@@ -15,10 +15,12 @@ def decode_img_py_func(file_path1, file_path_mask, crop_size,  do_mask=True):
     # open the image from path, get x and y coordinate and crop the image to crop size 
     # apply the mask if needed 
     # return img 
-    print(file_path_mask)
-    print(type(file_path_mask))
+    print(crop_size)
+    print(type(crop_size))
    
-    crop_size=np.char.decode(np.array(file_path_mask))
+    crop_size=tf.strings.unicode_decode(crop_size)
+    print(crop_size)
+
        
     if do_mask:
         file_path_mask = int(file_path_mask.numpy().astype('U13')) #.decode('UTF-8')
