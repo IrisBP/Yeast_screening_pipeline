@@ -75,8 +75,8 @@ path to output: /cluster/scratch/ibarbier/EXPDAY/results/POSITION/
  `source ./Yeast_screening_pipeline/pipeline_local2.sh 20260511_phenix1_screen_5nM_5.1 /Volumes/biol_bc_barral_2/ibarbier/2026_GFP_screen`
 
 
-## STEPS:
-Running the PIFIA implementation: \
+## PIFIA:
+Running the PIFIA implementation: 
 - have the latest version of the pipeline installed.
 - install the conda environment: `conda env create -f /cluster/home/ibarbier/Yeast_screening_pipeline/pifia.yml`
 - run `source /cluster/home/ibarbier/Yeast_screening_pipeline/PIFIA_array_CPU_launch.sh 20260512_phenix1_screen_5nM_5.2`
