@@ -16,7 +16,7 @@ def decode_img_py_func(file_path1, file_path_mask, crop_size,  do_mask=True):
     # apply the mask if needed 
     # return img 
    
-    crop_size=int(crop_size.numpy().astype('U13')) #.decode('UTF-8')
+    crop_size=np.char.decode(np.array(file_path_mask))
        
     if do_mask:
         file_path_mask = int(file_path_mask.numpy().astype('U13')) #.decode('UTF-8')
@@ -32,6 +32,7 @@ def decode_img_py_func(file_path1, file_path_mask, crop_size,  do_mask=True):
 
     file_path1=file_path1[0]
     file_path = int(file_path1.numpy().astype('U13')) #.decode('UTF-8')
+    file_path=np.char.decode(np.array(file_path1))
     #file_path1 = str -D:/20260219_phenix1_6nM__2026-02-19T17_24_32-Measurement_1/Images/r01c02f01p01-ch2sk1fk1fl1.tiff_X_719_Y_47
 
     file_path_split = file_path.split('.tiff')
