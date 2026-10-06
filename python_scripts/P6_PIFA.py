@@ -1,7 +1,7 @@
 import os.path
 from pathlib import Path
-from python_scripts.PIFIA.tool_functions import get_features_from_protein_single_position
-from python_scripts.PIFIA.models import models
+from pifia_tool_functions import get_features_from_protein_single_position
+from pifia_models import models
 from PIL import Image
 import pandas as pd
 import argparse
@@ -88,6 +88,7 @@ if not os.path.exists(output_dir):
 
 # Load the model
 model = models.pifia_network(num_classes, k=1, num_features=64, dense1_size=128, last_block=True)
-model.load_weights('./pifia/model/pretrained_weights/pifia_weights_i0').expect_partial()
+path_to_weights='./pretrained_weights/pifia_weights_i0'
+model.load_weights(path_to_weights).expect_partial()
 
 PIFIA(input_path, img_path, output_dir, crop_size, num_classes, model)
