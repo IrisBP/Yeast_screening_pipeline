@@ -91,4 +91,4 @@ model = models.pifia_network(num_classes, k=1, num_features=64, dense1_size=128,
 path_to_weights='/cluster/home/ibarbier/Yeast_screening_pipeline/python_scripts/pretrained_weights/pifia_weights_i0'
 model.load_weights(path_to_weights).expect_partial()
 
-PIFIA(input_path, img_path, output_dir, crop_size, num_classes, model)
+PIFIA(input_path, img_path, output_dir, crop_size, model)

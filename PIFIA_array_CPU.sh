@@ -33,7 +33,7 @@ CODEDIR="/cluster/home/ibarbier/Yeast_screening_pipeline"
 
 POS_ARRAY="${WORKDIR}arrayID.csv"
 
-CODEFILE="${CODEDIR}/python_scripts/P6_PIFA.py"
+CODEFILE="${CODEDIR}/python_scripts/P6_PIFIA.py"
 echo "running ${CODEFILE}"
 
 #================ Conda environment =======================
