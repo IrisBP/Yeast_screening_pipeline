@@ -1,7 +1,7 @@
 import os.path
 from pathlib import Path
 from pifia_tool_functions import get_features_from_protein_single_position
-from pifia_models import models
+import pifia_models as models
 from PIL import Image
 import pandas as pd
 import argparse
