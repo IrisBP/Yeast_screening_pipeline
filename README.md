@@ -3,15 +3,16 @@
 Last update: 31 August 2026 \
 Trying the pipeline on 20260427_phenix1_screen_5nM_3.3 => ran successfully for 476 positions \ 
 After a first successful run, applying the pipeline to the other positions: \
-- 20260428_phenix1_screen_5nM_4.3  
+- 20260428_phenix1_screen_5nM_4.3 + PIFIA running 
 - 20260511_phenix1_screen_5nM_5.1 + PIFIA ok
 - 20260514_phenix1_screen_5nM_1.1 
 - 20260429_phenix1_screen_5nM_1.2
 - 20260501_phenix1_screen_5nM_2.2 
 - 20260502_phenix1_screen_5nM_3.2 
 - 20260512_phenix1_screen_5nM_5.2 + PIFIA ok 
-- 20260513_phenix1_screen_5nM_5.3 
+- 20260513_phenix1_screen_5nM_5.3 + PIFIA running 
 - 20260505_phenix1_screen_5nM_2.1
+- 20260424_phenix1_screen_5nM_2.3 + PIFIA running 
 
 
 
