@@ -1,18 +1,25 @@
 # Yeast screening pipeline
 
-Last update: 31 August 2026 \
-Trying the pipeline on 20260427_phenix1_screen_5nM_3.3 => ran successfully for 476 positions \ 
-After a first successful run, applying the pipeline to the other positions: \
-- 20260428_phenix1_screen_5nM_4.3 + PIFIA running 
-- 20260511_phenix1_screen_5nM_5.1 + PIFIA ok
-- 20260514_phenix1_screen_5nM_1.1 
-- 20260429_phenix1_screen_5nM_1.2
-- 20260501_phenix1_screen_5nM_2.2 
-- 20260502_phenix1_screen_5nM_3.2 
-- 20260512_phenix1_screen_5nM_5.2 + PIFIA ok 
-- 20260513_phenix1_screen_5nM_5.3 + PIFIA running 
+Last update:  08 October 2026 \ 
+Added PIFIA code + currently running PIFIA 
+- 20260514_phenix1_screen_5nM_1.1 + PIFIA running 
+- 20260429_phenix1_screen_5nM_1.2 + PIFIA running 
+- 20260510_phenix1_screen_5nM_1.3
 - 20260505_phenix1_screen_5nM_2.1
-- 20260424_phenix1_screen_5nM_2.3 + PIFIA running 
+- 20260501_phenix1_screen_5nM_2.2 
+- 20260424_phenix1_screen_5nM_2.3 + PIFIA ok 
+- 20260506_phenix1_screen_5nM_3.1
+- 20260502_phenix1_screen_5nM_3.2 
+- 20260427_phenix1_screen_5nM_3.3 
+- 20260507_phenix1_screen_5nM_4.1
+- 20260428_phenix1_screen_5nM_4.3 + PIFIA ok
+- 20260512_phenix1_screen_5nM_5.2 + PIFIA ok 
+- 20260513_phenix1_screen_5nM_5.3 + PIFIA ok
+- 20260511_phenix1_screen_5nM_5.1 + PIFIA ok
+
+
+
+
 
 
 
@@ -80,8 +87,8 @@ path to output: /cluster/scratch/ibarbier/EXPDAY/results/POSITION/
 Running the PIFIA implementation: 
 - have the latest version of the pipeline installed.
 - install the conda environment: `conda env create -f /cluster/home/ibarbier/Yeast_screening_pipeline/pifia.yml`
-- run `source /cluster/home/ibarbier/Yeast_screening_pipeline/PIFIA_array_CPU_launch.sh 20260512_phenix1_screen_5nM_5.2`
-- to copy data back to NAS: `rsync -av --ignore-existing ibarbier@euler.ethz.ch:/cluster/scratch/ibarbier/20260511_phenix1_screen_5nM_5.1/Results/ /nfs/nas22/fs2202/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260511_phenix1_screen_5nM_5.1/Results/`
+- run `source /cluster/home/ibarbier/Yeast_screening_pipeline/PIFIA_array_CPU_launch.sh 20260429_phenix1_screen_5nM_1.2`
+- to copy data back to NAS: `rsync -av --ignore-existing ibarbier@euler.ethz.ch:/cluster/scratch/ibarbier/20260428_phenix1_screen_5nM_4.3/Results/ /nfs/nas22/fs2202/biol_bc_barral_2/ibarbier/2026_GFP_screen/20260428_phenix1_screen_5nM_4.3/Results/`
 
 ## Note to self: 
 see test_cellpose \
