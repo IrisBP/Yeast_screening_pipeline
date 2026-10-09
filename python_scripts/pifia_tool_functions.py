@@ -131,7 +131,7 @@ def get_dataset_from_lists(imgs_path, masks_path, labels, crop_size, do_mask, ba
     # for c_path, c_array in path_to_cell_array.items():
     #     path_to_cell_array_list.append((c_path, c_array))
     #[f1] = file_paths_tuple, f_mask = file_path_mask, label, seek_ch, num_classes, do_mask=True, onehot=True):
-    print('Ready to map the dataset')
+
     dataset = dataset.map(lambda f1,f_mask,l: process_path_py_func([f1],f_mask,l, crop_size, do_mask,onehot), \
                             num_parallel_calls=tf.data.experimental.AUTOTUNE)
     

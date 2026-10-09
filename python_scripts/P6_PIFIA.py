@@ -83,7 +83,7 @@ num_classes = args.num_classes
 # Make output directory
 if not os.path.exists(output_dir):
     Path(output_dir).mkdir(parents=True, exist_ok=True)
-    print('Output directory created')
+
 
 
 # Load the model
