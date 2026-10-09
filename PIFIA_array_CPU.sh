@@ -2,8 +2,8 @@
 
 #SBATCH --account=es_biol
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=10
-#SBATCH --time=24:00:00
+#SBATCH --cpus-per-task=5
+#SBATCH --time=12:00:00
 #SBATCH --mem-per-cpu=20000
 #SBATCH --output=/cluster/scratch/ibarbier/slurm_out/slurm-%j.out
 #SBATCH --error=/cluster/scratch/ibarbier/slurm_out/slurm-%j.err
@@ -54,29 +54,36 @@ echo "-- $CONDA_DEFAULT_ENV"
 # $1 = $SLURM_ARRAY_TASK_ID 
 job_nb=$1
 echo "Array task ID: $job_nb"
-line=$((job_nb+1))
-echo "Extracting position from line $line"
-POS=$(awk -v var1=$line -F ',' 'NR ==var1  { print $1 }' $POS_ARRAY)
-echo "Currently looking at position $POS"
+
+start=$((job_nb*48))
+end=$((start+47))
+echo "Starting position: $start"
+echo "Ending position: $start"
+for line in {$start..$end}
+do 
+    echo "Extracting position from line $line"
+    POS=$(awk -v var1=$line -F ',' 'NR ==var1  { print $1 }' $POS_ARRAY)
+    echo "Currently looking at position $POS"
 
 
-DESDIR="${WORKDIR}Results/${POS}/${POS}_description.csv"
-echo "$DESDIR"
+    DESDIR="${WORKDIR}Results/${POS}/${POS}_description.csv"
+    echo "$DESDIR"
 
-#================ Script =======================
-# activate the conda environment 
-source ~/.bashrc
-conda activate /cluster/home/ibarbier/miniconda3/envs/pifia
+    #================ Script =======================
+    # activate the conda environment 
+    source ~/.bashrc
+    conda activate /cluster/home/ibarbier/miniconda3/envs/pifia
 
-# check that the conda environment has been activated properly
-echo "Conda environment currently activated: "
-echo "-- $CONDA_DEFAULT_ENV"
+    # check that the conda environment has been activated properly
+    echo "Conda environment currently activated: "
+    echo "-- $CONDA_DEFAULT_ENV"
 
-now="$(date +"%T")"
-echo "Start time : $now"
+    now="$(date +"%T")"
+    echo "Start time : $now"
 
-# start the snakemake pipeline 
-python $CODEFILE -i $IMGDIR -d $DESDIR -o $RESULTSDIR
+    # start the snakemake pipeline 
+    python $CODEFILE -i $IMGDIR -d $DESDIR -o $RESULTSDIR
 
-now="$(date +"%T")"
-echo "End time : $now"
+    now="$(date +"%T")"
+    echo "End time : $now"
+end

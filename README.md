@@ -4,8 +4,8 @@ Last update:  08 October 2026 \
 Added PIFIA code + currently running PIFIA 
 - 20260514_phenix1_screen_5nM_1.1 + PIFIA running 
 - 20260429_phenix1_screen_5nM_1.2 + PIFIA running 
-- 20260510_phenix1_screen_5nM_1.3
-- 20260505_phenix1_screen_5nM_2.1
+- 20260510_phenix1_screen_5nM_1.3 + PIFIA running 
+- 20260505_phenix1_screen_5nM_2.1 + PIFIA running 
 - 20260501_phenix1_screen_5nM_2.2 
 - 20260424_phenix1_screen_5nM_2.3 + PIFIA ok 
 - 20260506_phenix1_screen_5nM_3.1
@@ -16,11 +16,6 @@ Added PIFIA code + currently running PIFIA
 - 20260512_phenix1_screen_5nM_5.2 + PIFIA ok 
 - 20260513_phenix1_screen_5nM_5.3 + PIFIA ok
 - 20260511_phenix1_screen_5nM_5.1 + PIFIA ok
-
-
-
-
-
 
 
 ## Analysis pipeline for image based screening in yeast

@@ -10,6 +10,15 @@ warnings.filterwarnings("ignore")
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+def normalize(im):
+    i=np.array(im)
+    m=i.min()
+    M=i.max()
+    norm_i=(((i-m)/(M-m))*(3000-m))+m
+    round_i = np.round(norm_i).astype(int)
+    i=Image.fromarray(im)
+    return i
+
 
 def decode_img_py_func(file_path1, file_path_mask, crop_size,  do_mask=True):
     # open the image from path, get x and y coordinate and crop the image to crop size 
@@ -53,6 +62,7 @@ def decode_img_py_func(file_path1, file_path_mask, crop_size,  do_mask=True):
     loc_lower = center_y + crop_size // 2
 
     im = Image.open(img_path)
+    im=normalize(im)
     if do_mask: 
         im = im*mask
     im = im.crop((loc_left, loc_upper, loc_right, loc_lower)) 
