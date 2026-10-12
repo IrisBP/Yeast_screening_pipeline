@@ -3,7 +3,7 @@
 #SBATCH --account=es_biol
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=5
-#SBATCH --time=12:00:00
+#SBATCH --time=04:00:00
 #SBATCH --mem-per-cpu=20000
 #SBATCH --output=/cluster/scratch/ibarbier/slurm_out/slurm-%j.out
 #SBATCH --error=/cluster/scratch/ibarbier/slurm_out/slurm-%j.err
