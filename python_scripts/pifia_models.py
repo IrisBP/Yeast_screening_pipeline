@@ -124,7 +124,6 @@ class pifia_network(Model):
         
         x = self.d2(x)
         if layer=='d2':
-            print("Good for return ")
             return x
 
         x = self.d3(x)
