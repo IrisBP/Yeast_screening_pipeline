@@ -15,9 +15,10 @@ def normalize(im):
     m=i.min()
     M=i.max()
     norm_i=(((i-m)/(M-m))*(3000-m))+m
-    round_i = np.round(norm_i).astype(int)
-    i=Image.fromarray(im)
+    round_i = np.round(norm_i).astype(np.uint16)
+    i=Image.fromarray(round_i)
     return i
+
 
 
 def decode_img_py_func(file_path1, file_path_mask, crop_size,  do_mask=True):
