@@ -58,8 +58,9 @@ echo "Array task ID: $job_nb"
 start=$((job_nb*48))
 end=$((start+47))
 echo "Starting position: $start"
-echo "Ending position: $start"
-for line in {$start..$end}
+echo "Ending position: $end"
+
+for line in $(seq $start $end);
 do 
     echo "Extracting position from line $line"
     POS=$(awk -v var1=$line -F ',' 'NR ==var1  { print $1 }' $POS_ARRAY)
@@ -86,4 +87,4 @@ do
 
     now="$(date +"%T")"
     echo "End time : $now"
-end
+done 
