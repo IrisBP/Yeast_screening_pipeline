@@ -14,7 +14,7 @@ def normalize(im):
     i=np.array(im)
     m=i.min()
     M=i.max()
-    norm_i=(((i-m)/(M-m))*(3000-m))+m
+    norm_i=(((i-m)/(M-m))*(1000-m))+m
     round_i = np.round(norm_i).astype(np.uint16)
     i=Image.fromarray(round_i)
     return i
