@@ -5,7 +5,7 @@ Added PIFIA code + currently running PIFIA
 - 20260514_phenix1_screen_5nM_1.1 + PIFIA running 
 - 20260429_phenix1_screen_5nM_1.2 + PIFIA running 
 - 20260510_phenix1_screen_5nM_1.3 
-- 20260505_phenix1_screen_5nM_2.1 + PIFIA ok 
+- 20260505_phenix1_screen_5nM_2.1 + PIFIA running 
 - 20260501_phenix1_screen_5nM_2.2 + PIFIA running 
 - 20260424_phenix1_screen_5nM_2.3 + PIFIA running 
 - 20260506_phenix1_screen_5nM_3.1
